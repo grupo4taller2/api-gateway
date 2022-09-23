@@ -1,10 +1,10 @@
 import Fastify from 'fastify';
 
+import { userRoutes } from './routes/users.mjs';
+
 const fastify = Fastify({ logger: true });
 
-fastify.get('/users', (req, reply) => {
-    reply.send({ message: 'Hello from /users' }); 
-});
+fastify.register(userRoutes)
 
 const start = async () => {
     try {
