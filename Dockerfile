@@ -10,7 +10,7 @@ RUN addgroup --system fiuber && adduser --system --group fiuber
 
 WORKDIR /opt/app
 
-COPY --chown=fiuber:fiuber package*.json ./
+COPY --chown=fiuber:fiuber package*.json .eslintrc.js ./
 RUN chown -R fiuber:fiuber /opt/app /tmp && \
     npm install
 
@@ -24,7 +24,8 @@ USER fiuber
 CMD bash -c 'node ./src/server'
 
 FROM base as development-preinstall
-RUN npm install nodemon eslint
+RUN npm install nodemon \
+    eslint eslint-config-airbnb-base eslint-plugin-import
 USER fiuber
 CMD bash
 
