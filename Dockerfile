@@ -25,7 +25,8 @@ CMD bash -c 'node ./src/server'
 
 FROM base as development-preinstall
 RUN npm install nodemon \
-    eslint eslint-config-airbnb-base eslint-plugin-import
+    eslint eslint-config-airbnb-base eslint-plugin-import \
+    tap
 USER fiuber
 CMD bash
 

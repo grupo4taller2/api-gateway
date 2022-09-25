@@ -8,6 +8,7 @@ fastify.register(userRoutes)
 
 const start = async () => {
     try {
+        // TODO: Change host to env var
         await fastify.listen(process.env.API_GATEWAY_PORT, '0.0.0.0');
     } catch (error) {
         fastify.log.error(error);
