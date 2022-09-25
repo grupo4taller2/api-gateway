@@ -1,11 +1,11 @@
 {
   "name": "api-gateway",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "api-gateway",
-  "main": "server.mjs",
+  "main": "src/server.mjs",
   "scripts": {
-    "start": "node server",
-    "dev-start": "nodemon server",
+    "start": "node ./src/server",
+    "dev-start": "nodemon ./src/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

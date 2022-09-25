@@ -13,7 +13,7 @@ const getUserOpts = {
 };
 
 function userRoutes(fastify, getUserOpts, done) {
-    fastify.get('/users:username', (req, reply) => {
+    fastify.get('/users', (req, reply) => {
         
         reply.send({ message: 'Hello from /users' }); 
     }); 
