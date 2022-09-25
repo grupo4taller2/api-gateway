@@ -24,7 +24,7 @@ USER fiuber
 CMD bash -c 'node ./src/server'
 
 FROM base as development-preinstall
-RUN npm install nodemon
+RUN npm install nodemon eslint
 USER fiuber
 CMD bash
 

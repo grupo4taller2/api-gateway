@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const getUserOpts = {
     schema: {
         200: {
@@ -14,8 +16,11 @@ const getUserOpts = {
 
 function userRoutes(fastify, getUserOpts, done) {
     fastify.get('/users', (req, reply) => {
-        
-        reply.send({ message: 'Hello from /users' }); 
+        axios.get('http://service-users:7002/api/v1/users/mateoicalvo').then((response) => {
+            let tmp = response.data
+            delete tmp['email']
+            reply.send(response.data); 
+        })        
     }); 
     done();
 }
