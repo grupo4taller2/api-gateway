@@ -8,8 +8,9 @@
     "dev-start": "nodemon ./src/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "keywords": [],
-  "author": "",
+  "author": "Mateo Calvo",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
