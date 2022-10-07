@@ -1,27 +1,54 @@
-const axios = require('axios')
+const axios = require('axios');
+const settings = require('../conf/config');
 
-riders_schema = {
-  description: 'This is the description that swagger will show',
+const riderSchema = {
+  description: 'Endpoint for creating rider',
   tags: ['riders'],
+  body: {
+    description: 'Payload for creating a new rider',
+    type: 'object',
+    properties: {
+      username: { type: 'string' },
+      email: { type: 'string' },
+      password: { type: 'string' },
+      first_name: { type: 'string' },
+      last_name: { type: 'string', default: 'a_last_name' },
+      phone_number: { type: 'string' },
+      wallet: { type: 'string' },
+      preferred_latitude: { type: 'number' },
+      preferred_longitude: { type: 'number' },
+    },
+  },
   response: {
-      200: {
-          description: 'Success Response',
-          type: 'object',
-          properties: {
-              msg: { type: 'string' }
-          }
-      }
-  }
-}
-async function riders_get(req, reply) {
-  let response = await axios.get('http://service-users:35002/api/v1/healthcheck');
-  return response.data;
+    201: {
+      description: 'Success Response',
+      type: 'object',
+      properties: {
+        username: { type: 'string' },
+        email: { type: 'string' },
+        first_name: { type: 'string' },
+        last_name: { type: 'string' },
+        phone_number: { type: 'string' },
+        wallet: { type: 'string' },
+        preferred_latitude: { type: 'number' },
+        preferred_longitude: { type: 'number' },
+      },
+    },
+  },
+};
+
+async function ridersPUT(req, reply) {
+  const riderRegistration = await axios.post(`${settings.SERVICE_USERS_URL}/riders`, req.body);
+  return reply.status(201).send(riderRegistration.data);
 }
 
 async function ridersRoutes(fastify, getUserOpts, done) {
-  fastify.get('/riders',{
-    schema: riders_schema,
-    handler: riders_get}
+  fastify.post(
+    '/riders',
+    {
+      schema: riderSchema,
+      handler: ridersPUT,
+    },
   );
   done();
 }
