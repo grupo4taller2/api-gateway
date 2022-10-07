@@ -1,15 +1,15 @@
 const axios = require('axios');
 const settings = require('../conf/config');
 
-const riderSchema = {
-  description: 'Endpoint for creating rider',
-  tags: ['riders'],
+const driverSchema = {
+  description: 'Endpoint for creating drivers',
+  tags: ['drivers'],
   body: {
-    description: 'Payload for creating a new rider',
+    description: 'Payload for creating a new driver',
     type: 'object',
     properties: {
       username: { type: 'string', default: 'unique_username' },
-      email: { type: 'string', default: 'service@domain.com' },
+      email: { type: 'string', default: 'service@drivers.com' },
       password: { type: 'string', default: 'secury' },
       first_name: { type: 'string', default: 'fname' },
       last_name: { type: 'string', default: 'lname' },
@@ -17,6 +17,11 @@ const riderSchema = {
       wallet: { type: 'string', default: 'as4d65a4s654aeeg54a6s5d4' },
       preferred_latitude: { type: 'number', default: -33.0 },
       preferred_longitude: { type: 'number', default: -45.0 },
+      car_manufacturer: { type: 'string', default: 'Audi' },
+      car_model: { type: 'string', default: 'TT' },
+      car_year_of_production: { type: 'integer', default: 2022 },
+      car_color: { type: 'string', default: 'Abyss Blue' },
+      car_plate: { type: 'string', default: 'AAA 123' },
     },
   },
   response: {
@@ -25,32 +30,37 @@ const riderSchema = {
       type: 'object',
       properties: {
         username: { type: 'string', default: 'unique_username' },
-        email: { type: 'string', default: 'service@domain.com' },
         first_name: { type: 'string', default: 'fname' },
         last_name: { type: 'string', default: 'lname' },
-        phone_number: { type: 'string', default: '+541155555555' },
+        email: { type: 'string', default: 'service@drivers.com' },
         wallet: { type: 'string', default: 'as4d65a4s654aeeg54a6s5d4' },
+        phone_number: { type: 'string', default: '+541155555555' },
         preferred_latitude: { type: 'number', default: -33.0 },
         preferred_longitude: { type: 'number', default: -45.0 },
+        car_manufacturer: { type: 'string', default: 'Audi' },
+        car_model: { type: 'string', default: 'TT' },
+        car_year_of_production: { type: 'integer', default: 2022 },
+        car_color: { type: 'string', default: 'Abyss Blue' },
+        car_plate: { type: 'string', default: 'AAA 123' },
       },
     },
   },
 };
 
-async function ridersPOST(req, reply) {
-  const riderRegistration = await axios.post(`${settings.SERVICE_USERS_URL}/riders`, req.body);
+async function driversPOST(req, reply) {
+  const riderRegistration = await axios.post(`${settings.SERVICE_USERS_URL}/drivers`, req.body);
   return reply.status(201).send(riderRegistration.data);
 }
 
-async function ridersRoutes(fastify, getUserOpts, done) {
+async function driversRoutes(fastify, getUserOpts, done) {
   fastify.post(
-    '/riders',
+    '/drivers',
     {
-      schema: riderSchema,
-      handler: ridersPOST,
+      schema: driverSchema,
+      handler: driversPOST,
     },
   );
   done();
 }
 
-module.exports = ridersRoutes;
+module.exports = driversRoutes;
