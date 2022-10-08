@@ -1,10 +1,5 @@
 name: Deploy
 
-on:
-  workflow_run:
-    workflows: [ "Test" ]
-    types:
-      - completed
 jobs:
   deploy:
     runs-on: ubuntu-latest
