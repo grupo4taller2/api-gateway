@@ -11,6 +11,6 @@ fastify.register(require('./routes/drivers'), { prefix: API_PREFIX });
 fastify.register(require('./routes/auth'), { prefix: API_PREFIX });
 
 fastify.listen({
-  host: process.env.API_GATEWAY_HOST,
-  port: process.env.API_GATEWAY_PORT,
+  host: process.env.HOST,
+  port: process.env.PORT,
 });
