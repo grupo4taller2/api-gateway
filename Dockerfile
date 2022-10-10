@@ -22,7 +22,7 @@ FROM base as production-preinstall
 COPY src ./src
 # USER fiuber
 
-CMD bash -c 'node ./src/server'
+CMD bash -c 'node ./src/main'
 
 FROM base as development-preinstall
 RUN npm install nodemon \
