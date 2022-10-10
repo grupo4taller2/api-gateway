@@ -38,6 +38,7 @@ const riderSchema = {
 };
 
 async function ridersPOST(req, reply) {
+  // FIXME: DO NOT HARDCODE 201
   const riderRegistration = await axios.post(`${settings.SERVICE_USERS_URL}/riders`, req.body);
   return reply.status(201).send(riderRegistration.data);
 }
