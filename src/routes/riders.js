@@ -15,8 +15,8 @@ const riderSchema = {
       last_name: { type: 'string', default: 'lname' },
       phone_number: { type: 'string', default: '+541155555555' },
       wallet: { type: 'string', default: 'as4d65a4s654aeeg54a6s5d4' },
-      preferred_latitude: { type: 'number', default: -33.0 },
-      preferred_longitude: { type: 'number', default: -45.0 },
+      preferred_latitude: { type: 'number', default: -33.321 },
+      preferred_longitude: { type: 'number', default: -45.443 },
     },
   },
   response: {

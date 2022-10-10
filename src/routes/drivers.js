@@ -49,6 +49,7 @@ const driverSchema = {
 
 async function driversPOST(req, reply) {
   const riderRegistration = await axios.post(`${settings.SERVICE_USERS_URL}/drivers`, req.body);
+  // FIXME: DO NOT HARDCODE 201
   return reply.status(201).send(riderRegistration.data);
 }
 
