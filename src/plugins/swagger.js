@@ -31,7 +31,7 @@ module.exports = fp(async function(fastify, opts) {
       }
     },
     uiConfig: {
-      docExpansion: 'full',
+      docExpansion: 'list',
       deepLinking: false
     },
     uiHooks: {
