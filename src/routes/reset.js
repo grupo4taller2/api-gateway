@@ -4,7 +4,7 @@ const { Client } = require('pg');
 async function resetPOST() {
   const client = new Client(process.env.DATABASE_URI);
   await client.connect();
-  await client.query('TRUNCATE TABLE cars, drivers, riders, users;');
+  await client.query('TRUNCATE TABLE cars, drivers, riders, users CASCADE;');
   await client.end();
 }
 
