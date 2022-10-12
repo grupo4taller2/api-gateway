@@ -12,8 +12,10 @@ const userGETSchema = {
       description: 'Success Response',
       type: 'object',
       properties: {
+        // FIXME: no poner resultados default para que no autocomplete
+        // fastify con valores imputados
         username: { type: 'string', default: 'cool_username' },
-        email: { type: 'string', default: 'service@domain.com' },
+        email: { type: 'string' },
         first_name: { type: 'string', default: 'fname' },
         last_name: { type: 'string', default: 'lname' },
         rider_information: {
@@ -52,11 +54,25 @@ async function usersGET(req, reply) {
     // Get a users para email, name, ...
     // Get a riders para ver si tiene rider data
     // Get a drivers para ver si tiene driver data.
+
+    let responseData = {};
+
     const userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${req.params.userID}`);
-    // Con el username  conseguido de la response:
-    const riderResponse = await axios.get(`${settings.SERVICE_USERS_URL}/riders/${userResponse.data.username}`);
+    // FIXME: si 404 -> Return 404.
+    const username = userResponse.data.username;
+    responseData.username = username;
+    responseData.email = userResponse.data.email
+    responseData.first_name = userResponse.data.first_name;
+    responseData.last_name = userResponse.data.last_name;
+    const riderResponse = await axios.get(`${settings.SERVICE_USERS_URL}/riders/${username}`);
+    responseData.rider_information = {}
+    responseData.rider_information.phone_number = riderResponse.data.phone_number;
+    responseData.rider_information.wallet = riderResponse.data.wallet;
+    responseData.rider_information.preferred_location_name = riderResponse.data.preferred_location_name;
+    
     //const riderRegistration = await axios.get(`${settings.SERVICE_USERS_URL}/riders`, req.body);
-    return reply.status(200).send(userResponse.data);
+    
+    return reply.status(200).send(responseData);
   }
 
 async function usersRoutes(fastify, getUserOpts, done) {
