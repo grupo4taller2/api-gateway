@@ -4,7 +4,7 @@ const settings = require('../conf/config');
 const userGETSchema = {
   description: 'Endpoint for fetching users',
   params: {
-    username: { type: 'string' },
+    userID: { type: 'string', default: 'username/email'},
   },
   tags: ['users'],
   response: {
@@ -12,7 +12,7 @@ const userGETSchema = {
       description: 'Success Response',
       type: 'object',
       properties: {
-        username: { type: 'string', default: 'unique_username' },
+        username: { type: 'string', default: 'cool_username' },
         email: { type: 'string', default: 'service@domain.com' },
         first_name: { type: 'string', default: 'fname' },
         last_name: { type: 'string', default: 'lname' },
@@ -55,7 +55,7 @@ async function usersGET(req, reply) {
 
 async function usersRoutes(fastify, getUserOpts, done) {
   fastify.get(
-    '/users/:username',
+    '/users/:userID',
     {
       schema: userGETSchema,
       handler: usersGET,
