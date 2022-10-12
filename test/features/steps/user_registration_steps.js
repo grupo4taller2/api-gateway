@@ -22,12 +22,20 @@ When('I register as a rider with email {string} and wallet {string}', async (str
     password: 'secret',
     wallet: string2,
     phone_number: '1234567788',
-    preferred_latitude: -34.612580,
-    preferred_longitude: -58.408061,
+    preferred_location_name: "El Monumental",
   };
-  await axios.post(`${process.env.HOST}:${process.env.PORT}/api/v1/riders`, body);
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v1/riders',
+    payload: body,
+  });
+  assert.equal(response.statusCode, 201);
 });
 
-Then('A rider with email {string} and wallet {string} is created', (string, string2) => {
-  return 'pending';
+Then('A rider with email {string} and wallet {string} is created', async (email, wallet) => {
+  const response = await app.inject({
+    method: 'GET',
+    url: `api/v1/users/${email}`,
+  });
+  assert.equal(response.data.wallet, wallet);
 });
