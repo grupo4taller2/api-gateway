@@ -49,8 +49,14 @@ const userGETSchema = {
 
 async function usersGET(req, reply) {
     // FIXME: Not yet implemented
-    const riderRegistration = await axios.post(`${settings.SERVICE_USERS_URL}/riders`, req.body);
-    return reply.status(201).send(riderRegistration.data);
+    // Get a users para email, name, ...
+    // Get a riders para ver si tiene rider data
+    // Get a drivers para ver si tiene driver data.
+    const userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${req.params.userID}`);
+    // Con el username  conseguido de la response:
+    const riderResponse = await axios.get(`${settings.SERVICE_USERS_URL}/riders/${userResponse.data.username}`);
+    //const riderRegistration = await axios.get(`${settings.SERVICE_USERS_URL}/riders`, req.body);
+    return reply.status(200).send(userResponse.data);
   }
 
 async function usersRoutes(fastify, getUserOpts, done) {

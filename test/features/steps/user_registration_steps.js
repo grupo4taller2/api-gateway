@@ -13,14 +13,15 @@ Given('There are no users', async () => {
   });
 });
 
-When('I register as a rider with email {string} and wallet {string}', async (string, string2) => {
+When('I register as a rider with email {string} and wallet {string}', async (email, wallet) => {
+  const username = email.split('@')[0]
   const body = {
-    username: string,
+    username: username,
     first_name: 'fname',
     last_name: 'lname',
-    email: string,
+    email: email,
     password: 'secret',
-    wallet: string2,
+    wallet: wallet,
     phone_number: '1234567788',
     preferred_location_name: "El Monumental",
   };
@@ -37,5 +38,6 @@ Then('A rider with email {string} and wallet {string} is created', async (email,
     method: 'GET',
     url: `api/v1/users/${email}`,
   });
-  assert.equal(response.data.wallet, wallet);
+  assert.equal(response.data.email, email);
+  assert.equal(response.data.rider_information.wallet, wallet);
 });
