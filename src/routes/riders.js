@@ -10,7 +10,6 @@ const riderSchema = {
     properties: {
       username: { type: 'string', default: 'unique_username' },
       email: { type: 'string', default: 'service@domain.com' },
-      password: { type: 'string', default: 'secury' },
       first_name: { type: 'string', default: 'fname' },
       last_name: { type: 'string', default: 'lname' },
       phone_number: { type: 'string', default: '+541155555555' },
