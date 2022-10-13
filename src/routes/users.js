@@ -102,9 +102,6 @@ const userGETSchema = {
   },
 };
 
-async function getUserResponse() {
-  
-};
 
 async function usersGET(req, reply) {
   // FIXME: partially implemented
