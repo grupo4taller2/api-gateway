@@ -91,14 +91,30 @@ const userGETSchema = {
         },
       },
     },
+    404: {
+        description: 'Success Response',
+        type: 'object',
+        properties: {
+            msg: {type: 'string', default: 'Error. User not found.'},
+            userID: {type: 'string', example: 'mateo'},
+        }
+    },
   },
 };
 
 async function usersGET(req, reply) {
   // FIXME: partially implemented
   let responseData = {};
-
-  const userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${req.params.userID}`);
+  let userResponse;
+  try {
+    userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${req.params.userID}`);
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+        return reply.status(404).send(
+                { msg : 'Error. User not found',
+                  userID : req.params.userID });
+      }
+  }
   // FIXME: si 404 -> Return 404.
   const username = userResponse.data.username;
   responseData.username = username;

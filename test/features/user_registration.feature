@@ -24,3 +24,10 @@ Scenario: U1.3 Obtenció de perfil para choferes
         And el modelo del auto es "TT"
         And el año de fabricación del auto es 2022
         And el color del auto es "Negro"
+
+Scenario: U1.5 Registro fallido
+    Given No hay usuarios registrados
+    When Quiero registrarme como chofer con email "mateo@mateo.com"
+        And me registro como chofer
+        And el registro falla por un error del servicio
+        
