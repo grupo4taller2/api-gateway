@@ -4,7 +4,10 @@ const settings = require('../conf/config');
 const userGETSchema = {
   description: 'Endpoint for fetching users',
   params: {
-    userID: { type: 'string', default: 'username/email'},
+    userID: {
+      type: 'string',
+      default: 'username/email'
+    },
   },
   tags: ['users'],
   response: {
@@ -14,32 +17,74 @@ const userGETSchema = {
       properties: {
         // FIXME: no poner resultados default para que no autocomplete
         // fastify con valores imputados
-        username: { type: 'string', default: 'cool_username' },
+        username: {
+          type: 'string',
+          example: 'cool_username'
+        },
         email: { type: 'string' },
-        first_name: { type: 'string', default: 'fname' },
-        last_name: { type: 'string', default: 'lname' },
+        first_name: {
+          type: 'string',
+          example: 'fname'
+        },
+        last_name: {
+          type: 'string',
+          example: 'lname'
+        },
         rider_information: {
           type: 'object',
           properties: {
-            phone_number: { type: 'string', default: '+541155555555' },
-            wallet: { type: 'string', default: 'as4d65a4s654aeeg54a6s5d4' },
-            preferred_location_name: { type: 'string', default: 'Av. Paseo Colón 850' },    
+            phone_number: {
+              type: 'string',
+              example: '+541188888888'
+            },
+            wallet: {
+              type: 'string',
+              example: 'as4d65a4s654aeeg54a6s5d4'
+            },
+            preferred_location_name: {
+              type: 'string',
+              example: 'Av. Paseo Colón 850'
+            },
           },
         },
         driver_information: {
           type: 'object',
           properties: {
-            phone_number: { type: 'string', default: '+541155555555' },
-            wallet: { type: 'string', default: 'as4d65a4s654aeeg54a6s5d4' },
-            preferred_location_name: { type: 'string', default: 'Av. Paseo Colón 850' },
+            phone_number: {
+              type: 'string',
+              default: '+541155555555'
+            },
+            wallet: {
+              type: 'string',
+              default: 'as4d65a4s654aeeg54a6s5d4'
+            },
+            preferred_location_name: {
+              type: 'string',
+              default: 'Av. Paseo Colón 850'
+            },
             car: {
               type: 'object',
               properties: {
-                plate: { type: 'string', default: 'AAA 123' },
-                manufacturer: { type: 'string', default: 'Audi' },
-                model: { type: 'string', default: 'TT' },
-                year_of_production: { type: 'integer', default: 2022 },
-                color: { type: 'string', default: 'Black' },
+                plate: {
+                  type: 'string',
+                  default: 'AAA 123'
+                },
+                manufacturer: {
+                  type: 'string',
+                  default: 'Audi'
+                },
+                model: {
+                  type: 'string',
+                  default: 'TT'
+                },
+                year_of_production: {
+                  type: 'integer',
+                  default: 2022
+                },
+                color: {
+                  type: 'string',
+                  default: 'Black'
+                },
               }
             }
           },
@@ -50,30 +95,43 @@ const userGETSchema = {
 };
 
 async function usersGET(req, reply) {
-    // FIXME: Not yet implemented
-    // Get a users para email, name, ...
-    // Get a riders para ver si tiene rider data
-    // Get a drivers para ver si tiene driver data.
+  // FIXME: partially implemented
+  let responseData = {};
 
-    let responseData = {};
+  const userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${req.params.userID}`);
+  // FIXME: si 404 -> Return 404.
+  const username = userResponse.data.username;
+  responseData.username = username;
+  responseData.email = userResponse.data.email;
+  responseData.first_name = userResponse.data.first_name;
+  responseData.last_name = userResponse.data.last_name;
 
-    const userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${req.params.userID}`);
-    // FIXME: si 404 -> Return 404.
-    const username = userResponse.data.username;
-    responseData.username = username;
-    responseData.email = userResponse.data.email
-    responseData.first_name = userResponse.data.first_name;
-    responseData.last_name = userResponse.data.last_name;
-    const riderResponse = await axios.get(`${settings.SERVICE_USERS_URL}/riders/${username}`);
-    responseData.rider_information = {}
-    responseData.rider_information.phone_number = riderResponse.data.phone_number;
-    responseData.rider_information.wallet = riderResponse.data.wallet;
-    responseData.rider_information.preferred_location_name = riderResponse.data.preferred_location_name;
-    
-    //const riderRegistration = await axios.get(`${settings.SERVICE_USERS_URL}/riders`, req.body);
-    
-    return reply.status(200).send(responseData);
+  const riderResponse = await axios.get(`${settings.SERVICE_USERS_URL}/riders/${username}`);
+  responseData.rider_information = {};
+  responseData.rider_information.phone_number = riderResponse.data.phone_number;
+  responseData.rider_information.wallet = riderResponse.data.wallet;
+  responseData.rider_information.preferred_location_name = riderResponse.data.preferred_location_name;
+
+  const driverResponse = await axios.get(`${settings.SERVICE_USERS_URL}/drivers/${username}`,
+    { validateStatus: false });
+
+  if (driverResponse.status === 200) {
+    responseData.driver_information = {};
+    responseData.driver_information.phone_number = driverResponse.data.phone_number;
+    responseData.driver_information.wallet = riderResponse.data.wallet;
+    responseData.driver_information.preferred_location_name = riderResponse.data.preferred_location_name;
+
+    responseData.driver_information.car = {};
+    responseData.driver_information.car.plate = riderResponse.data.plate;
+    responseData.driver_information.car.manufacturer = riderResponse.data.manufacturer;
+    responseData.driver_information.carmodel = riderResponse.data.model;
+    responseData.driver_information.caryear_of_production = riderResponse.data.year_of_production;
+    responseData.driver_information.carcolor = riderResponse.data.color;
   }
+
+  return reply.status(200)
+    .send(responseData);
+}
 
 async function usersRoutes(fastify, getUserOpts, done) {
   fastify.get(

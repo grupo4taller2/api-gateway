@@ -33,11 +33,13 @@ When('I register as a rider with email {string} and wallet {string}', async (ema
   assert.equal(response.statusCode, 201);
 });
 
-Then('A rider with email {string} and wallet {string} is created', async (email, wallet) => {
+Then('A rider with email {string} and wallet {string} is created', async (user_email, rider_wallet) => {
   const response = await app.inject({
     method: 'GET',
-    url: `api/v1/users/${email}`,
+      url: `api/v1/users/${user_email}`,
   });
-  assert.equal(response.data.email, email);
-  assert.equal(response.data.rider_information.wallet, wallet);
+
+  assert.equal(response.statusCode, 200);
+  assert.equal(response.json().email, user_email);
+  assert.equal(response.json().rider_information.wallet, rider_wallet);
 });
