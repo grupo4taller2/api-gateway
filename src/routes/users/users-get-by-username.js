@@ -17,14 +17,15 @@ async function usersGetByUsername(req, reply) {
     }
   }
   // FIXME: WTF por qué hay que escribir la siguiente linea para que ande
-  const { username } = userResponse.data;
+  //const { username } = userResponse.data;
+  
   responseData.username = userResponse.data.username;
   responseData.email = userResponse.data.email;
   responseData.first_name = userResponse.data.first_name;
   responseData.last_name = userResponse.data.last_name;
 
   const riderResponse = await axios.get(
-    `${settings.SERVICE_USERS_URL}/riders/${username}`,
+    `${settings.SERVICE_USERS_URL}/riders/${req.params.username}`,
     { validateStatus: false },
   );
 
@@ -37,7 +38,7 @@ async function usersGetByUsername(req, reply) {
   }
 
   const driverResponse = await axios.get(
-    `${settings.SERVICE_USERS_URL}/drivers/${username}`,
+    `${settings.SERVICE_USERS_URL}/drivers/${req.params.username}`,
     { validateStatus: false },
   );
 

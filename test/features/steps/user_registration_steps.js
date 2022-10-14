@@ -15,6 +15,7 @@ Given('No hay usuarios registrados', async () => {
 
 When('Me registro como pasajero con email {string} y wallet {string}', async (email, wallet) => {
   const username = email.split('@')[0];
+  this.registered_username = username;
   const body = {
     username,
     first_name: 'fname',
@@ -36,7 +37,7 @@ When('Me registro como pasajero con email {string} y wallet {string}', async (em
 Then('Un pasajero con email {string} y wallet {string} es creado', async (userEmail, riderWallet) => {
   const response = await app.inject({
     method: 'GET',
-    url: `api/v1/users/${userEmail}`,
+    url: `api/v1/users/${this.registered_username}`,
   });
 
   assert.equal(response.statusCode, 200);
@@ -65,9 +66,10 @@ When('Me registro como pasajero con email {string} y ubicación preferida {strin
 });
 
 Then('La ubicación preferida para el pasajero con email {string} es {string}', async (email, preferredLocation) => {
+  const username = email.split('@')[0];
   const response = await app.inject({
     method: 'GET',
-    url: `api/v1/users/${email}`,
+    url: `api/v1/users/${username}`,
   });
 
   assert.equal(response.statusCode, 200);
