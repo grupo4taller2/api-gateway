@@ -1,7 +1,7 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
 
-async function usersGET(req, reply) {
+async function usersGetByUsername(req, reply) {
   const responseData = {};
   let userResponse;
   try {
@@ -60,4 +60,4 @@ async function usersGET(req, reply) {
     .send(responseData);
 }
 
-module.exports = usersGET;
+module.exports = usersGetByUsername;
