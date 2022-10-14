@@ -13,7 +13,7 @@ When('Realizo una busqueda por email con {string}', async (email) => {
     query: { email },
   });
   assert.equal(response.statusCode, 200);
-  this.searched_user = response.json();
+  this.searched_user = response.json()[0];
 });
 
 Then('Obtengo un pasajero con email {string}', (email) => {
