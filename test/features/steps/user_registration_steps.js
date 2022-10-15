@@ -34,6 +34,28 @@ When('Me registro como pasajero con email {string} y wallet {string}', async (em
   assert.equal(response.statusCode, 201);
 });
 
+// TODO: refactor steps, it's doing literally the same as above
+Given('Me registro como pasajero con email {string} y usuario {string}', async (email, username) => {
+  this.registered_username = username;
+  this.registered_email = email
+  const body = {
+    username,
+    first_name: 'fname',
+    last_name: 'lname',
+    email,
+    password: 'secret',
+    wallet: 'wallet',
+    phone_number: '1234567788',
+    preferred_location_name: 'El Monumental',
+  };
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v1/riders',
+    payload: body,
+  });
+  assert.equal(response.statusCode, 201);
+});
+
 Then('Un pasajero con email {string} y wallet {string} es creado', async (userEmail, riderWallet) => {
   const response = await app.inject({
     method: 'GET',

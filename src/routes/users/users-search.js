@@ -1,10 +1,10 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
 
-async function usersSearch(req, reply) {
-  // TODO: search by username-like
-  const email = req.query.email;
-  const responseData = {};
+// TODO: Handlear 404 y 500 para decidir si se sigue contestando
+// o NO.
+
+async function _fetchUserData(email) {
   let userResponse;
   try {
     userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${email}`);
@@ -13,44 +13,89 @@ async function usersSearch(req, reply) {
       return reply.status(200).send();
     }
   }
-  const { username } = userResponse.data;
-  responseData.username = userResponse.data.username;
-  responseData.email = userResponse.data.email;
-  responseData.first_name = userResponse.data.first_name;
-  responseData.last_name = userResponse.data.last_name;
+}
 
+async function _fetchRiderData(username) {
   const riderResponse = await axios.get(
     `${settings.SERVICE_USERS_URL}/riders/${username}`,
     { validateStatus: false },
   );
-
+  let result = {}
   if (riderResponse.status === 200) {
-    responseData.rider_information = {};
-    const riderInformation = responseData.rider_information;
-    riderInformation.phone_number = riderResponse.data.phone_number;
-    riderInformation.wallet = riderResponse.data.wallet;
-    riderInformation.preferred_location_name = riderResponse.data.preferred_location_name;
+    result = {
+      phone_number: result.phone_number,
+      wallet: result.wallet,
+      preferred_location_name: result.preferred_location_name
+    };
   }
+  return result;
+}
 
+async function _fetchDriverData(username) {
   const driverResponse = await axios.get(
     `${settings.SERVICE_USERS_URL}/drivers/${username}`,
     { validateStatus: false },
   );
-
+  let result = {};
   if (driverResponse.status === 200) {
-    responseData.driver_information = {};
-    const driverInformation = responseData.driver_information;
-    driverInformation.phone_number = driverResponse.data.phone_number;
-    driverInformation.wallet = riderResponse.data.wallet;
-    driverInformation.preferred_location_name = riderResponse.data.preferred_location_name;
-
-    driverInformation.car = {};
-    driverInformation.car.plate = riderResponse.data.plate;
-    driverInformation.car.manufacturer = riderResponse.data.manufacturer;
-    driverInformation.carmodel = riderResponse.data.model;
-    driverInformation.caryear_of_production = riderResponse.data.year_of_production;
-    driverInformation.carcolor = riderResponse.data.color;
+    result = driverResponse.data;
   }
+  return {
+    phone_number: result.phone_number,
+    wallet: result.wallet,
+    preferred_location_name: result.preferred_location_name,
+    car: {
+      plate: result.car_plate,
+      manufacturer: result.car_manufacturer,
+      model: result.car_model,
+      year_of_production: result.car_year_of_production,
+      color: result.car_color
+    }
+  };
+}
+
+async function findByUsernameLike(like) {
+  const uri = `${settings.SERVICE_USERS_URL}/users/search/${like}`;
+  const foundUsersResponse = await axios.get(uri);
+  let foundUsers = [];
+  for (const user of foundUsersResponse.data) {
+    user.rider_information = await _fetchRiderData(user.username);
+    user.driver_information = await _fetchDriverData(user.username);
+    foundUsers.push(user);
+  }
+  return foundUsers;
+}
+
+
+async function usersSearch(req, reply) {
+  // FIXME: Se comporta distinto según email o like
+  
+  const email = req.query.email;
+  const like = req.query.like;
+
+  // TODO: Chequear mejor?
+
+  if (email !== undefined) {
+    return [];
+  }
+
+  if (like !== undefined) {
+    const found = await findByUsernameLike(like);
+    return reply.status(200).send(found);
+  }
+
+  
+  let foundUsers;
+  try {
+    foundUsers = await axios.get(`${settings.SERVICE_USERS_URL}/users/search/${email}`)
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return reply.status(200).send();
+    }
+  }
+  
+  _fetchRiderData(username, userResponse);
+  _fetchDriverData(username, userResponse)
 
   return reply.status(200)
     .send([responseData]);

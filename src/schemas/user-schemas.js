@@ -21,23 +21,23 @@ const carInformationSchema = {
   properties: {
     plate: {
       type: 'string',
-      default: 'AAA 123',
+      example: 'AAA 123',
     },
     manufacturer: {
       type: 'string',
-      default: 'Audi',
+      example: 'Audi',
     },
     model: {
       type: 'string',
-      default: 'TT',
+      example: 'TT',
     },
     year_of_production: {
       type: 'integer',
-      default: 2022,
+      example: 2022,
     },
     color: {
       type: 'string',
-      default: 'Black',
+      example: 'Black',
     },
   },
 };
@@ -47,15 +47,15 @@ const driverInformationSchema = {
   properties: {
     phone_number: {
       type: 'string',
-      default: '+541155555555',
+      example: '+541155555555',
     },
     wallet: {
       type: 'string',
-      default: 'as4d65a4s654aeeg54a6s5d4',
+      example: 'as4d65a4s654aeeg54a6s5d4',
     },
     preferred_location_name: {
       type: 'string',
-      default: 'Av. Paseo Colón 850',
+      example: 'Av. Paseo Colón 850',
     },
     car: carInformationSchema,
   },
