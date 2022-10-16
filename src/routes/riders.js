@@ -90,6 +90,7 @@ async function ridersRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/riders',
     {
+      onRequest:[fastify.verify],
       schema: riderPOSTSchema,
       handler: ridersPOST,
     },
