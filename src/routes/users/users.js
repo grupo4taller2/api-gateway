@@ -55,7 +55,6 @@ async function usersRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/users/search',
     {
-      onRequest:[fastify.verify],
       schema: userSearchSchema,
       handler: usersSearch,
     },

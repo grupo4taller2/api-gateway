@@ -16,9 +16,7 @@ async function usersGetByUsername(req, reply) {
       );
     }
   }
-  // FIXME: WTF por qué hay que escribir la siguiente linea para que ande
-  //const { username } = userResponse.data;
-  
+
   responseData.username = userResponse.data.username;
   responseData.email = userResponse.data.email;
   responseData.first_name = userResponse.data.first_name;
