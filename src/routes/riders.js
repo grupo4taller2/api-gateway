@@ -97,6 +97,7 @@ async function ridersRoutes(fastify, getUserOpts, done) {
   fastify.patch(
     '/riders/:email/status',
     {
+      onRequest:[fastify.verify],
       schema: riderPATCHchema,
       handler: ridersPATCH,
     },

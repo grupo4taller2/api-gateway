@@ -6,6 +6,7 @@ const app = require('fastify')({
 const API_PREFIX = '/api/v1';
 
 app.register(require('./plugins/swagger'));
+app.register(require('./auth/firebase_auth.js'));
 
 app.register(require('./routes/users/users'), { prefix: API_PREFIX });
 app.register(require('./routes/riders'), { prefix: API_PREFIX });

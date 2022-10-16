@@ -56,6 +56,7 @@ async function driversRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/drivers',
     {
+      onRequest:[fastify.verify],
       schema: driverSchema,
       handler: driversPOST,
     },
