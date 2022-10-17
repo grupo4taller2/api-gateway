@@ -1,14 +1,10 @@
 
 const fastifyPlugin = require("fastify-plugin")
 
+const firebase_app = require('./firebase_app.js');
+const { getAuth } = require( 'firebase-admin/auth');
 
-//var key = require(serviceAccount = './key_sdk.json');
-
-async function verify(fastify,options){
-    
-    let firebase_app = require('./firebase_app.js');
-    const { getAuth } = require( 'firebase-admin/auth');
-    
+async function verify(fastify, options){
     fastify.decorate("verify", async function(request, reply) {
         try{
             await getAuth()
@@ -35,8 +31,6 @@ async function verify(fastify,options){
             );
             return reply;
         }
-        //getAuth();
-        //console.log(request.headers)
     });
 }
 

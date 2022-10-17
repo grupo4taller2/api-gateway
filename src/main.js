@@ -1,11 +1,16 @@
 const app = require('./server');
 
-app.addHook('onRequest', (req, reply, done) => {
-  
-  done();
-})
+const tokenVerifier = require('./auth/firebase_auth');
 
-app.listen({
-  host: process.env.HOST,
-  port: process.env.PORT,
+app.addHook('onRequest', async (req, reply) => {
+  await tokenVerifier(app);
 });
+
+const start = async() => {
+  await app.listen({
+    host: process.env.HOST,
+    port: process.env.PORT,
+  });  
+}
+
+start();
