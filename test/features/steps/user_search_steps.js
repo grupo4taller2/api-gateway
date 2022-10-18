@@ -13,7 +13,7 @@ When('Realizo una busqueda por email con {string}', async (email) => {
     query: { email },
   });
   assert.equal(response.statusCode, 200);
-  this.found_users = response.json()
+  this.found_users = response.json();
   this.searched_user = this.found_users[0];
 });
 
@@ -34,12 +34,13 @@ When('Realizo una busqueda por username con {string}', async (like) => {
     query: { like },
   });
   assert.equal(response.statusCode, 200);
+  
   this.found_users = response.json();
 });
 
 Then('Obtengo {int} pasajeros cuyo username incluye {string}', (nUsers, like) => {
-  assert.equal(nUsers, this.found_users.lenght);
-  this.found_users.forEach(user => {
-    assert.equal(user.username.index(like) > 0, true);
+  assert.equal(nUsers, this.found_users.length);
+  this.found_users.forEach((user) => {
+    assert.equal(user.username.indexOf(like) >= 0, true);
   });
 });

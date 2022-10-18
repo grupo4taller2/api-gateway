@@ -4,17 +4,6 @@ const settings = require('../../conf/config');
 // TODO: Handlear 404 y 500 para decidir si se sigue contestando
 // o NO.
 
-async function _fetchUserData(email) {
-  let userResponse;
-  try {
-    userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${email}`);
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      return reply.status(200).send();
-    }
-  }
-}
-
 async function _fetchRiderData(username) {
   const riderResponse = await axios.get(
     `${settings.SERVICE_USERS_URL}/riders/${username}`,
@@ -66,39 +55,28 @@ async function findByUsernameLike(like) {
   return foundUsers;
 }
 
+async function findByEmail(email) {
+  const foundUser = await axios.get(`${settings.SERVICE_USERS_URL}/users/${email}`);
+  const userResponse = foundUser.data;
+  userResponse.rider_information = await _fetchRiderData(userResponse.username);
+  userResponse.rider_information = await _fetchDriverData(userResponse.username);
+  return [userResponse];
+}
 
 async function usersSearch(req, reply) {
-  // FIXME: Se comporta distinto según email o like
-  
   const email = req.query.email;
   const like = req.query.like;
 
   // TODO: Chequear mejor?
 
-  if (email !== undefined) {
-    return [];
-  }
-
   if (like !== undefined) {
     const found = await findByUsernameLike(like);
     return reply.status(200).send(found);
   }
-
-  
-  let foundUsers;
-  try {
-    foundUsers = await axios.get(`${settings.SERVICE_USERS_URL}/users/search/${email}`)
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      return reply.status(200).send();
-    }
+  if (email !== undefined) {
+    const found = await findByEmail(email);
+    return reply.status(200).send(found);
   }
-  
-  _fetchRiderData(username, userResponse);
-  _fetchDriverData(username, userResponse)
-
-  return reply.status(200)
-    .send([responseData]);
 }
 
 module.exports = usersSearch;
