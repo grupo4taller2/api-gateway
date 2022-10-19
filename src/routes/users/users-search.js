@@ -6,7 +6,7 @@ const settings = require('../../conf/config');
 
 async function _fetchRiderData(username) {
   const riderResponse = await axios.get(
-    `${settings.SERVICE_USERS_URL}/riders/${username}`,
+    `${settings.serviceUsersURL()}/riders/${username}`,
     { validateStatus: false },
   );
   let result = {}
@@ -22,7 +22,7 @@ async function _fetchRiderData(username) {
 
 async function _fetchDriverData(username) {
   const driverResponse = await axios.get(
-    `${settings.SERVICE_USERS_URL}/drivers/${username}`,
+    `${settings.serviceUsersURL()}/drivers/${username}`,
     { validateStatus: false },
   );
   let result = {};
@@ -44,7 +44,7 @@ async function _fetchDriverData(username) {
 }
 
 async function findByUsernameLike(like) {
-  const uri = `${settings.SERVICE_USERS_URL}/users/search/${like}`;
+  const uri = `${settings.serviceUsersURL()}/users/search/${like}`;
   const foundUsersResponse = await axios.get(uri);
   let foundUsers = [];
   for (const user of foundUsersResponse.data) {
@@ -56,7 +56,7 @@ async function findByUsernameLike(like) {
 }
 
 async function findByEmail(email) {
-  const foundUser = await axios.get(`${settings.SERVICE_USERS_URL}/users/${email}`);
+  const foundUser = await axios.get(`${settings.serviceUsersURL()}/users/${email}`);
   const userResponse = foundUser.data;
   userResponse.rider_information = await _fetchRiderData(userResponse.username);
   userResponse.rider_information = await _fetchDriverData(userResponse.username);

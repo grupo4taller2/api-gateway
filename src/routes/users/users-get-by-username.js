@@ -2,10 +2,11 @@ const axios = require('axios');
 const settings = require('../../conf/config');
 
 async function usersGetByUsername(req, reply) {
+  const route = `${settings.serviceUsersURL()}/users/${req.params.username}`;
   const responseData = {};
   let userResponse;
   try {
-    userResponse = await axios.get(`${settings.SERVICE_USERS_URL}/users/${req.params.username}`);
+    userResponse = await axios.get(route);
   } catch (error) {
     if (error.response && error.response.status === 404) {
       return reply.status(404).send(
@@ -25,7 +26,7 @@ async function usersGetByUsername(req, reply) {
   responseData.last_name = userResponse.data.last_name;
 
   const riderResponse = await axios.get(
-    `${settings.SERVICE_USERS_URL}/riders/${req.params.username}`,
+    `${settings.serviceUsersURL()}/riders/${req.params.username}`,
     { validateStatus: false },
   );
 
@@ -38,7 +39,7 @@ async function usersGetByUsername(req, reply) {
   }
 
   const driverResponse = await axios.get(
-    `${settings.SERVICE_USERS_URL}/drivers/${req.params.username}`,
+    `${settings.serviceUsersURL()}/drivers/${req.params.username}`,
     { validateStatus: false },
   );
 

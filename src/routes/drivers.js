@@ -47,7 +47,7 @@ const driverSchema = {
 async function driversPOST(req, reply) {
   req.body.preferred_location_latitude = -32.4;
   req.body.preferred_location_longitude = -33.4;
-  const riderRegistration = await axios.post(`${settings.SERVICE_USERS_URL}/drivers`, req.body);
+  const riderRegistration = await axios.post(`${settings.serviceUsersURL()}/drivers`, req.body);
   // FIXME: DO NOT HARDCODE 201
   return reply.status(201).send(riderRegistration.data);
 }

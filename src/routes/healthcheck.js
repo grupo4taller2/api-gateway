@@ -18,7 +18,7 @@ const healthGETSchema = {
 async function healthGET(req, reply) {
   return reply.status(200).send(
     {
-      version: settings.API_GATEWAY_VERSION,
+      version: settings.apiGatewayVersion(),
       status: 'UP',
     },
   );

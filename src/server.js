@@ -19,7 +19,7 @@ function buildServer() {
 
 function buildTestServer() {
   const app = fastify({
-    logger: true,
+    logger: false,
   });
   app.register(require('./auth/firebase_auth_test.js'));
   app.register(require('./routes/users/users'), { prefix: API_PREFIX });
@@ -31,4 +31,4 @@ function buildTestServer() {
 }
 
 exports.buildServer = buildServer;
-exports.buildTestServer =buildTestServer;
+exports.buildTestServer = buildTestServer;

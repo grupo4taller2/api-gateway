@@ -75,14 +75,14 @@ async function ridersPOST(req, reply) {
   // FIXME: DO NOT HARDCODE 201
   req.body.preferred_location_latitude = -32.4;
   req.body.preferred_location_longitude = -33.4;
-  const riderRegistration = await axios.post(`${settings.SERVICE_USERS_URL}/riders`, req.body);
+  const riderRegistration = await axios.post(`${settings.serviceUsersURL()}/riders`, req.body);
   return reply.status(201).send(riderRegistration.data);
 }
 
 async function ridersPATCH(req, reply) {
   req.body.preferred_location_latitude = -32.4;
   req.body.preferred_location_longitude = -33.4;
-  const riderUpdate = await axios.patch(`${settings.SERVICE_USERS_URL}/riders/${req.params.email}/status`, req.body);
+  const riderUpdate = await axios.patch(`${settings.serviceUsersURL()}/riders/${req.params.email}/status`, req.body);
   return reply.status(202).send(riderUpdate.data);
 }
 

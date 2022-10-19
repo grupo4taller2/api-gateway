@@ -1,10 +1,16 @@
 class Settings {
-  static SERVICE_USERS_URL = process.env.SERVICE_USERS_URL;
 
-  static SERVICE_AUTH_URL = process.env.SERVICE_AUTH_URL;
+  serviceUsersURL() {
+    return process.env.SERVICE_USERS_URL;
+  }
 
   // FIXME: move to env var
-  static API_GATEWAY_VERSION = 'v1';
+  apiGatewayVersion() {
+    return 'v1';
+  }
+
 }
 
-module.exports = Settings;
+const settings = new Settings();
+
+module.exports = settings;
