@@ -1,27 +1,34 @@
-const app = require('fastify')({
-  logger: true,
-});
-
 // TODO: Move to env var
 const API_PREFIX = '/api/v1';
 
-app.register(require('./plugins/swagger'));
+const fastify = require('fastify');
 
-if (process.env.ENV_TESTING) {
+function buildServer() {
+  const app = fastify({
+    logger: true,
+  })
+
+  app.register(require('./plugins/swagger'));
   app.register(require('./auth/firebase_auth_test.js'));
-}
-else {
-  app.register(require('./auth/firebase_auth.js'));
+  app.register(require('./routes/users/users'), { prefix: API_PREFIX });
+  app.register(require('./routes/riders'), { prefix: API_PREFIX });
+  app.register(require('./routes/drivers'), { prefix: API_PREFIX });
+  app.register(require('./routes/healthcheck'), { prefix: API_PREFIX });
+  return app;
 }
 
-app.register(require('./routes/users/users'), { prefix: API_PREFIX });
-app.register(require('./routes/riders'), { prefix: API_PREFIX });
-app.register(require('./routes/drivers'), { prefix: API_PREFIX });
-// app.register(require('./routes/auth'), { prefix: API_PREFIX });
-app.register(require('./routes/healthcheck'), { prefix: API_PREFIX });
-
-if (process.env.DANGER_RESET) {
+function buildTestServer() {
+  const app = fastify({
+    logger: true,
+  });
+  app.register(require('./auth/firebase_auth_test.js'));
+  app.register(require('./routes/users/users'), { prefix: API_PREFIX });
+  app.register(require('./routes/riders'), { prefix: API_PREFIX });
+  app.register(require('./routes/drivers'), { prefix: API_PREFIX });
+  app.register(require('./routes/healthcheck'), { prefix: API_PREFIX });
   app.register(require('./routes/reset'));
+  return app;
 }
 
-module.exports = app;
+exports.buildServer = buildServer;
+exports.buildTestServer =buildTestServer;

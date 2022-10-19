@@ -4,7 +4,9 @@ const {
 
 const assert = require('assert');
 
-const app = require('../../../src/server');
+const builder = require('../../../src/server');
+
+const app = builder.buildTestServer();
 
 When('Realizo una busqueda por email con {string}', async (email) => {
   const response = await app.inject({

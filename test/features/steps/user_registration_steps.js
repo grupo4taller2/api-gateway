@@ -4,7 +4,9 @@ const {
 
 const assert = require('assert');
 
-const app = require('../../../src/server');
+const builder = require('../../../src/server');
+
+const app = builder.buildTestServer();
 
 Given('No hay usuarios registrados', async () => {
   await app.inject({
