@@ -75,8 +75,19 @@ async function ridersPOST(req, reply) {
   // FIXME: DO NOT HARDCODE 201
   req.body.preferred_location_latitude = -32.4;
   req.body.preferred_location_longitude = -33.4;
-  const riderRegistration = await axios.post(`${settings.serviceUsersURL()}/riders`, req.body);
-  return reply.status(201).send(riderRegistration.data);
+  let riderRegistrationResponse;
+  try {
+    riderRegistrationResponse = await axios.post(`${settings.serviceUsersURL()}/riders`, req.body);
+  } catch (error) {
+    if (!error.response || error.response.status >= 500) {
+      return reply.status(503).send(
+        {
+          msg: 'Servicio no disponible',
+        },
+      );
+    }
+  }
+  return reply.status(201).send(riderRegistrationResponse.data);
 }
 
 async function ridersPATCH(req, reply) {

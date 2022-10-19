@@ -25,10 +25,10 @@ Feature: U1 Registro de usuarios
       And el año de fabricación del auto es 2022
       And el color del auto es "Negro"
   
-  @wip
   Scenario: U1.5 Registro fallido
     Given No hay usuarios registrados
+    And el registro fallara por un error del servicio
     When Quiero registrarme como chofer con email "mateo@mateo.com"
       And me registro como chofer
-      And el registro falla por un error del servicio
+    Then se devuelve un mensaje de error "Servicio no disponible"
         

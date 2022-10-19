@@ -33,7 +33,6 @@ When('Me registro como pasajero con email {string} y wallet {string}', async (em
     url: '/api/v1/riders',
     payload: body,
   });
-  assert.equal(response.statusCode, 201);
 });
 
 // TODO: refactor steps, it's doing literally the same as above
@@ -55,7 +54,6 @@ Given('Me registro como pasajero con email {string} y usuario {string}', async (
     url: '/api/v1/riders',
     payload: body,
   });
-  assert.equal(response.statusCode, 201);
 });
 
 Then('Un pasajero con email {string} y wallet {string} es creado', async (userEmail, riderWallet) => {
@@ -86,7 +84,6 @@ When('Me registro como pasajero con email {string} y ubicación preferida {strin
     url: '/api/v1/riders',
     payload: body,
   });
-  assert.equal(response.statusCode, 201);
 });
 
 Then('La ubicación preferida para el pasajero con email {string} es {string}', async (email, preferredLocation) => {
@@ -137,7 +134,7 @@ When('me registro como chofer', async () => {
     url: '/api/v1/drivers',
     payload: this.driver_data,
   });
-  assert.equal(response.statusCode, 201);
+  this.full_driver_response = response;
   this.driver_response = response.json();
 });
 
@@ -159,4 +156,13 @@ Then('el año de fabricación del auto es {int}', (carYearOfProduction) => {
 
 Then('el color del auto es {string}', (carColor) => {
   assert.equal(this.driver_response.car_color, carColor);
+});
+
+Given('el registro fallara por un error del servicio', () => {
+  process.env['SERVICE_USERS_URL'] = 'invalid';
+});
+
+Then('se devuelve un mensaje de error {string}', (message) =>  {
+  assert.equal(this.full_driver_response.statusCode, 503);
+  assert.equal(this.driver_response.msg, message);
 });

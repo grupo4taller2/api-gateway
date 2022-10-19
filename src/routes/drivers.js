@@ -47,9 +47,20 @@ const driverSchema = {
 async function driversPOST(req, reply) {
   req.body.preferred_location_latitude = -32.4;
   req.body.preferred_location_longitude = -33.4;
-  const riderRegistration = await axios.post(`${settings.serviceUsersURL()}/drivers`, req.body);
-  // FIXME: DO NOT HARDCODE 201
-  return reply.status(201).send(riderRegistration.data);
+  let driverRegistrationResponse;
+  try {
+    driverRegistrationResponse = await axios.post(`${settings.serviceUsersURL()}/drivers`, req.body);
+  } catch (error) {
+    console.log(error.response);
+    if (!error.response || error.response.status >= 500) {
+      return reply.status(503).send(
+        {
+          msg: 'Servicio no disponible',
+        },
+      );
+    }
+  }
+  return reply.status(201).send(driverRegistrationResponse.data);
 }
 
 async function driversRoutes(fastify, getUserOpts, done) {

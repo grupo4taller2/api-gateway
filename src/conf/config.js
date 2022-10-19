@@ -1,5 +1,9 @@
 class Settings {
 
+  constructor() {
+    this.serviceUsersURLBAK = process.env.SERVICE_USERS_URL;
+  }
+
   serviceUsersURL() {
     return process.env.SERVICE_USERS_URL;
   }
@@ -9,8 +13,12 @@ class Settings {
     return 'v1';
   }
 
+  reset() {
+    process.env['SERVICE_USERS_URL'] = this.serviceUsersURLBAK;
+  }
+
 }
 
-const settings = new Settings();
+const config = new Settings();
 
-module.exports = settings;
+module.exports = config;
