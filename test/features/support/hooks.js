@@ -22,3 +22,10 @@ BeforeAll(async function(){
 After(function() {
     settings.reset();
 })
+
+AfterAll(async function() {
+  await app.inject({
+    method: 'POST',
+    url: '/reset',
+  });
+})
