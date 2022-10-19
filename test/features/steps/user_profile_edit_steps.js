@@ -60,8 +60,84 @@ When('como pasajero con email {string} cambio mi nombre a {string}', async (emai
     this.rider_response = response.json();
 });
 
-Then('El nombre del pasajero con email {string} es {string}', (email, name) => {
+Then('El nombre del pasajero con email {string} cambio a {string}', (email, name) => {
     assert.equal(this.full_rider_response.statusCode, 202);
     assert.equal(this.rider_response.first_name, name);
+    assert.equal(this.rider_response.email, email);
+});
+
+When('como pasajero con email {string} cambio mi apellido a {string}', async (email, newLName) => {
+    const payload = {
+        last_name: newLName,
+    }
+    const response = await app.inject({
+        method: 'PATCH',
+        url: `/api/v1/riders/${email}/status`,
+        payload,
+    });
+    this.full_rider_response = response;
+    this.rider_response = response.json();
+});
+
+Then('El apellido del pasajero con email {string} cambio a {string}', (email, lName) => {
+    assert.equal(this.full_rider_response.statusCode, 202);
+    assert.equal(this.rider_response.last_name, lName);
+    assert.equal(this.rider_response.email, email);
+});
+
+When('como pasajero con email {string} cambio mi telefono a {string}', async (email, newPhoneNumber) => {
+    const payload = {
+        phone_number: newPhoneNumber,
+    }
+    const response = await app.inject({
+        method: 'PATCH',
+        url: `/api/v1/riders/${email}/status`,
+        payload,
+    });
+    this.full_rider_response = response;
+    this.rider_response = response.json();
+});
+
+Then('El telefono del pasajero con email {string} cambio a {string}', (email, phoneNumber) => {
+    assert.equal(this.full_rider_response.statusCode, 202);
+    assert.equal(this.rider_response.phone_number, phoneNumber);
+    assert.equal(this.rider_response.email, email);
+});
+
+When('como pasajero con email {string} cambio mi wallet a {string}', async (email, newWallet) => {
+    const payload = {
+        wallet: newWallet,
+    }
+    const response = await app.inject({
+        method: 'PATCH',
+        url: `/api/v1/riders/${email}/status`,
+        payload,
+    });
+    this.full_rider_response = response;
+    this.rider_response = response.json();
+});
+
+Then('La wallet del pasajero con email {string} cambio a {string}', (email, wallet) => {
+    assert.equal(this.full_rider_response.statusCode, 202);
+    assert.equal(this.rider_response.wallet, wallet);
+    assert.equal(this.rider_response.email, email);
+});
+
+When('como pasajero con email {string} cambio mi ubicacion preferida a {string}', async (email, newLocationName) => {
+    const payload = {
+        preferred_location_name: newLocationName,
+    }
+    const response = await app.inject({
+        method: 'PATCH',
+        url: `/api/v1/riders/${email}/status`,
+        payload,
+    });
+    this.full_rider_response = response;
+    this.rider_response = response.json();
+});
+
+Then('La ubicacion preferida del pasajero con email {string} cambio a {string}', (email, locationName) => {
+    assert.equal(this.full_rider_response.statusCode, 202);
+    assert.equal(this.rider_response.preferred_location_name, locationName);
     assert.equal(this.rider_response.email, email);
 });
