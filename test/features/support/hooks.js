@@ -1,4 +1,4 @@
-const { Before, AfterAll, BeforeAll, AfterStep} = require('@cucumber/cucumber');
+const { After, AfterAll, BeforeAll, AfterStep} = require('@cucumber/cucumber');
 
 const settings = require('../../../src/conf/config');
 
@@ -19,6 +19,6 @@ BeforeAll(async function(){
   });
 })
 
-Before(function() {
+After(function() {
     settings.reset();
 })
