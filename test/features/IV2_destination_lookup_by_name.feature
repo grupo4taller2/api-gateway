@@ -1,3 +1,4 @@
+@wip
 Feature: IV2 - Búsqueda de destino por dirección
     Como pasajero quiero poder realizar búsquedas de destinos
     utilizando la dirección del mismo y así poder iniciar
