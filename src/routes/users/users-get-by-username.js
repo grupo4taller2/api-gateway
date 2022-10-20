@@ -24,7 +24,7 @@ async function usersGetByUsername(req, reply) {
   responseData.last_name = userResponse.data.last_name;
 
   const riderResponse = await axios.get(
-    `${settings.serviceUsersURL()}/riders/${req.params.username}`,
+    `${settings.serviceUsersURL()}/riders/${responseData.email}`,
     { validateStatus: false },
   );
 
@@ -37,7 +37,7 @@ async function usersGetByUsername(req, reply) {
   }
 
   const driverResponse = await axios.get(
-    `${settings.serviceUsersURL()}/drivers/${req.params.username}`,
+    `${settings.serviceUsersURL()}/drivers/${responseData.email}`,
     { validateStatus: false },
   );
 

@@ -4,9 +4,9 @@ const settings = require('../../conf/config');
 // TODO: Handlear 404 y 500 para decidir si se sigue contestando
 // o NO.
 
-async function _fetchRiderData(username) {
+async function _fetchRiderData(email) {
   const riderResponse = await axios.get(
-    `${settings.serviceUsersURL()}/riders/${username}`,
+    `${settings.serviceUsersURL()}/riders/${email}`,
     { validateStatus: false },
   );
   let result = {}
@@ -20,9 +20,9 @@ async function _fetchRiderData(username) {
   return result;
 }
 
-async function _fetchDriverData(username) {
+async function _fetchDriverData(email) {
   const driverResponse = await axios.get(
-    `${settings.serviceUsersURL()}/drivers/${username}`,
+    `${settings.serviceUsersURL()}/drivers/${email}`,
     { validateStatus: false },
   );
   let result = {};
@@ -48,8 +48,8 @@ async function findByUsernameLike(like) {
   const foundUsersResponse = await axios.get(uri);
   let foundUsers = [];
   for (const user of foundUsersResponse.data) {
-    user.rider_information = await _fetchRiderData(user.username);
-    user.driver_information = await _fetchDriverData(user.username);
+    user.rider_information = await _fetchRiderData(user.email);
+    user.driver_information = await _fetchDriverData(user.email);
     foundUsers.push(user);
   }
   return foundUsers;
@@ -58,8 +58,8 @@ async function findByUsernameLike(like) {
 async function findByEmail(email) {
   const foundUser = await axios.get(`${settings.serviceUsersURL()}/users/${email}`);
   const userResponse = foundUser.data;
-  userResponse.rider_information = await _fetchRiderData(userResponse.username);
-  userResponse.rider_information = await _fetchDriverData(userResponse.username);
+  userResponse.rider_information = await _fetchRiderData(userResponse.email);
+  userResponse.rider_information = await _fetchDriverData(userResponse.email);
   return [userResponse];
 }
 
