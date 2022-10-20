@@ -1,6 +1,8 @@
-const {
-    Given, When, Then,
-  } = require('@cucumber/cucumber');
+const cucumber = require('../cucumber');
+
+const Given = cucumber.Given;
+const When = cucumber.When;
+const Then = cucumber.Then;
   
 const assert = require('assert');
 
@@ -140,4 +142,33 @@ Then('La ubicacion preferida del pasajero con email {string} cambio a {string}',
     assert.equal(this.full_rider_response.statusCode, 202);
     assert.equal(this.rider_response.preferred_location_name, locationName);
     assert.equal(this.rider_response.email, email);
+});
+
+When('Quiero registrarme como chofer con usuario {string}', (username) => {
+  this.driver_data = {};
+  this.driver_data.username = username;
+});
+
+When('quiero registrarme como chofer con email {string}', (email) => {
+    this.driver_data.email = email;
+});
+
+When('quiero registrarme como chofer con nombre {string}', (fName) => {
+    this.driver_data.first_name = fName;
+});
+
+When('quiero registrarme como chofer con apellido {string}', (lName) => {
+    this.driver_data.last_name = lName;
+});
+
+When('quiero registrarme como chofer con telefono {string}', (phoneNumber) => {
+    this.driver_data.phone_number = phoneNumber;
+});
+
+When('quiero registrarme como chofer con wallet {string}', (wallet) => {
+    this.driver_data.wallet = wallet;
+});
+
+When('quiero registrarme como chofer con ubicacion preferida {string}', (locationName) => {
+    this.driver_data.preferred_location_name = locationName;
 });

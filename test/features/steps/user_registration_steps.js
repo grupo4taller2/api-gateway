@@ -1,6 +1,9 @@
-const {
-  Given, When, Then,
-} = require('@cucumber/cucumber');
+
+const cucumber = require('../cucumber');
+
+const Given = cucumber.Given;
+const When = cucumber.When;
+const Then = cucumber.Then;
 
 const assert = require('assert');
 
