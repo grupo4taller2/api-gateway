@@ -13,6 +13,7 @@ function buildServer() {
   app.register(require('./routes/users/users'), { prefix: API_PREFIX });
   app.register(require('./routes/riders'), { prefix: API_PREFIX });
   app.register(require('./routes/drivers'), { prefix: API_PREFIX });
+  app.register(require('./routes/locations/locations'), { prefix: API_PREFIX });
   app.register(require('./routes/healthcheck'), { prefix: API_PREFIX });
   return app;
 }
@@ -26,6 +27,7 @@ function buildTestServer() {
   app.register(require('./routes/riders'), { prefix: API_PREFIX });
   app.register(require('./routes/drivers'), { prefix: API_PREFIX });
   app.register(require('./routes/healthcheck'), { prefix: API_PREFIX });
+  app.register(require('./routes/locations/locations'), { prefix: API_PREFIX });
   app.register(require('./routes/reset'));
   return app;
 }

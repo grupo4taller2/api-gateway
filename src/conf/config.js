@@ -8,6 +8,10 @@ class Settings {
     return process.env.SERVICE_USERS_URL;
   }
 
+  serviceTripsURL() {
+    return process.env.SERVICE_TRIPS_URL;
+  }
+
   // FIXME: move to env var
   apiGatewayVersion() {
     return 'v1';

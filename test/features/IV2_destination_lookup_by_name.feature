@@ -1,4 +1,3 @@
-@wip
 Feature: IV2 - Búsqueda de destino por dirección
     Como pasajero quiero poder realizar búsquedas de destinos
     utilizando la dirección del mismo y así poder iniciar
@@ -13,4 +12,4 @@ Feature: IV2 - Búsqueda de destino por dirección
     Scenario: IV2.2 Búsqueda sin resultados
         When Realizo una búsqueda con dirección 'a9fg78aurg90au'
         Then El resultado es una ubicación inválida
-            And se indica como mensaje de error 'Ubicación no encontrada'
+            And se indica como mensaje de error 'Ubicación a9fg78aurg90au no encontrada'
