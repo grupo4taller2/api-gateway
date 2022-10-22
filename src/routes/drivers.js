@@ -97,7 +97,7 @@ async function driversPOST(req, reply) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(
         {
-          msg: 'Servicio no disponible',
+          message: 'Servicio no disponible',
         },
       );
     }

@@ -80,7 +80,7 @@ const userInformationSchema = {
 };
 
 const userNotFoundSchema = {
-  msg: { type: 'string', default: 'Error. User not found.' },
+  message: { type: 'string', default: 'Error. User not found.' },
   username: { type: 'string', example: 'mateo' },
 };
 

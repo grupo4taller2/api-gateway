@@ -11,7 +11,7 @@ async function usersGetByUsername(req, reply) {
     if (error.response && error.response.status === 404) {
       return reply.status(404).send(
         {
-          msg: 'Error. User not found',
+          message: 'Error. User not found',
           username: req.params.username,
         },
       );

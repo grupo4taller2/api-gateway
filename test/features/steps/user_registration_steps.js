@@ -166,5 +166,5 @@ Given('el registro fallara por un error del servicio', function () {
 
 Then('se devuelve un mensaje de error {string}', function (message) {
   assert.equal(this.full_response.statusCode, 503);
-  assert.equal(this.driver_response.msg, message);
+  assert.equal(this.driver_response.message, message);
 });
