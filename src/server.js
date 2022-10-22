@@ -11,6 +11,7 @@ function buildServer() {
   app.register(require('./plugins/swagger'));
   app.register(require('./auth/firebase_auth.js'));
   app.register(require('./routes/users/users'), { prefix: API_PREFIX });
+  app.register(require('./routes/admins/admins'), { prefix: API_PREFIX });
   app.register(require('./routes/riders'), { prefix: API_PREFIX });
   app.register(require('./routes/drivers'), { prefix: API_PREFIX });
   app.register(require('./routes/locations/locations'), { prefix: API_PREFIX });
@@ -24,6 +25,7 @@ function buildTestServer() {
   });
   app.register(require('./auth/firebase_auth_test.js'));
   app.register(require('./routes/users/users'), { prefix: API_PREFIX });
+  app.register(require('./routes/admins/admins'), { prefix: API_PREFIX });
   app.register(require('./routes/riders'), { prefix: API_PREFIX });
   app.register(require('./routes/drivers'), { prefix: API_PREFIX });
   app.register(require('./routes/healthcheck'), { prefix: API_PREFIX });

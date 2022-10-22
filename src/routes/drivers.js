@@ -124,7 +124,7 @@ async function driversRoutes(fastify, getUserOpts, done) {
   fastify.patch(
     '/drivers/:email/status',
     {
-      onRequest:[fastify.verify],
+      onRequest: [fastify.verify],
       schema: driverPATCHchema,
       handler: driversPATCH,
     },

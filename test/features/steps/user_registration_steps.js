@@ -1,3 +1,6 @@
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
+
 const {
   Given, When, Then,
 } = require('@cucumber/cucumber');
@@ -8,14 +11,14 @@ const builder = require('../../../src/server');
 
 const app = builder.buildTestServer();
 
-Given('No hay usuarios registrados', async function() {
+Given('No hay usuarios registrados', async function () {
   await app.inject({
     method: 'POST',
     url: '/reset',
   });
 });
 
-When('Me registro como pasajero con email {string} y wallet {string}', async function(email, wallet) {
+When('Me registro como pasajero con email {string} y wallet {string}', async function (email, wallet) {
   const username = email.split('@')[0];
   this.registered_username = username;
   const body = {
@@ -28,17 +31,16 @@ When('Me registro como pasajero con email {string} y wallet {string}', async fun
     phone_number: '1234567788',
     preferred_location_name: 'El Monumental',
   };
-  const response = await app.inject({
+  this.response = await app.inject({
     method: 'POST',
     url: '/api/v1/riders',
     payload: body,
   });
 });
 
-// TODO: refactor steps, it's doing literally the same as above
-Given('Me registro como pasajero con email {string} y usuario {string}', async function(email, username) {
+Given('Me registro como pasajero con email {string} y usuario {string}', async function (email, username) {
   this.registered_username = username;
-  this.registered_email = email
+  this.registered_email = email;
   const body = {
     username,
     first_name: 'fname',
@@ -49,14 +51,14 @@ Given('Me registro como pasajero con email {string} y usuario {string}', async f
     phone_number: '1234567788',
     preferred_location_name: 'El Monumental',
   };
-  const response = await app.inject({
+  this.response = await app.inject({
     method: 'POST',
     url: '/api/v1/riders',
     payload: body,
   });
 });
 
-Then('Un pasajero con email {string} y wallet {string} es creado', async function(userEmail, riderWallet) {
+Then('Un pasajero con email {string} y wallet {string} es creado', async function (userEmail, riderWallet) {
   const response = await app.inject({
     method: 'GET',
     url: `api/v1/users/${this.registered_username}`,
@@ -67,7 +69,7 @@ Then('Un pasajero con email {string} y wallet {string} es creado', async functio
   assert.equal(response.json().rider_information.wallet, riderWallet);
 });
 
-When('Me registro como pasajero con email {string} y ubicación preferida {string}', async function(email, preferredLocation) {
+When('Me registro como pasajero con email {string} y ubicación preferida {string}', async function (email, preferredLocation) {
   const username = email.split('@')[0];
   const body = {
     username,
@@ -79,14 +81,14 @@ When('Me registro como pasajero con email {string} y ubicación preferida {strin
     phone_number: '1234567788',
     preferred_location_name: preferredLocation,
   };
-  const response = await app.inject({
+  this.response = await app.inject({
     method: 'POST',
     url: '/api/v1/riders',
     payload: body,
   });
 });
 
-Then('La ubicación preferida para el pasajero con email {string} es {string}', async function(email, preferredLocation) {
+Then('La ubicación preferida para el pasajero con email {string} es {string}', async function (email, preferredLocation) {
   const username = email.split('@')[0];
   const response = await app.inject({
     method: 'GET',
@@ -97,9 +99,9 @@ Then('La ubicación preferida para el pasajero con email {string} es {string}', 
   assert.equal(response.json().rider_information.preferred_location_name, preferredLocation);
 });
 
-When('Quiero registrarme como chofer con email {string}', function(email) {
+When('Quiero registrarme como chofer con email {string}', function (email) {
   this.driver_data = {};
-  this.driver_data.username = email.split('@')[0];
+  [this.driver_data.username] = email.split('@');
   this.driver_data.email = email;
   this.driver_data.first_name = 'fname';
   this.driver_data.last_name = 'lname';
@@ -108,61 +110,61 @@ When('Quiero registrarme como chofer con email {string}', function(email) {
   this.driver_data.preferred_location_name = 'Av Paseo Colón 850';
 });
 
-When('quiero registrar patente del auto {string}', function(carPlate) {
+When('quiero registrar patente del auto {string}', function (carPlate) {
   this.driver_data.car_plate = carPlate;
 });
 
-When('quiero registrar fabricante del auto {string}', function(carManufacturer) {
+When('quiero registrar fabricante del auto {string}', function (carManufacturer) {
   this.driver_data.car_manufacturer = carManufacturer;
 });
 
-When('quiero registrar modelo del auto {string}', function(carModel) {
+When('quiero registrar modelo del auto {string}', function (carModel) {
   this.driver_data.car_model = carModel;
 });
 
-When('quiero registrar año de fabricación del auto {int}', function(carYearOfProduction) {
+When('quiero registrar año de fabricación del auto {int}', function (carYearOfProduction) {
   this.driver_data.car_year_of_production = carYearOfProduction;
 });
 
-When('quiero registrar color del auto {string}', function(carColor) {
+When('quiero registrar color del auto {string}', function (carColor) {
   this.driver_data.car_color = carColor;
 });
 
-When('me registro como chofer', async function() {
+When('me registro como chofer', async function () {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/drivers',
     payload: this.driver_data,
   });
-  this.full_driver_response = response;
+  this.full_response = response;
   this.driver_response = response.json();
 });
 
-Then('La patente del auto registrado es {string}', function(carPlate) {
+Then('La patente del auto registrado es {string}', function (carPlate) {
   assert.equal(this.driver_response.car_plate, carPlate);
 });
 
-Then('el fabricante del auto es {string}', function(carManufacturer) {
+Then('el fabricante del auto es {string}', function (carManufacturer) {
   assert.equal(this.driver_response.car_manufacturer, carManufacturer);
 });
 
-Then('el modelo del auto es {string}', function(carModel) {
+Then('el modelo del auto es {string}', function (carModel) {
   assert.equal(this.driver_response.car_model, carModel);
 });
 
-Then('el año de fabricación del auto es {int}', function(carYearOfProduction) {
+Then('el año de fabricación del auto es {int}', function (carYearOfProduction) {
   assert.equal(this.driver_response.car_year_of_production, carYearOfProduction);
 });
 
-Then('el color del auto es {string}', function(carColor) {
+Then('el color del auto es {string}', function (carColor) {
   assert.equal(this.driver_response.car_color, carColor);
 });
 
-Given('el registro fallara por un error del servicio', function() {
-  process.env['SERVICE_USERS_URL'] = 'invalid';
+Given('el registro fallara por un error del servicio', function () {
+  process.env.SERVICE_USERS_URL = 'invalid';
 });
 
-Then('se devuelve un mensaje de error {string}', function(message) {
-  assert.equal(this.full_driver_response.statusCode, 503);
+Then('se devuelve un mensaje de error {string}', function (message) {
+  assert.equal(this.full_response.statusCode, 503);
   assert.equal(this.driver_response.msg, message);
 });
