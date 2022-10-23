@@ -42,18 +42,18 @@ async function usersGetByUsername(req, reply) {
   );
 
   if (driverResponse.status === 200) {
-    responseData.driver_information = {};
-    const driverInformation = responseData.driver_information;
-    driverInformation.phone_number = driverResponse.data.phone_number;
-    driverInformation.wallet = riderResponse.data.wallet;
-    driverInformation.preferred_location_name = riderResponse.data.preferred_location_name;
-
-    driverInformation.car = {};
-    driverInformation.car.plate = riderResponse.data.plate;
-    driverInformation.car.manufacturer = riderResponse.data.manufacturer;
-    driverInformation.carmodel = riderResponse.data.model;
-    driverInformation.caryear_of_production = riderResponse.data.year_of_production;
-    driverInformation.carcolor = riderResponse.data.color;
+    responseData.driver_information = {
+      phone_number: driverResponse.data.phone_number,
+      wallet: driverResponse.data.wallet,
+      preferred_location_name: driverResponse.data.preferred_location_name,
+    }
+    responseData.driver_information.car = {
+      plate: driverResponse.data.car_plate,
+      manufacturer: driverResponse.data.car_manufacturer,
+      model: driverResponse.data.car_model,
+      year_of_production: driverResponse.data.car_year_of_production,
+      color: driverResponse.data.car_color,
+    };
   }
 
   return reply.status(200)
