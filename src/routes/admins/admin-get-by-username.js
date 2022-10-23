@@ -1,18 +1,11 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
 
-async function adminCreate(req, reply) {
-  if (!req.body.username) {
-    return reply.status(422).send(
-      {
-        message: 'Error: Missing username',
-      },
-    );
-  }
+async function adminGet(req, reply) {
   const uri = `${settings.serviceUsersURL()}/`;
   let userFullResponse;
   try {
-    userFullResponse = await axios.get(`${uri}users/${req.body.username}`);
+    userFullResponse = await axios.get(`${uri}users/${req.params.username}`);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(
@@ -29,13 +22,10 @@ async function adminCreate(req, reply) {
       );
     }
   }
-
+  const adminsURI = `${settings.serviceUsersURL()}/admins/${userFullResponse.data.email}`;
   let adminFullResponse;
-  const body = {
-    email: userFullResponse.data.email,
-  };
   try {
-    adminFullResponse = await axios.post(`${uri}admins`, body);
+    adminFullResponse = await axios.get(adminsURI);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(
@@ -44,15 +34,8 @@ async function adminCreate(req, reply) {
         },
       );
     }
-    if (error.response && error.response.status === 422) {
-      return reply.status(422).send(
-        {
-          message: 'Error: Missing username',
-        },
-      );
-    }
   }
-  return reply.status(201).send(adminFullResponse.data);
+  return reply.status(200).send(adminFullResponse.data);
 }
 
-module.exports = adminCreate;
+module.exports = adminGet;

@@ -170,3 +170,23 @@ Then('se devuelve un mensaje de error {string}', function (message) {
   //       en varios escenarios
   assert.equal(this.full_response.json().message, message);
 });
+
+Given('Me registro como pasajero con nombre de usuario {string}', async function (username) {
+  const email = `${username}@${username}.com`;
+  this.registered_username = username;
+  const body = {
+    username,
+    first_name: 'fname',
+    last_name: 'lname',
+    email,
+    password: 'secret',
+    wallet: 'wallet',
+    phone_number: '1234567788',
+    preferred_location_name: 'El Monumental',
+  };
+  this.response = await app.inject({
+    method: 'POST',
+    url: '/api/v1/riders',
+    payload: body,
+  });
+});

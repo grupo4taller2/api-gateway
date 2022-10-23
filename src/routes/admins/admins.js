@@ -3,7 +3,7 @@ const adminSchemas = require('../../schemas/admin-schemas');
 const { adminSchema } = adminSchemas;
 
 const adminCreate = require('./admin-create');
-const adminGet = require('./admin-get-by-email');
+const adminGet = require('./admin-get-by-username');
 
 const adminPOSTSchema = {
   description: 'Create new admin account',
@@ -12,7 +12,7 @@ const adminPOSTSchema = {
     description: 'Payload for creating a new admin',
     type: 'object',
     properties: {
-      email: { type: 'string' },
+      username: { type: 'string' },
     },
   },
   response: {
@@ -25,12 +25,12 @@ const adminPOSTSchema = {
 };
 
 const adminGETSchema = {
-  description: 'Get admin by email',
+  description: 'Get admin by username',
   tags: ['admins'],
   params: {
-    email: {
+    username: {
       type: 'string',
-      default: 'admin@domain.com',
+      default: 'some_admin_username',
     },
   },
   response: {
@@ -52,7 +52,7 @@ async function adminRoutes(fastify, getUserOpts, done) {
     },
   );
   fastify.get(
-    '/admins/:email',
+    '/admins/:username',
     {
       onRequest: [fastify.verify],
       schema: adminGETSchema,

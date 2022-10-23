@@ -4,19 +4,19 @@ Feature: U4 Registro de administradores
   
   Scenario: U4.1 Registro exitoso de administrador
     Given No hay usuarios registrados
-      And Me registro como pasajero con email "mateo@mateo.com" y wallet "wallethg0122jk32ew4ho123"
-    When El administrador por defecto registra al usuario con email "mateo@mateo.com" como administrador
-    Then Existe un administrador con email "mateo@mateo.com"
+      And Me registro como pasajero con nombre de usuario "mateo"
+    When El administrador por defecto registra al usuario con nombre de usuario "mateo" como administrador
+    Then Existe un administrador con nombre de usuario "mateo"
   
-  Scenario: U4.2 Registro fallido de administrador falta email
+  Scenario: U4.2 Registro fallido de administrador falta nombre de usuario
     Given No hay usuarios registrados
-    When El administrador por defecto registra un administrador sin email
-    Then El sistema indicará que falta el email con mensaje "Error: Missing email"
+    When El administrador por defecto registra un administrador sin nombre de usuario
+    Then El sistema indicará que falta el nombre de usuario con mensaje "Error: Missing username"
      And el sistema no permitirá el registro
 
   Scenario: U4.3 Registro fallido de administrador error de servicio
     Given No hay usuarios registrados
-      And Me registro como pasajero con email "mateo@mateo.com" y wallet "wallethg0122jk32ew4ho123"
+      And Me registro como pasajero con nombre de usuario "mateo"
       And El registro de administrador fallará por un error de servicio 
-    When El administrador por defecto registra al usuario con email 'mateo@mateo.com' como administrador
+    When El administrador por defecto registra al usuario con nombre de usuario "mateo" como administrador
     Then se devuelve un mensaje de error "Servicio no disponible"

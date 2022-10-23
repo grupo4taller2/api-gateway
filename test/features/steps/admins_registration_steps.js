@@ -11,8 +11,8 @@ const builder = require('../../../src/server');
 
 const app = builder.buildTestServer();
 
-When('El administrador por defecto registra al usuario con email {string} como administrador', async function (email) {
-  const body = { email };
+When('El administrador por defecto registra al usuario con nombre de usuario {string} como administrador', async function (username) {
+  const body = { username };
   this.full_response = await app.inject({
     method: 'POST',
     url: '/api/v1/admins',
@@ -20,25 +20,25 @@ When('El administrador por defecto registra al usuario con email {string} como a
   });
 });
 
-Then('Existe un administrador con email {string}', async function (email) {
+Then('Existe un administrador con nombre de usuario {string}', async function (username) {
   assert.equal(this.full_response.statusCode, 201);
   this.full_response = await app.inject({
     method: 'GET',
-    url: `api/v1/admins/${email}`,
+    url: `api/v1/admins/${username}`,
   });
   assert.equal(this.full_response.statusCode, 200);
-  assert.equal(this.full_response.json().email, email);
+  assert.equal(this.full_response.json().username, username);
 });
 
-When('El administrador por defecto registra un administrador sin email', async function () {
+When('El administrador por defecto registra un administrador sin nombre de usuario', async function () {
   this.full_response = await app.inject({
     method: 'POST',
     url: '/api/v1/admins',
-    payload: { email: '' },
+    payload: { username: '' },
   });
 });
 
-Then('El sistema indicará que falta el email con mensaje {string}', function (msg) {
+Then('El sistema indicará que falta el nombre de usuario con mensaje {string}', function (msg) {
   assert.equal(this.full_response.json().message, msg);
 });
 
