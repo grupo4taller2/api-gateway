@@ -3,6 +3,7 @@ const adminSchemas = require('../../schemas/admin-schemas');
 const { adminSchema } = adminSchemas;
 
 const adminCreate = require('./admin-create');
+const adminGet = require('./admin-get-by-email');
 
 const adminPOSTSchema = {
   description: 'Create new admin account',
@@ -23,6 +24,24 @@ const adminPOSTSchema = {
   },
 };
 
+const adminGETSchema = {
+  description: 'Get admin by email',
+  tags: ['admins'],
+  params: {
+    email: {
+      type: 'string',
+      default: 'admin@domain.com',
+    },
+  },
+  response: {
+    200: {
+      description: 'Successful Response',
+      type: 'object',
+      properties: adminSchema,
+    },
+  },
+};
+
 async function adminRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/admins',
@@ -30,6 +49,14 @@ async function adminRoutes(fastify, getUserOpts, done) {
       onRequest: [fastify.verify],
       schema: adminPOSTSchema,
       handler: adminCreate,
+    },
+  );
+  fastify.get(
+    '/admins/:email',
+    {
+      onRequest: [fastify.verify],
+      schema: adminGETSchema,
+      handler: adminGet,
     },
   );
   done();

@@ -5,8 +5,8 @@ Feature: U4 Registro de administradores
   Scenario: U4.1 Registro exitoso de administrador
     Given No hay usuarios registrados
       And Me registro como pasajero con email "mateo@mateo.com" y wallet "wallethg0122jk32ew4ho123"
-    When El administrador por defecto registra al usuario con email 'mateo@mateo.com' como administrador
-    Then Existe un administrador con email 'mateo@mateo.com'
+    When El administrador por defecto registra al usuario con email "mateo@mateo.com" como administrador
+    Then Existe un administrador con email "mateo@mateo.com"
   
   Scenario: U4.2 Registro fallido de administrador falta email
     Given No hay usuarios registrados

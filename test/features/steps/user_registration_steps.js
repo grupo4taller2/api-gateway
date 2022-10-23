@@ -137,27 +137,27 @@ When('me registro como chofer', async function () {
     payload: this.driver_data,
   });
   this.full_response = response;
-  this.driver_response = response.json();
+  this.response = response.json();
 });
 
 Then('La patente del auto registrado es {string}', function (carPlate) {
-  assert.equal(this.driver_response.car_plate, carPlate);
+  assert.equal(this.response.car_plate, carPlate);
 });
 
 Then('el fabricante del auto es {string}', function (carManufacturer) {
-  assert.equal(this.driver_response.car_manufacturer, carManufacturer);
+  assert.equal(this.response.car_manufacturer, carManufacturer);
 });
 
 Then('el modelo del auto es {string}', function (carModel) {
-  assert.equal(this.driver_response.car_model, carModel);
+  assert.equal(this.response.car_model, carModel);
 });
 
 Then('el año de fabricación del auto es {int}', function (carYearOfProduction) {
-  assert.equal(this.driver_response.car_year_of_production, carYearOfProduction);
+  assert.equal(this.response.car_year_of_production, carYearOfProduction);
 });
 
 Then('el color del auto es {string}', function (carColor) {
-  assert.equal(this.driver_response.car_color, carColor);
+  assert.equal(this.response.car_color, carColor);
 });
 
 Given('el registro fallara por un error del servicio', function () {
@@ -166,5 +166,7 @@ Given('el registro fallara por un error del servicio', function () {
 
 Then('se devuelve un mensaje de error {string}', function (message) {
   assert.equal(this.full_response.statusCode, 503);
-  assert.equal(this.driver_response.message, message);
+  // TODO: Normalizar el this.full_response, se accede de varios steps
+  //       en varios escenarios
+  assert.equal(this.full_response.json().message, message);
 });
