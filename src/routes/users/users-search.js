@@ -43,16 +43,22 @@ async function fetchDriverData(email) {
   };
 }
 
+async function fetchUserData(user) {
+  const fullUserData = user;
+  fullUserData.rider_information = fetchRiderData(user.email);
+  fullUserData.driver_information = fetchRiderData(user.email);
+  return fullUserData;
+}
+
 async function findByUsernameLike(like) {
   const uri = `${settings.serviceUsersURL()}/users/search/${like}`;
   const foundUsersResponse = await axios.get(uri);
   const foundUsers = [];
-  for (const user of foundUsersResponse.data) {
-    user.rider_information = await fetchRiderData(user.email);
-    user.driver_information = await fetchDriverData(user.email);
-    foundUsers.push(user);
-  }
-  return foundUsers;
+  foundUsersResponse.data.forEach((element) => {
+    foundUsers.push(fetchUserData(element));
+  });
+  const resolvedFoundUsers = await Promise.all(foundUsers);
+  return resolvedFoundUsers;
 }
 
 async function findByEmail(email) {
