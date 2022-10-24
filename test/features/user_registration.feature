@@ -31,4 +31,18 @@ Feature: U1 Registro de usuarios
     When Quiero registrarme como chofer con email "mateo@mateo.com"
       And me registro como chofer
     Then se devuelve un mensaje de error "Servicio no disponible"
-        
+
+  Scenario: U1.6 Obtención de chofer registrado
+    Given No hay usuarios registrados
+    When Quiero registrarme como chofer con email "mateo@mateo.com"
+      And quiero registrar patente del auto "AAA 123"
+      And quiero registrar fabricante del auto "Audi"
+      And quiero registrar modelo del auto "TT"
+      And quiero registrar año de fabricación del auto 2022
+      And quiero registrar color del auto "Negro"
+      And me registro como chofer
+      And Realizo una busqueda por email con "mateo@mateo.com"
+    Then obtengo un chofer con email "mateo@mateo.com"
+      And obtengo un chofer con patente del auto "AAA 123"
+      And obtengo un chofer con fabricante del auto "Audi"
+      And obtengo un chofer con color de auto "Negro"

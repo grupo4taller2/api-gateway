@@ -190,3 +190,19 @@ Given('Me registro como pasajero con nombre de usuario {string}', async function
     payload: body,
   });
 });
+
+Then('obtengo un chofer con email {string}', function (email) {
+  assert.equal(this.searched_user.email, email);
+});
+
+Then('obtengo un chofer con patente del auto {string}', function (plate) {
+  assert.equal(this.searched_user.driver_information.car.plate, plate);
+});
+
+Then('obtengo un chofer con fabricante del auto {string}', function (manufacturer) {
+  assert.equal(this.searched_user.driver_information.car.manufacturer, manufacturer);
+});
+
+Then('obtengo un chofer con color de auto {string}', function (color) {
+  assert.equal(this.searched_user.driver_information.car.color, color);
+});
