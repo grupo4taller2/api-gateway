@@ -93,7 +93,6 @@ async function driversPOST(req, reply) {
   try {
     driverRegistrationResponse = await axios.post(`${settings.serviceUsersURL()}/drivers`, req.body);
   } catch (error) {
-    console.log(error.response);
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(
         {
