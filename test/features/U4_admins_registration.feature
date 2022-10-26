@@ -9,7 +9,6 @@ Feature: U4 Registro de administradores
     Then Existe un administrador con nombre de usuario "mateo"
   
   Scenario: U4.2 Registro fallido de administrador falta nombre de usuario
-    Given No hay usuarios registrados
     When El administrador por defecto registra un administrador sin nombre de usuario
     Then El sistema indicará que falta el nombre de usuario con mensaje "Error: Missing username"
      And el sistema no permitirá el registro
