@@ -16,6 +16,19 @@ function buildServer() {
   app.register(require('./routes/drivers'), { prefix: API_PREFIX });
   app.register(require('./routes/locations/locations'), { prefix: API_PREFIX });
   app.register(require('./routes/healthcheck'), { prefix: API_PREFIX });
+
+  app.addHook('preHandler', (req, res, done) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "POST");
+    res.header("Access-Control-Allow-Headers",  "*");
+    
+    const isPreflight = /options/i.test(req.method);
+    if (isPreflight) {
+      return res.send();
+    }
+    done();
+  });
+
   return app;
 }
 
