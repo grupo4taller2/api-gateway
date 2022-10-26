@@ -14,7 +14,7 @@ async function adminGet(req, reply) {
         },
       );
     }
-    if (!error.response || error.response.status === 404) {
+    if (error.response && error.response.status === 404) {
       return reply.status(409).send(
         {
           message: 'Error: Username does not exist',
@@ -31,6 +31,13 @@ async function adminGet(req, reply) {
       return reply.status(503).send(
         {
           message: 'Servicio no disponible',
+        },
+      );
+    }
+    if (error.response && error.response.status === 404) {
+      return reply.status(409).send(
+        {
+          message: `Error: user ${req.params.username} is not an admin`,
         },
       );
     }
