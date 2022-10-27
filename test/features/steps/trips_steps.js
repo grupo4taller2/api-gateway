@@ -11,17 +11,19 @@ const builder = require('../../../src/server');
 
 const app = builder.buildTestServer();
 
-When('solicito iniciar un viaje hacia {string}', function (string) {
+When('solicito iniciar un viaje normal hacia {string}', async function (string) {
   const body = {
-    username:
-    rider_location_name:
-    rider_desired_destination_name:
-    trip_type:
-  }
+    rider_username: this.currentRider.username,
+    rider_location_name: this.currentRider.preferred_location_name,
+    rider_desired_destination_name: string,
+    trip_type: 'regular',
+  };
   this.tripResponse = await app.inject({
     method: 'POST',
-    url: '/api/v1/trips'
-  })
+    url: '/api/v1/trips',
+    payload: body,
+  });
+  assert.equal(this.tripResponse.statusCode, 201);
 });
 
 Then('se inicia la solicitud de búsqueda de chofer para iniciar el viaje', function () {

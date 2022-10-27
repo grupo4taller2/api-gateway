@@ -48,7 +48,7 @@ When('me registro como pasajero', async function () {
   });
   this.full_rider_response = response;
   this.rider_response = response.json();
-  this.current_rider = response.json();
+  this.currentRider = response.json();
 });
 
 When('como pasajero con email {string} cambio mi nombre a {string}', async function (email, newName) {
