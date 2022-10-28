@@ -2,11 +2,11 @@ const axios = require('axios');
 const settings = require('../../conf/config');
 
 async function tripPrice(req, reply) {
-  const directionsURI = `${settings.serviceTripsURL()}/trips/directions`;
+  const directionsURI = `${settings.serviceTripsURL()}/directions/search`;
   const pricingURI = `${settings.servicePricingURL()}`;
   const directionsParams = {
-    location_name: req.query.location_name,
-    destination_name: req.query.destination_name,
+    origin: req.query.origin,
+    destination: req.query.destination,
   };
 
   let directionsResponse;
