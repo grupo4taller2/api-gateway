@@ -30,13 +30,21 @@ const requestedByRiderTripSchema = {
       longitude: { type: 'number', example: -58.3984251 },
     },
   },
+  type: {
+    type: 'string',
+    example: 'regular',
+  },
   estimated_time: {
     type: 'string',
     example: 'T013000',
   },
-  type: {
+  estimated_price: {
+    type: 'number',
+    example: 0.35,
+  },
+  distance: {
     type: 'string',
-    example: 'regular',
+    example: '6.3 km',
   },
   timestamp: {
     type: 'string',

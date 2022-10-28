@@ -17,7 +17,7 @@ module.exports = fp(async function(fastify, opts) {
       consumes: ['application/json'],
       produces: ['application/json'],
       tags: [
-        //{ name: 'user', description: 'User related end-points' },
+        { name: 'users', description: 'User related end-points' },
         //{ name: 'code', description: 'Code related end-points' }
       ],
       definitions: {
