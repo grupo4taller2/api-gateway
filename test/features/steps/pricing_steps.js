@@ -18,8 +18,8 @@ When('solicito cotizar un viaje {string} hacia {string}', async function (type, 
     method: 'GET',
     url: '/api/v1/trips/price',
     query: {
-      origin: originLocationName,
-      destination: destinationLocationName,
+      origin_address: originLocationName,
+      destination_address: destinationLocationName,
       trip_type: type,
     },
   });

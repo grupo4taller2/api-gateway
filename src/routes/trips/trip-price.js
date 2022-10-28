@@ -3,7 +3,7 @@ const settings = require('../../conf/config');
 
 async function tripPrice(req, reply) {
   const directionsURI = `${settings.serviceTripsURL()}/directions/search`;
-  const pricingURI = `${settings.servicePricingURL()}`;
+  const pricingURI = `${settings.servicePricingURL()}/estimations`;
   const directionsParams = {
     origin: req.query.origin_address,
     destination: req.query.destination_address,
