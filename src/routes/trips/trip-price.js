@@ -26,10 +26,10 @@ async function tripPrice(req, reply) {
     pricingParams.type = req.query.type;
     pricingParams.estimated_time = directionsResponse.data.estimated_time;
     pricingParams.distance = directionsResponse.data.distance;
-    pricingParams.location_name = req.query.location_name;
-    pricingParams.location_latitude = directionsResponse.data.location_latitude;
-    pricingParams.location_longitude = directionsResponse.data.location_longitude;
-    pricingParams.destination_name = req.query.destination_name;
+    pricingParams.origin_address = req.query.origin_address;
+    pricingParams.origin_latitude = directionsResponse.data.origin_latitude;
+    pricingParams.origin_longitude = directionsResponse.data.origin_longitude;
+    pricingParams.destination_address = req.query.destination_address;
     pricingParams.destination_latitude = directionsResponse.data.destination_latitude;
     pricingParams.destination_longitude = directionsResponse.data.destination_longitude;
     pricingResponse = await axios.get(pricingURI, { params: pricingParams });

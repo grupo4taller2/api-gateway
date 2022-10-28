@@ -30,8 +30,8 @@ const tripPriceSchema = {
   description: 'Estimate price of a trip as a rider',
   tags: ['trips'],
   querystring: {
-    location_name: { type: 'string', description: 'Current location address' },
-    destination_name: { type: 'string', description: 'Destination address' },
+    origin_address: { type: 'string', description: 'Current location address' },
+    destination_address: { type: 'string', description: 'Destination address' },
     trip_type: { type: 'string', description: 'Trip type' },
   },
   response: {

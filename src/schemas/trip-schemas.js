@@ -53,10 +53,10 @@ const requestedByRiderTripSchema = {
 };
 
 const estimatedTripSchema = {
-  location: {
+  origin: {
     type: 'object',
     properties: {
-      name: { type: 'string', example: 'Av. Paseo Colón 850, Buenos Aires' },
+      address: { type: 'string', example: 'Av. Paseo Colón 850, Buenos Aires' },
       latitude: { type: 'number', example: -34.6174635 },
       longitude: { type: 'number', example: -58.369979 },
     },
@@ -64,7 +64,7 @@ const estimatedTripSchema = {
   destination: {
     type: 'object',
     properties: {
-      name: { type: 'string', example: 'Gral. Las Heras 2214, Buenos Aires' },
+      address: { type: 'string', example: 'Gral. Las Heras 2214, Buenos Aires' },
       latitude: { type: 'number', example: -34.5885454 },
       longitude: { type: 'number', example: -58.3984251 },
     },
