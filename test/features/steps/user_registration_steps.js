@@ -7,6 +7,8 @@ const {
 
 const assert = require('assert');
 
+const settings = require('../../../src/conf/config');
+
 const builder = require('../../../src/server');
 
 const app = builder.buildTestServer();
@@ -161,7 +163,7 @@ Then('el color del auto es {string}', function (carColor) {
 });
 
 Given('el registro fallara por un error del servicio', function () {
-  process.env.SERVICE_USERS_URL = 'invalid';
+  settings.changeServiceURL('users', 'invalid');
 });
 
 Then('se devuelve un mensaje de error {string}', function (message) {

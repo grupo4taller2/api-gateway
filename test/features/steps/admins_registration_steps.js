@@ -7,6 +7,8 @@ const {
 
 const assert = require('assert');
 
+const settings = require('../../../src/conf/config');
+
 const builder = require('../../../src/server');
 
 const app = builder.buildTestServer();
@@ -47,5 +49,5 @@ Then('el sistema no permitirá el registro', function () {
 });
 
 Given('El registro de administrador fallará por un error de servicio', function () {
-  process.env.SERVICE_USERS_URL = 'invalid';
+  settings.changeServiceURL('users', 'invalid');
 });

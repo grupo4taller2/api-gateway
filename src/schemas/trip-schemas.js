@@ -30,7 +30,7 @@ const requestedByRiderTripSchema = {
       longitude: { type: 'number', example: -58.3984251 },
     },
   },
-  type: {
+  trip_type: {
     type: 'string',
     example: 'regular',
   },
@@ -52,5 +52,41 @@ const requestedByRiderTripSchema = {
   },
 };
 
+const estimatedTripSchema = {
+  location: {
+    type: 'object',
+    properties: {
+      name: { type: 'string', example: 'Av. Paseo Colón 850, Buenos Aires' },
+      latitude: { type: 'number', example: -34.6174635 },
+      longitude: { type: 'number', example: -58.369979 },
+    },
+  },
+  destination: {
+    type: 'object',
+    properties: {
+      name: { type: 'string', example: 'Gral. Las Heras 2214, Buenos Aires' },
+      latitude: { type: 'number', example: -34.5885454 },
+      longitude: { type: 'number', example: -58.3984251 },
+    },
+  },
+  trip_type: {
+    type: 'string',
+    example: 'regular',
+  },
+  estimated_time: {
+    type: 'string',
+    example: 'T013000',
+  },
+  estimated_price: {
+    type: 'number',
+    example: 0.35,
+  },
+  distance: {
+    type: 'string',
+    example: '6.3 km',
+  }, // FIXME: agregar la ruta encodeada aca?
+};
+
 exports.riderRequestTripSchema = riderRequestTripSchema;
 exports.requestedByRiderTripSchema = requestedByRiderTripSchema;
+exports.estimatedTripSchema = estimatedTripSchema;
