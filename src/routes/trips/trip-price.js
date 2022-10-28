@@ -5,8 +5,8 @@ async function tripPrice(req, reply) {
   const directionsURI = `${settings.serviceTripsURL()}/directions/search`;
   const pricingURI = `${settings.servicePricingURL()}`;
   const directionsParams = {
-    origin: req.query.origin,
-    destination: req.query.destination,
+    origin: req.query.origin_address,
+    destination: req.query.destination_address,
   };
 
   let directionsResponse;
