@@ -40,17 +40,17 @@ async function tripPrice(req, reply) {
       );
     }
   }
-  const location = {};
-  location.name = req.query.location_name;
-  location.latitude = directionsResponse.data.location_latitude;
-  location.longitude = directionsResponse.data.location_longitude;
+  const origin = {};
+  origin.address = req.query.origin_address;
+  origin.latitude = directionsResponse.data.origin_latitude;
+  origin.longitude = directionsResponse.data.origin_longitude;
   const destination = {};
-  destination.name = req.query.destination_name;
+  destination.address = req.query.destination_address;
   destination.latitude = directionsResponse.data.destination_latitude;
   destination.longitude = directionsResponse.data.destination_longitude;
 
   const responseBody = {};
-  responseBody.location = location;
+  responseBody.origin = origin;
   responseBody.destination = destination;
   responseBody.trip_type = req.query.trip_type;
   responseBody.estimated_time = directionsResponse.data.estimated_time;

@@ -31,27 +31,27 @@ Then('se devuelve el precio para el viaje', function () {
   assert(typeof price === 'number', `type was: ${typeof price}`);
 });
 
-Then('se devuelve como nombre de origen {string}', function (locationName) {
-  assert.equal(this.pricedTrip.location.name, locationName);
+Then('se devuelve como nombre de origen {string}', function (address) {
+  assert.equal(this.pricedTrip.origin.address, address);
 });
 
 Then('se devuelve como latitud de origen aproximadamente {float}', function (locationLatitude) {
   // https://gis.stackexchange.com/questions/8650/measuring-accuracy-of-latitude-and-longitude
-  const obtainedLatitude = this.pricedTrip.location.latitude.toFixed(4);
+  const obtainedLatitude = this.pricedTrip.origin.latitude.toFixed(4);
   const desiredLatitude = locationLatitude.toFixed(4);
   const delta = Math.abs(obtainedLatitude - desiredLatitude);
-  assert(delta <= 0.0005);
+  assert(delta <= 0.005);
 });
 
 Then('se devuelve como longitud de origen aproximadamente {float}', function (locationLongitude) {
-  const obtainedLongitude = this.pricedTrip.location.longitude.toFixed(4);
+  const obtainedLongitude = this.pricedTrip.origin.longitude.toFixed(4);
   const desiredLongitude = locationLongitude.toFixed(4);
   const delta = Math.abs(obtainedLongitude - desiredLongitude);
-  assert(delta <= 0.0005);
+  assert(delta <= 0.005, `was: ${delta}`);
 });
 
-Then('se devuelve como nombre de destino {string}', function (destinationName) {
-  assert.equal(this.pricedTrip.destination.name, destinationName);
+Then('se devuelve como nombre de destino {string}', function (address) {
+  assert.equal(this.pricedTrip.destination.address, address);
 });
 
 Then('se devuelve como latitud de destino aproximadamente {float}', function (destinationLongitude) {
@@ -69,16 +69,24 @@ Then('se devuelve como longitud de destino aproximadamente {float}', function (d
 });
 
 Then('se devuelve un tiempo estimado', function () {
-  const timeRegex = /^A\d{6}$/i;
+  // const floatRegex = /^[+-]?([0-9]*[.])?[0-9]+$/i;
   const time = this.pricedTrip.estimated_time;
-  assert(timeRegex.test(time));
+  // const [value, unit] = time.split(' ');
+  assert(time.includes('hr') || time.includes('mins'));
+  // assert(floatRegex.test(value));
 });
 
 Then('se devuelve una distancia', function () {
   // FIXME IS NUMERIC AND km
   const { distance } = this.pricedTrip;
-  assert(distance.includes('km') || distance.includes('m'));
-  const distanceValue = distance.split(' ')[0];
-  const floatRegex = /^(\d*\.)?\d+$/gim;
-  assert(floatRegex.test(distanceValue));
+  const [value, unit] = distance.split(' ')
+  assert(unit === 'm' || distance.includes('m'));
+  let regex;
+  if (unit === 'm') {
+    regex = /^\d*$/;
+  }
+  if (unit === 'km') {
+    regex = /^(\d*\.)?\d+$/gim;
+  }
+  assert(regex.test(value), `was: ${value}`);
 });

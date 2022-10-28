@@ -36,7 +36,7 @@ const requestedByRiderTripSchema = {
   },
   estimated_time: {
     type: 'string',
-    example: 'T013000',
+    example: '17 mins',
   },
   estimated_price: {
     type: 'number',
@@ -75,7 +75,7 @@ const estimatedTripSchema = {
   },
   estimated_time: {
     type: 'string',
-    example: 'T013000',
+    example: '17 mins',
   },
   estimated_price: {
     type: 'number',
