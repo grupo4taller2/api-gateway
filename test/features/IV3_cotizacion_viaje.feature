@@ -1,3 +1,4 @@
+@now
 Feature: IV3 Cotización del viaje
   Como pasajero quiero poder saber previamente cual es el precio estimado del viaje a realizar,
   sabiendo el destino seleccionado y la modalidad de viaje.
