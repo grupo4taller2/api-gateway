@@ -28,7 +28,7 @@ When('solicito cotizar un viaje {string} hacia {string}', async function (type, 
 
 Then('se devuelve el precio para el viaje', function () {
   const price = this.pricedTrip.estimated_price;
-  assert(typeof price === 'number');
+  assert(typeof price === 'number', `type was: ${typeof price}`);
 });
 
 Then('se devuelve como nombre de origen {string}', function (locationName) {

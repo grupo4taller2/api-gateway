@@ -1,6 +1,5 @@
 class Settings {
   constructor() {
-    //this.serviceUsersURLBAK = process.env.SERVICE_USERS_URL;
     this.SERVICE_USERS_URL = process.env.SERVICE_USERS_URL;
     this.SERVICE_TRIPS_URL = process.env.SERVICE_TRIPS_URL;
     this.SERVICE_PRICING_URL = process.env.SERVICE_PRICING_URL;
