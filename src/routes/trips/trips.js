@@ -8,6 +8,7 @@ const {
 
 const tripRequest = require('./trip-request');
 const tripPrice = require('./trip-price');
+const tripGet = require('./trip-get');
 
 const tripRequestSchema = {
   description: 'Request a new trip as a rider',
@@ -19,6 +20,24 @@ const tripRequestSchema = {
   },
   response: {
     201: {
+      description: 'Successful Response',
+      type: 'object',
+      properties: requestedByRiderTripSchema,
+    },
+  },
+};
+
+const tripGetSchema = {
+  description: 'Get trip by id',
+  tags: ['trips'],
+  params: {
+    id: {
+      type: 'string',
+      default: 'a8ae2781-c86a-4719-a4b5-2117942c23c6',
+    },
+  },
+  response: {
+    200: {
       description: 'Successful Response',
       type: 'object',
       properties: requestedByRiderTripSchema,
@@ -58,6 +77,14 @@ async function tripsRoutes(fastify, getUserOpts, done) {
       onRequest: [fastify.verify],
       schema: tripPriceSchema,
       handler: tripPrice,
+    },
+  );
+  fastify.get(
+    '/trips/:id',
+    {
+      onRequest: [fastify.verify],
+      schema: tripGetSchema,
+      handler: tripGet,
     },
   );
   done();

@@ -1,6 +1,6 @@
 Feature: IV4 Confirmación de viaje
   Como pasajero quiero poder confirmar la realización del viaje
-  
+  @now
   Scenario: IV4.1 Confirmación del viaje
     Given Quiero registrarme como pasajero con usuario 'mateo'
       And quiero registrarme como pasajero con email 'mateo@mateo.com'
@@ -14,4 +14,3 @@ Feature: IV4 Confirmación de viaje
     Then se inicia la solicitud de búsqueda de chofer para iniciar el viaje desde 'Av. Paseo Colón 850, Buenos Aires' hasta 'Gral. Las Heras 2214, Buenos Aires'
   @wip
   Scenario: IV4.2 Rechazo del viaje
-  

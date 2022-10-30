@@ -18,6 +18,7 @@ async function tripRequest(req, reply) {
       );
     }
   }
+  tripResponse.data.trip_id = tripResponse.data.id;
   return reply.status(201).send(tripResponse.data);
 }
 

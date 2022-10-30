@@ -5,6 +5,7 @@ const riderRequestTripSchema = {
   trip_type: { type: 'string' },
 };
 
+// FIXME: ADD STATE OR CHANGE NAME
 const requestedByRiderTripSchema = {
   trip_id: {
     type: 'string',
@@ -49,6 +50,10 @@ const requestedByRiderTripSchema = {
   timestamp: {
     type: 'string',
     format: 'date-time',
+  },
+  trip_state: {
+    type: 'string',
+    example: 'driver_waiting',
   },
 };
 
