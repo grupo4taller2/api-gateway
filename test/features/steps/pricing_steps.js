@@ -69,24 +69,13 @@ Then('se devuelve como longitud de destino aproximadamente {float}', function (d
 });
 
 Then('se devuelve un tiempo estimado', function () {
-  // const floatRegex = /^[+-]?([0-9]*[.])?[0-9]+$/i;
+  const regex = /^\d+$/;
   const time = this.pricedTrip.estimated_time;
-  // const [value, unit] = time.split(' ');
-  assert(time.includes('hr') || time.includes('mins'));
-  // assert(floatRegex.test(value));
+  assert(regex.test(time));
 });
 
 Then('se devuelve una distancia', function () {
-  // FIXME IS NUMERIC AND km
   const { distance } = this.pricedTrip;
-  const [value, unit] = distance.split(' ')
-  assert(unit === 'm' || distance.includes('m'));
-  let regex;
-  if (unit === 'm') {
-    regex = /^\d*$/;
-  }
-  if (unit === 'km') {
-    regex = /^(\d*\.)?\d+$/gim;
-  }
-  assert(regex.test(value), `was: ${value}`);
+  const regex = /^\d+$/;
+  assert(regex.test(distance));
 });
