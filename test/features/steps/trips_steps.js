@@ -26,7 +26,9 @@ When('solicito iniciar un viaje normal hacia {string}', async function (string) 
   assert.equal(this.tripResponse.statusCode, 201);
 });
 
-Then('se inicia la solicitud de búsqueda de chofer para iniciar el viaje', function () {
+Then('se inicia la solicitud de búsqueda de chofer para iniciar el viaje desde {string} hasta {string}', function (origin, destination) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  const trip = this.tripResponse.json();
+  assert.equal(trip.origin.address, origin);
+  assert.equal(trip.destination.address, destination);
 });

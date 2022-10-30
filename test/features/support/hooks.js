@@ -19,8 +19,12 @@ BeforeAll(async function(){
   });
 })
 
-After(function() {
+After(async function() {
     settings.reset();
+    await app.inject({
+      method: 'POST',
+      url: '/reset',
+    });
 })
 
 AfterAll(async function() {
