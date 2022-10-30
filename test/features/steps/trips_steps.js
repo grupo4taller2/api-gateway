@@ -14,8 +14,8 @@ const app = builder.buildTestServer();
 When('solicito iniciar un viaje normal hacia {string}', async function (string) {
   const body = {
     rider_username: this.currentRider.username,
-    rider_location_name: this.currentRider.preferred_location_name,
-    rider_desired_destination_name: string,
+    rider_origin_address: this.currentRider.preferred_location_name,
+    rider_destination_address: string,
     trip_type: 'regular',
   };
   this.tripResponse = await app.inject({
