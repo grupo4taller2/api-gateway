@@ -24,8 +24,8 @@ async function tripPrice(req, reply) {
   try {
     const pricingParams = directionsParams;
     pricingParams.type = req.query.type;
-    pricingParams.estimated_time = directionsResponse.data.estimated_time;
-    pricingParams.distance = directionsResponse.data.distance;
+    pricingParams.estimated_time = directionsResponse.data.estimated_time.seconds;
+    pricingParams.distance = directionsResponse.data.distance.meters;
     pricingParams.origin_address = req.query.origin_address;
     pricingParams.origin_latitude = directionsResponse.data.origin_latitude;
     pricingParams.origin_longitude = directionsResponse.data.origin_longitude;
@@ -37,6 +37,11 @@ async function tripPrice(req, reply) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(
         { message: 'Service unavailable' },
+      );
+    }
+    if (error.response && error.response.status === 422) {
+      return reply.status(422).send(
+        { message: 'Wrong query params' },
       );
     }
   }
@@ -53,8 +58,8 @@ async function tripPrice(req, reply) {
   responseBody.origin = origin;
   responseBody.destination = destination;
   responseBody.trip_type = req.query.trip_type;
-  responseBody.estimated_time = directionsResponse.data.estimated_time;
-  responseBody.distance = directionsResponse.data.distance;
+  responseBody.estimated_time = directionsResponse.data.estimated_time.repr;
+  responseBody.distance = directionsResponse.data.distance.repr;
   responseBody.estimated_price = pricingResponse.data.estimated_price;
 
   return reply.status(200).send(responseBody);
