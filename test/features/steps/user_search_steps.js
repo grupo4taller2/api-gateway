@@ -19,7 +19,7 @@ When('Realizo una busqueda por email con {string}', async function (email) {
   });
   assert.equal(response.statusCode, 200);
   this.found_users = response.json();
-  this.searched_user = this.found_users[0];
+  [this.searched_user] = this.found_users;
 });
 
 Then('Obtengo un pasajero con email {string}', function (searchedEmail) {

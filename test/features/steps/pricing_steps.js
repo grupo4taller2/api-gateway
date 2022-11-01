@@ -79,7 +79,7 @@ Then('se devuelve un tiempo estimado', function () {
 Then('se devuelve una distancia', function () {
   // FIXME IS NUMERIC AND km
   const { distance } = this.pricedTrip;
-  const [value, unit] = distance.split(' ')
+  const [value, unit] = distance.split(' ');
   assert(unit === 'm' || distance.includes('m'));
   let regex;
   if (unit === 'm') {
