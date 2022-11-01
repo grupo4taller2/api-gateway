@@ -1,24 +1,26 @@
-const fp = require('fastify-plugin')
+const fp = require('fastify-plugin');
+const swagger = require('@fastify/swagger');
 
-module.exports = fp(async function(fastify, opts) {
-  fastify.register(require('@fastify/swagger'), {
+// eslint-disable-next-line no-unused-vars
+async function setupSwagger(fastify, opts) {
+  fastify.register(swagger, {
     routePrefix: '/docs',
     swagger: {
       info: {
         title: 'Test swagger',
         description: 'Testing the Fastify swagger API',
-        version: '0.1.0'
+        version: '0.1.0',
       },
       externalDocs: {
         url: 'https://swagger.io',
-        description: 'Find more info here'
+        description: 'Find more info here',
       },
       schemes: ['http'],
       consumes: ['application/json'],
       produces: ['application/json'],
       tags: [
         { name: 'users', description: 'User related end-points' },
-        //{ name: 'code', description: 'Code related end-points' }
+        // { name: 'code', description: 'Code related end-points' }
       ],
       definitions: {
       },
@@ -26,20 +28,18 @@ module.exports = fp(async function(fastify, opts) {
         apiKey: {
           type: 'apiKey',
           name: 'apiKey',
-          in: 'header'
-        }
-      }
+          in: 'header',
+        },
+      },
     },
     uiConfig: {
       docExpansion: 'list',
-      deepLinking: false
-    },
-    uiHooks: {
-      onRequest: function (request, reply, next) { next() },
-      preHandler: function (request, reply, next) { next() }
+      deepLinking: false,
     },
     staticCSP: true,
     transformStaticCSP: (header) => header,
-    exposeRoute: true
-  })
-});
+    exposeRoute: true,
+  });
+}
+
+module.exports = fp(setupSwagger);
