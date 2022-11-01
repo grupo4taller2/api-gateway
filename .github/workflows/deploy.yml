@@ -24,6 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: install dependencies
-        run: npm install
+        run: |
+          npm install --save-dev
       - name: run linter
-        run: npx eslint src/** test/**  
+        run: |
+          npx eslint src/** test/**  
