@@ -17,7 +17,7 @@ async function usersGetByUsername(req, reply) {
       );
     }
   }
-  
+
   responseData.username = userResponse.data.username;
   responseData.email = userResponse.data.email;
   responseData.first_name = userResponse.data.first_name;
@@ -46,7 +46,7 @@ async function usersGetByUsername(req, reply) {
       phone_number: driverResponse.data.phone_number,
       wallet: driverResponse.data.wallet,
       preferred_location_name: driverResponse.data.preferred_location_name,
-    }
+    };
     responseData.driver_information.car = {
       plate: driverResponse.data.car_plate,
       manufacturer: driverResponse.data.car_manufacturer,

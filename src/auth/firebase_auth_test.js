@@ -1,10 +1,11 @@
-const fastifyPlugin = require("fastify-plugin")
+const fastifyPlugin = require('fastify-plugin');
 
-async function verify(fastify,options){
-    
-    fastify.decorate("verify", async function(request, reply) {
-        return;
-    });
+// eslint-disable-next-line no-unused-vars
+async function verify(fastify, options) {
+  // eslint-disable-next-line no-unused-vars
+  fastify.decorate('verify', async (request, reply) => {
+
+  });
 }
 
-module.exports =  fastifyPlugin(verify);
+module.exports = fastifyPlugin(verify);

@@ -9,12 +9,12 @@ const riderPOSTSchema = {
     type: 'object',
     properties: {
       username: { type: 'string' },
-      email: { type: 'string', },
-      first_name: { type: 'string', },
-      last_name: { type: 'string', },
-      phone_number: { type: 'string', },
-      wallet: { type: 'string', },
-      preferred_location_name: { type: 'string', },
+      email: { type: 'string' },
+      first_name: { type: 'string' },
+      last_name: { type: 'string' },
+      phone_number: { type: 'string' },
+      wallet: { type: 'string' },
+      preferred_location_name: { type: 'string' },
     },
   },
   response: {
@@ -47,11 +47,11 @@ const riderPATCHchema = {
     description: 'Payload for updating an existing rider',
     type: 'object',
     properties: {
-      first_name: { type: 'string', },
-      last_name: { type: 'string', },
-      phone_number: { type: 'string', },
-      wallet: { type: 'string', },
-      preferred_location_name: { type: 'string', },
+      first_name: { type: 'string' },
+      last_name: { type: 'string' },
+      phone_number: { type: 'string' },
+      wallet: { type: 'string' },
+      preferred_location_name: { type: 'string' },
     },
   },
   response: {
@@ -101,7 +101,7 @@ async function ridersRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/riders',
     {
-      onRequest:[fastify.verify],
+      onRequest: [fastify.verify],
       schema: riderPOSTSchema,
       handler: ridersPOST,
     },
@@ -109,7 +109,7 @@ async function ridersRoutes(fastify, getUserOpts, done) {
   fastify.patch(
     '/riders/:email/status',
     {
-      onRequest:[fastify.verify],
+      onRequest: [fastify.verify],
       schema: riderPATCHchema,
       handler: ridersPATCH,
     },

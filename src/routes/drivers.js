@@ -57,11 +57,11 @@ const driverPATCHchema = {
     description: 'Payload for updating an existing driver',
     type: 'object',
     properties: {
-      first_name: { type: 'string', },
-      last_name: { type: 'string', },
-      phone_number: { type: 'string', },
-      wallet: { type: 'string', },
-      preferred_location_name: { type: 'string', },
+      first_name: { type: 'string' },
+      last_name: { type: 'string' },
+      phone_number: { type: 'string' },
+      wallet: { type: 'string' },
+      preferred_location_name: { type: 'string' },
       car_manufacturer: { type: 'string' },
       car_model: { type: 'string' },
       car_year_of_production: { type: 'integer' },
@@ -115,7 +115,7 @@ async function driversRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/drivers',
     {
-      onRequest:[fastify.verify],
+      onRequest: [fastify.verify],
       schema: driverSchema,
       handler: driversPOST,
     },
