@@ -1,3 +1,6 @@
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
+
 const {
   When, Then,
 } = require('@cucumber/cucumber');
@@ -19,13 +22,13 @@ When('Realizo una busqueda por email con {string}', async function (email) {
   this.searched_user = this.found_users[0];
 });
 
-Then('Obtengo un pasajero con email {string}', function (searched_email) {
-  assert.equal(searched_email, this.searched_user.email);
+Then('Obtengo un pasajero con email {string}', function (searchedEmail) {
+  assert.equal(searchedEmail, this.searched_user.email);
 });
 
-Then('No obtengo un pasajero con email {string}', function (searched_email) {
-  this.found_users.forEach(user => {
-    assert.notEqual(searched_email, user.email);
+Then('No obtengo un pasajero con email {string}', function (searchedEmail) {
+  this.found_users.forEach((user) => {
+    assert.notEqual(searchedEmail, user.email);
   });
 });
 
@@ -36,7 +39,6 @@ When('Realizo una busqueda por username con {string}', async function (like) {
     query: { like },
   });
   assert.equal(response.statusCode, 200);
-  
   this.found_users = response.json();
 });
 

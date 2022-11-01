@@ -1,35 +1,27 @@
-const { After, AfterAll, BeforeAll, AfterStep} = require('@cucumber/cucumber');
+const { After, AfterAll, BeforeAll } = require('@cucumber/cucumber');
 
-const settings = require('../../../src/conf/config');
+const { setDefaultTimeout } = require('@cucumber/cucumber');
 
 const builder = require('../../../src/server');
 
-const app = builder.buildTestServer();
+const settings = require('../../../src/conf/config');
 
-var {setDefaultTimeout} = require('@cucumber/cucumber');
+const app = builder.buildTestServer();
 
 setDefaultTimeout(60 * 1000);
 
-
-//Rollback hooks, tambien se pueden setear variables de entorno y obtener informacion sobre el escenario
-BeforeAll(async function(){
+async function resetDB() {
+  settings.reset();
   await app.inject({
     method: 'POST',
     url: '/reset',
   });
-})
+}
 
-After(async function() {
-    settings.reset();
-    await app.inject({
-      method: 'POST',
-      url: '/reset',
-    });
-})
+// Rollback hooks, tambien se pueden setear variables de entorno
+// y obtener informacion sobre el escenario
+BeforeAll(resetDB);
 
-AfterAll(async function() {
-  await app.inject({
-    method: 'POST',
-    url: '/reset',
-  });
-})
+After(resetDB);
+
+AfterAll(resetDB);
