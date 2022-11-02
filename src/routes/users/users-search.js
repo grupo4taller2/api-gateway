@@ -4,51 +4,7 @@ const settings = require('../../conf/config');
 // TODO: Handlear 404 y 500 para decidir si se sigue contestando
 // o NO.
 
-async function fetchRiderData(email) {
-  const riderResponse = await axios.get(
-    `${settings.serviceUsersURL()}/riders/${email}`,
-    { validateStatus: false },
-  );
-  let result = {};
-  if (riderResponse.status === 200) {
-    result = {
-      phone_number: result.phone_number,
-      wallet: result.wallet,
-      preferred_location_name: result.preferred_location_name,
-    };
-  }
-  return result;
-}
-
-async function fetchDriverData(email) {
-  const driverResponse = await axios.get(
-    `${settings.serviceUsersURL()}/drivers/${email}`,
-    { validateStatus: false },
-  );
-  let result = {};
-  if (driverResponse.status === 200) {
-    result = driverResponse.data;
-  }
-  return {
-    phone_number: result.phone_number,
-    wallet: result.wallet,
-    preferred_location_name: result.preferred_location_name,
-    car: {
-      plate: result.car_plate,
-      manufacturer: result.car_manufacturer,
-      model: result.car_model,
-      year_of_production: result.car_year_of_production,
-      color: result.car_color,
-    },
-  };
-}
-
-async function fetchUserData(user) {
-  const fullUserData = user;
-  fullUserData.rider_information = fetchRiderData(user.email);
-  fullUserData.driver_information = fetchRiderData(user.email);
-  return fullUserData;
-}
+const { fetchUserData, fetchRiderData, fetchDriverData } = require('./users-common');
 
 async function findByUsernameLike(like) {
   const uri = `${settings.serviceUsersURL()}/users/search/${like}`;

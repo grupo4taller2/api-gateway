@@ -4,6 +4,7 @@ const { userInformationSchema, userNotFoundSchema } = userSchemas;
 
 const usersGET = require('./users-get-by-username');
 const usersSearch = require('./users-search');
+const getLikeOffsetLimit = require('./users-get-like-offset-limit');
 
 const userGETSchema = {
   description: 'Fetch user by username',
@@ -44,6 +45,16 @@ const userSearchSchema = {
   },
 };
 
+const userGetLikeOffsetLimit = {
+  description: 'Get all users, with optional filtering, offset and limit',
+  tags: ['users'],
+  querystring: {
+    username_like: { type: 'string', description: 'substring of username' },
+    offset: { type: 'integer', description: 'pagination offset' },
+    limit: { type: 'integer', description: 'pagination limit, get up to {limit} users' },
+  },
+};
+
 async function usersRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/users/:username',
@@ -58,6 +69,14 @@ async function usersRoutes(fastify, getUserOpts, done) {
       onRequest: [fastify.verify],
       schema: userSearchSchema,
       handler: usersSearch,
+    },
+  );
+  fastify.get(
+    '/users/',
+    {
+      onRequest: [fastify.verify],
+      schema: userGetLikeOffsetLimit,
+      handler: getLikeOffsetLimit,
     },
   );
   done();
