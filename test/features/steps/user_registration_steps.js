@@ -142,6 +142,15 @@ When('me registro como chofer', async function () {
   this.response = response.json();
 });
 
+Given('me registro como chofer {string}', async function (string) {
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v1/drivers',
+    payload: this.driver_data,
+  });
+  
+});
+
 Then('La patente del auto registrado es {string}', function (carPlate) {
   assert.equal(this.response.car_plate, carPlate);
 });

@@ -22,7 +22,7 @@ Feature: IV4 Confirmación de viaje
       And quiero registrarme como pasajero con telefono '+54111555555555'
       And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Gral. Las Heras 2214, Buenos Aires'
-      And me registro como pasajero
+      And me registro como pasajero 'lazaro'
       And como usuario 'lazaro' solicito iniciar un viaje normal hacia 'Av. Paseo Colón 850'
     
       And Quiero registrarme como chofer con usuario 'mateo'
@@ -37,7 +37,7 @@ Feature: IV4 Confirmación de viaje
       And quiero registrar modelo del auto "TT"
       And quiero registrar año de fabricación del auto 2022
       And quiero registrar color del auto "Negro"
-      And me registro como chofer
+      And me registro como chofer 'mateo'
     
     When como usuario 'mateo' solicito los viajes disponibles con offset 0 limit 5
 
