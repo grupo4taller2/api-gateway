@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
 
-const { After, AfterAll, BeforeAll } = require('@cucumber/cucumber');
+const { Before, After, AfterAll, BeforeAll } = require('@cucumber/cucumber');
 
 const { setDefaultTimeout } = require('@cucumber/cucumber');
 
@@ -24,6 +24,13 @@ async function resetDB() {
 // y obtener informacion sobre el escenario
 BeforeAll(async function () {
   await resetDB();
+  this.riders = {};
+  this.drivers = {};
+});
+
+Before(async function () {
+  this.riders = {};
+  this.drivers = {};
 });
 
 After(async function () {

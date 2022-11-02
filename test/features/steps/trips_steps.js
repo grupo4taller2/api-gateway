@@ -40,9 +40,19 @@ Then('se inicia la solicitud de búsqueda de chofer para iniciar el viaje desde 
   assert.equal(receivedState, 'looking_for_driver');
 });
 
-Given('como usuario {string} solicito iniciar un viaje normal hacia {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Given('como usuario {string} solicito iniciar un viaje normal hacia {string}', async function (username, destination) {
+  const body = {
+    rider_username: username,
+    rider_origin_address: this.riders[username].preferred_location_name,
+    rider_destination_address: destination,
+    trip_type: 'regular',
+  };
+  this.tripResponse = await app.inject({
+    method: 'POST',
+    url: '/api/v1/trips',
+    payload: body,
+  });
+  assert.equal(this.tripResponse.statusCode, 201);
 });
 
 When('como usuario {string} solicito los viajes disponibles con offset {int} limit {int}', function (string, int, int2) {
