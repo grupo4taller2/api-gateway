@@ -1,6 +1,6 @@
 Feature: IV4 Confirmación de viaje
   Como pasajero quiero poder confirmar la realización del viaje
-  @now
+  
   Scenario: IV4.1 Confirmación del viaje
     Given Quiero registrarme como pasajero con usuario 'mateo'
       And quiero registrarme como pasajero con email 'mateo@mateo.com'
