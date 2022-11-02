@@ -2,7 +2,7 @@
 /* eslint-disable func-names */
 
 const {
-  When, Then,
+  Given, When, Then,
 } = require('@cucumber/cucumber');
 
 const assert = require('assert');
@@ -38,4 +38,37 @@ Then('se inicia la solicitud de búsqueda de chofer para iniciar el viaje desde 
   assert.equal(origin, receivedOriginAddress);
   assert.equal(destination, receivedDestinationAddress);
   assert.equal(receivedState, 'looking_for_driver');
+});
+
+Given('como usuario {string} solicito iniciar un viaje normal hacia {string}', function (string, string2) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('como usuario {string} solicito los viajes disponibles con offset {int} limit {int}', function (string, int, int2) {
+  return 'pending';
+});
+
+Then('obtengo {int} viajes disponibles', function (int) { 
+  return 'pending';
+});
+
+Then('la direccion de origen del viaje es {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('la direccion de destino del viaje es {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('el tipo de viaje es {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('el usuario que solicito el viaje es {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
 });
