@@ -73,7 +73,7 @@ When('como usuario {string} solicito los viajes disponibles con offset {int} lim
   assert.equal(response.statusCode, 200);
 });
 
-Then('obtengo {int} viajes disponibles para {string}', function (nTrips, username) { 
+Then('obtengo {int} viajes disponibles para {string}', function (nTrips, username) {
   assert.equal(this.drivers[username].available_trips.length, nTrips);
 });
 
