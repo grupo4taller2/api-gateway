@@ -9,6 +9,7 @@ const {
 const tripRequest = require('./trip-request');
 const tripPrice = require('./trip-price');
 const tripGet = require('./trip-get');
+const tripGetForDriver = require('./tirp-get-for-driver');
 
 const tripRequestSchema = {
   description: 'Request a new trip as a rider',
@@ -62,6 +63,24 @@ const tripPriceSchema = {
   },
 };
 
+const tripGetForDriverSchema = {
+  description: 'Get driver trips by state, offset, limit',
+  tags: ['trips'],
+  querystring: {
+    driver_username: { type: 'string', description: 'driver\'s username' },
+    trip_state: { type: 'string', description: 'trip state, for example looking_for_driver' },
+    offset: { type: 'integer', description: 'offset for all trips' },
+    limit: { type: 'integer', description: 'limit for all trips' },
+  },
+  response: {
+    200: {
+      description: 'Successful Response',
+      type: 'array',
+      items: { type: 'object', properties: requestedByRiderTripSchema },
+    },
+  },
+};
+
 async function tripsRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/trips',
@@ -85,6 +104,14 @@ async function tripsRoutes(fastify, getUserOpts, done) {
       onRequest: [fastify.verify],
       schema: tripGetSchema,
       handler: tripGet,
+    },
+  );
+  fastify.get(
+    '/trips',
+    {
+      onRequest: [fastify.verify],
+      schema: tripGetForDriverSchema,
+      handler: tripGetForDriver,
     },
   );
   done();

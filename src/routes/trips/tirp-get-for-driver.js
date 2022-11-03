@@ -53,4 +53,4 @@ async function tripGetForDriver(req, reply) {
   return reply.status(200).send(foundTrips);
 }
 
-exports.tripGetForDriver = tripGetForDriver;
+module.exports = tripGetForDriver;
