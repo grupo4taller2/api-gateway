@@ -1,7 +1,9 @@
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
 
-const { Before, After, AfterAll, BeforeAll } = require('@cucumber/cucumber');
+const {
+  Before, After, AfterAll, BeforeAll,
+} = require('@cucumber/cucumber');
 
 const { setDefaultTimeout } = require('@cucumber/cucumber');
 
