@@ -27,7 +27,6 @@ When('solicito iniciar un viaje normal hacia {string}', async function (string) 
 });
 
 Then('se inicia la solicitud de búsqueda de chofer para iniciar el viaje desde {string} hasta {string}', async function (origin, destination) {
-  // Write code here that turns the phrase above into concrete actions
   const tripResponse = await app.inject({
     method: 'GET',
     url: `/api/v1/trips/${this.tripResponse.json().trip_id}`,
@@ -78,7 +77,6 @@ Then('obtengo {int} viajes disponibles para {string}', function (nTrips, usernam
 });
 
 Then('la direccion de origen del viaje es {string}', function (originAddress) {
-  // Write code here that turns the phrase above into concrete actions
   const obtainedOriginAddress = this.allAvailableTrips[0].origin.address;
   assert.equal(obtainedOriginAddress, originAddress);
 });
