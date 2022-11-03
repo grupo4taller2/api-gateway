@@ -1,4 +1,9 @@
-const { After, AfterAll, BeforeAll } = require('@cucumber/cucumber');
+/* eslint-disable func-names */
+/* eslint-disable prefer-arrow-callback */
+
+const {
+  Before, After, AfterAll, BeforeAll,
+} = require('@cucumber/cucumber');
 
 const { setDefaultTimeout } = require('@cucumber/cucumber');
 
@@ -11,7 +16,6 @@ const app = builder.buildTestServer();
 setDefaultTimeout(60 * 1000);
 
 async function resetDB() {
-  settings.reset();
   await app.inject({
     method: 'POST',
     url: '/reset',
@@ -20,8 +24,24 @@ async function resetDB() {
 
 // Rollback hooks, tambien se pueden setear variables de entorno
 // y obtener informacion sobre el escenario
-BeforeAll(resetDB);
+BeforeAll(async function () {
+  await resetDB();
+  this.riders = {};
+  this.drivers = {};
+});
 
-After(resetDB);
+Before(async function () {
+  this.riders = {};
+  this.drivers = {};
+});
 
-AfterAll(resetDB);
+After(async function () {
+  settings.reset();
+  await resetDB();
+  this.riders = {};
+  this.drivers = {};
+});
+
+AfterAll(async function () {
+  await resetDB();
+});
