@@ -55,8 +55,20 @@ Given('como usuario {string} solicito iniciar un viaje normal hacia {string}', a
   assert.equal(this.tripResponse.statusCode, 201);
 });
 
-When('como usuario {string} solicito los viajes disponibles con offset {int} limit {int}', function (string, int, int2) {
-  return 'pending';
+When('como usuario {string} solicito los viajes disponibles con offset {int} limit {int}', async function (username, offset, limit) {
+  const query = {
+    driver_username: username,
+    offset,
+    limit,
+  };
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/trips',
+    query,
+  });
+  this.drivers[username].available_trips = response.json();
+  assert.equal(response.statusCode, 200);
 });
 
 Then('obtengo {int} viajes disponibles', function (int) { 
