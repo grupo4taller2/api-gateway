@@ -60,6 +60,7 @@ When('como usuario {string} solicito los viajes disponibles con offset {int} lim
     driver_username: username,
     offset,
     limit,
+    trip_state: 'looking_for_driver',
   };
 
   const response = await app.inject({
@@ -68,29 +69,31 @@ When('como usuario {string} solicito los viajes disponibles con offset {int} lim
     query,
   });
   this.drivers[username].available_trips = response.json();
+  this.allAvailableTrips = response.json();
   assert.equal(response.statusCode, 200);
 });
 
-Then('obtengo {int} viajes disponibles', function (int) { 
-  return 'pending';
+Then('obtengo {int} viajes disponibles para {string}', function (nTrips, username) { 
+  assert.equal(this.drivers[username].available_trips.length, nTrips);
 });
 
-Then('la direccion de origen del viaje es {string}', function (string) {
+Then('la direccion de origen del viaje es {string}', function (originAddress) {
   // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+  const obtainedOriginAddress = this.allAvailableTrips[0].origin.address;
+  assert.equal(obtainedOriginAddress, originAddress);
 });
 
-Then('la direccion de destino del viaje es {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Then('la direccion de destino del viaje es {string}', function (destinationAddress) {
+  const obtainedDestinationAddress = this.allAvailableTrips[0].destination.address;
+  assert.equal(obtainedDestinationAddress, destinationAddress);
 });
 
-Then('el tipo de viaje es {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Then('el tipo de viaje es {string}', function (type) {
+  const obtainedType = this.allAvailableTrips[0].trip_type;
+  assert.equal(obtainedType, type);
 });
 
-Then('el usuario que solicito el viaje es {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Then('el usuario que solicito el viaje es {string}', function (username) {
+  const obtainedRiderUsername = this.allAvailableTrips[0].rider_username;
+  assert.equal(obtainedRiderUsername, username);
 });

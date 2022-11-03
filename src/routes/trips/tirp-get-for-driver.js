@@ -22,6 +22,7 @@ function responseToTrip(tripResponse) {
   responseBody.distance = tripResponse.distance;
   responseBody.estimated_price = tripResponse.estimated_price;
   responseBody.trip_state = tripResponse.state;
+  responseBody.rider_username = tripResponse.rider_username;
 
   return responseBody;
 }
@@ -29,10 +30,10 @@ function responseToTrip(tripResponse) {
 async function tripGetForDriver(req, reply) {
   const tripsURI = `${settings.serviceTripsURL()}/trips`;
   const params = {
-    driver_username: req.params.driver_username,
-    trip_state: req.params.trip_state,
-    offset: req.params.offset,
-    limit: req.params.limit,
+    driver_username: req.query.driver_username,
+    trip_state: req.query.trip_state,
+    offset: req.query.offset,
+    limit: req.query.limit,
   };
   let tripResponse;
   try {
