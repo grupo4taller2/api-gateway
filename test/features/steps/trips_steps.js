@@ -52,6 +52,7 @@ Given('como usuario {string} solicito iniciar un viaje normal hacia {string}', a
     payload: body,
   });
   assert.equal(this.tripResponse.statusCode, 201);
+  this.requested_trips[username] = this.tripResponse.json();
 });
 
 When('como usuario {string} solicito los viajes disponibles con offset {int} limit {int}', async function (username, offset, limit) {
@@ -104,4 +105,29 @@ Then('obtengo un monto a cobrar', function () {
 Then('obtengo el tiempo estimado', function () {
   const time = this.allAvailableTrips[0].estimated_time;
   assert(time.includes('hr') || time.includes('mins'));
+});
+
+When('como usuario {string} acepto tomar el viaje del usuario {string}', async function (driver, rider) {
+  const tripID = this.requested_trips[rider].trip_id;
+  const payload = {
+    trip_state: 'accepted_by_driver',
+  };
+  const response = await app.inject({
+    method: 'PATCH',
+    url: `/api/v1/trips/${tripID}`,
+    payload,
+  });
+  assert.equal(response.statusCode, 202);
+});
+
+Then('el estado del viaje del usuario {string} es {string}', function (string, string2) {
+  // Write code here that turns the phrase above into concrete actions
+  // FIXME: Get por id para ver que este ok
+  return 'pending';
+});
+
+Then('el chofer asignado en el viaje del usuario {string} es {string}', function (string, string2) {
+  // Write code here that turns the phrase above into concrete actions
+  // FIXME: Get por id para ver que este ok
+  return 'pending';
 });
