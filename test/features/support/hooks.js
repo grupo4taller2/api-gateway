@@ -28,11 +28,13 @@ BeforeAll(async function () {
   await resetDB();
   this.riders = {};
   this.drivers = {};
+  this.requested_trips = {};
 });
 
 Before(async function () {
   this.riders = {};
   this.drivers = {};
+  this.requested_trips = {};
 });
 
 After(async function () {
@@ -40,6 +42,7 @@ After(async function () {
   await resetDB();
   this.riders = {};
   this.drivers = {};
+  this.requested_trips = {};
 });
 
 AfterAll(async function () {

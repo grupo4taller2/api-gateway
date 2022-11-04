@@ -40,9 +40,11 @@ Feature: IV4 Confirmación de viaje
       And me registro como chofer 'mateo'
     
     When como usuario 'mateo' solicito los viajes disponibles con offset 0 limit 5
-
+    
     Then obtengo 1 viajes disponibles para 'mateo'
       And la direccion de origen del viaje es 'Gral. Las Heras 2214, Buenos Aires'
       And la direccion de destino del viaje es 'Av. Paseo Colón 850, Buenos Aires'
       And el tipo de viaje es 'regular'
       And el usuario que solicito el viaje es 'lazaro'
+      And obtengo un monto a cobrar
+      And obtengo el tiempo estimado

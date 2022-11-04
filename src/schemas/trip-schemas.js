@@ -31,30 +31,12 @@ const requestedByRiderTripSchema = {
       longitude: { type: 'number', example: -58.3984251 },
     },
   },
-  trip_type: {
-    type: 'string',
-    example: 'regular',
-  },
-  estimated_time: {
-    type: 'string',
-    example: '17 mins',
-  },
-  estimated_price: {
-    type: 'number',
-    example: 0.35,
-  },
-  distance: {
-    type: 'string',
-    example: '6.3 km',
-  },
-  timestamp: {
-    type: 'string',
-    format: 'date-time',
-  },
-  trip_state: {
-    type: 'string',
-    example: 'driver_waiting',
-  },
+  trip_type: { type: 'string', example: 'regular' },
+  estimated_time: { type: 'string', example: '17 mins' },
+  estimated_price: { type: 'string', example: '0.35' },
+  distance: { type: 'string', example: '6.3 km' },
+  timestamp: { type: 'string', format: 'date-time' },
+  trip_state: { type: 'string', example: 'driver_waiting' },
 };
 
 const estimatedTripSchema = {
@@ -74,24 +56,50 @@ const estimatedTripSchema = {
       longitude: { type: 'number', example: -58.3984251 },
     },
   },
-  trip_type: {
+  trip_type: { type: 'string', example: 'regular' },
+  estimated_time: { type: 'string', example: '17 mins' },
+  estimated_price: { type: 'string', example: '0.35' },
+  distance: { type: 'string', example: '6.3 km' },
+  // FIXME: agregar la ruta encodeada aca?
+};
+
+const acceptedByDriverTripSchema = {
+  trip_id: {
     type: 'string',
-    example: 'regular',
+    example: 'a9eca685e679d5c8679ed5',
   },
-  estimated_time: {
+  rider_username: {
     type: 'string',
-    example: '17 mins',
+    example: 'mateo95',
   },
-  estimated_price: {
-    type: 'number',
-    example: 0.35,
+  origin: {
+    type: 'object',
+    properties: {
+      address: { type: 'string', example: 'Av. Paseo Colón 850, Buenos Aires' },
+      latitude: { type: 'number', example: -34.6174635 },
+      longitude: { type: 'number', example: -58.369979 },
+    },
   },
-  distance: {
-    type: 'string',
-    example: '6.3 km',
-  }, // FIXME: agregar la ruta encodeada aca?
+  destination: {
+    type: 'object',
+    properties: {
+      address: { type: 'string', example: 'Gral. Las Heras 2214, Buenos Aires' },
+      latitude: { type: 'number', example: -34.5885454 },
+      longitude: { type: 'number', example: -58.3984251 },
+    },
+  },
+  trip_type: { type: 'string', example: 'regular' },
+  estimated_time: { type: 'string', example: '17 mins' },
+  estimated_price: { type: 'string', example: '0.35' },
+  distance: { type: 'string', example: '6.3 km' },
+  timestamp: { type: 'string', format: 'date-time' },
+  trip_state: { type: 'string', example: 'driver_waiting' },
+  driver_username: { type: 'string', example: 'mateo37' },
+  driver_latitude: { type: 'number', example: -34.5885454 },
+  driver_longitude: { type: 'number', example: -58.3984251 },
 };
 
 exports.riderRequestTripSchema = riderRequestTripSchema;
 exports.requestedByRiderTripSchema = requestedByRiderTripSchema;
 exports.estimatedTripSchema = estimatedTripSchema;
+exports.acceptedByDriverTripSchema = acceptedByDriverTripSchema;
