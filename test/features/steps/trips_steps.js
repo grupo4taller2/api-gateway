@@ -111,6 +111,9 @@ When('como usuario {string} acepto tomar el viaje del usuario {string}', async f
   const tripID = this.requested_trips[rider].trip_id;
   const payload = {
     trip_state: 'accepted_by_driver',
+    driver_username: driver,
+    driver_current_latitude: -34.6037345,
+    driver_current_longitude: -58.3837591,
   };
   const response = await app.inject({
     method: 'PATCH',

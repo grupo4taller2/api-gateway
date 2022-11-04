@@ -4,12 +4,14 @@ const {
   requestedByRiderTripSchema,
   estimatedTripSchema,
   riderRequestTripSchema,
+  acceptedByDriverTripSchema,
 } = tripSchemas;
 
 const tripRequest = require('./trip-request');
 const tripPrice = require('./trip-price');
 const tripGet = require('./trip-get');
 const tripGetForDriver = require('./tirp-get-for-driver');
+const tripTakeAsDriver = require('./trip-take-as-driver');
 
 const tripRequestSchema = {
   description: 'Request a new trip as a rider',
@@ -42,6 +44,31 @@ const tripGetSchema = {
       description: 'Successful Response',
       type: 'object',
       properties: requestedByRiderTripSchema,
+    },
+  },
+};
+
+const tripPatchSchema = {
+  description: 'Update trip status',
+  tags: ['trips'],
+  body: {
+    description: 'Payload for updatin existing rider',
+    type: 'string',
+    properties: {
+      driver_username: { type: 'string' },
+      driver_current_latitude: { type: 'number' },
+      driver_current_longitude: { type: 'number' },
+      trip_state: { type: 'string' },
+    },
+  },
+  params: {
+    trip_id: { type: 'string' },
+  },
+  response: {
+    202: {
+      description: 'Successful Response',
+      type: 'object',
+      properties: acceptedByDriverTripSchema,
     },
   },
 };
@@ -112,6 +139,14 @@ async function tripsRoutes(fastify, getUserOpts, done) {
       onRequest: [fastify.verify],
       schema: tripGetForDriverSchema,
       handler: tripGetForDriver,
+    },
+  );
+  fastify.patch(
+    '/trips/:id',
+    {
+      onRequest: [fastify.verify],
+      schema: tripPatchSchema,
+      handler: tripTakeAsDriver,
     },
   );
   done();
