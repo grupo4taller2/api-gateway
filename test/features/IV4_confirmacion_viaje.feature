@@ -12,7 +12,7 @@ Feature: IV4 Confirmación de viaje
       And me registro como pasajero
     When solicito iniciar un viaje normal hacia 'Gral. Las Heras 2214, Buenos Aires'
     Then se inicia la solicitud de búsqueda de chofer para iniciar el viaje desde 'Av. Paseo Colón 850, Buenos Aires' hasta 'Gral. Las Heras 2214, Buenos Aires'
-  @now
+  
   Scenario: IV4.2 Obtener viajes disponibles
     Given No hay usuarios registrados
       And Quiero registrarme como pasajero con usuario 'lazaro'
