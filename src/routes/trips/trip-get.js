@@ -33,6 +33,12 @@ async function tripGet(req, reply) {
   responseBody.estimated_price = tripResponse.data.estimated_price;
   responseBody.trip_state = tripResponse.data.state;
 
+  if (responseBody.trip_state === 'accepted_by_driver') {
+    responseBody.driver_username = tripResponse.data.driver_username;
+    responseBody.driver_latitude = tripResponse.data.driver_latitude;
+    responseBody.driver_longitude = tripResponse.data.driver_longitude;
+  }
+
   return reply.status(200).send(responseBody);
 }
 

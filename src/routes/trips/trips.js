@@ -43,7 +43,7 @@ const tripGetSchema = {
     200: {
       description: 'Successful Response',
       type: 'object',
-      properties: requestedByRiderTripSchema,
+      properties: acceptedByDriverTripSchema,
     },
   },
 };

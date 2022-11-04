@@ -133,8 +133,12 @@ Then('el estado del viaje del usuario {string} es {string}', async function (rid
   assert.equal(receivedState, state);
 });
 
-Then('el chofer asignado en el viaje del usuario {string} es {string}', function (string, string2) {
-  // Write code here that turns the phrase above into concrete actions
-  // FIXME: Get por id para ver que este ok
-  return 'pending';
+Then('el chofer asignado en el viaje del usuario {string} es {string}', async function (riderUsername, driverUsername) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedDriverUsername = tripResponse.json().driver_username;
+  assert.equal(receivedDriverUsername, driverUsername);
 });
