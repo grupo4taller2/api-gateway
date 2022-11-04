@@ -53,7 +53,7 @@ const tripPatchSchema = {
   tags: ['trips'],
   body: {
     description: 'Payload for updatin existing rider',
-    type: 'string',
+    type: 'object',
     properties: {
       driver_username: { type: 'string' },
       driver_current_latitude: { type: 'number' },
