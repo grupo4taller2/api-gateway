@@ -95,3 +95,13 @@ Then('el usuario que solicito el viaje es {string}', function (username) {
   const obtainedRiderUsername = this.allAvailableTrips[0].rider_username;
   assert.equal(obtainedRiderUsername, username);
 });
+
+Then('obtengo un monto a cobrar', function () {
+  const obtainedTripPrice = this.allAvailableTrips[0].estimated_price;
+  assert(typeof obtainedTripPrice === 'string', `${obtainedTripPrice}`);
+});
+
+Then('obtengo el tiempo estimado', function () {
+  const time = this.allAvailableTrips[0].estimated_time;
+  assert(time.includes('hr') || time.includes('mins'));
+});

@@ -40,8 +40,8 @@ const requestedByRiderTripSchema = {
     example: '17 mins',
   },
   estimated_price: {
-    type: 'number',
-    example: 0.35,
+    type: 'string',
+    example: '0.35',
   },
   distance: {
     type: 'string',
@@ -83,8 +83,8 @@ const estimatedTripSchema = {
     example: '17 mins',
   },
   estimated_price: {
-    type: 'number',
-    example: 0.35,
+    type: 'string',
+    example: '0.35',
   },
   distance: {
     type: 'string',
