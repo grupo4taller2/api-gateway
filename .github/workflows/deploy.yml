@@ -20,7 +20,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: ${{ contains(join(needs.*.result, ','), 'success') }}
-    needs: [lint, test]
+    needs: [run_eslint]
     steps:
       - uses: actions/checkout@v3
       - uses: akhileshns/heroku-deploy@v3.12.12
