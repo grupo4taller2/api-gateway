@@ -1,28 +1,23 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
 
-
-
-
-
-async function drivers_qualy_GET(req, reply) {
-    let driver_qualy_get_response;
-    console.log(req.params);
-    try {
-        driver_qualy_get_response = await axios.get(`${settings.serviceUsersURL()}/qualy/drivers/${req.params.username}`);
-    } catch (error) {
-        if (!error.response || error.response.status >= 500) {
-        return reply.status(503).send(
-            {
-            message: 'Servicio no disponible',
-            },
-        );
-        }
+async function driversQualyGET(req, reply) {
+  let driverQualyGetResponse;
+  console.log(req.params);
+  try {
+    driverQualyGetResponse = await axios.get(`${settings.serviceUsersURL()}/qualy/drivers/${req.params.username}`);
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return reply.status(404).send(
+        {
+          message: 'Error. Driver not found',
+          username: req.params.username,
+        },
+      );
     }
-    console.log(driver_qualy_get_response.data)
-    return reply.status(201).send(driver_qualy_get_response.data);
+  }
+  console.log(driverQualyGetResponse.data);
+  return reply.status(201).send(driverQualyGetResponse.data);
 }
 
-
-
-module.exports = drivers_qualy_GET;
+module.exports = driversQualyGET;

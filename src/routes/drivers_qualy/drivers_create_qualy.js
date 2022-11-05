@@ -1,13 +1,10 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
 
-
-
-async function drivers_qualy_POST(req, reply) {
-  let driver_qualy_creation_response;
-  console.log(req.body);
+async function driversQualyPOST(req, reply) {
+  let driverQualyCreationResponse;
   try {
-    driver_qualy_creation_response = await axios.post(`${settings.serviceUsersURL()}/qualy/drivers/create`, req.body);
+    driverQualyCreationResponse = await axios.post(`${settings.serviceUsersURL()}/qualy/drivers/create`, req.body);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(
@@ -17,11 +14,7 @@ async function drivers_qualy_POST(req, reply) {
       );
     }
   }
-  return reply.status(201).send(driver_qualy_creation_response.data);
+  return reply.status(201).send(driverQualyCreationResponse.data);
 }
 
-
-
-
-  
-  module.exports = drivers_qualy_POST;
+module.exports = driversQualyPOST;
