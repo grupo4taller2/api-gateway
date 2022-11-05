@@ -26,7 +26,7 @@ function buildServer() {
   });
 
   app.register(swagger);
-  app.register(auth);
+  app.register(testAuth);
   app.register(usersRoute, { prefix: API_PREFIX });
   app.register(adminsRoute, { prefix: API_PREFIX });
   app.register(ridersRoute, { prefix: API_PREFIX });
