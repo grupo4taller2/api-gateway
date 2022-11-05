@@ -1,5 +1,6 @@
 const fastifyPlugin = require('fastify-plugin');
 require('./firebase_app');
+// eslint-disable-next-line import/no-unresolved
 const { getAuth } = require('firebase-admin/auth');
 
 async function verify(fastify) {

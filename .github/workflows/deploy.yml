@@ -6,8 +6,21 @@ on:
     branches: [ "main" ]
 
 jobs:
+  run_eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: |
+          npm install --save-dev
+      - name: run linter
+        run: |
+          npx eslint src/** test/**
+
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ contains(join(needs.*.result, ','), 'success') }}
+    needs: [lint, test]
     steps:
       - uses: actions/checkout@v3
       - uses: akhileshns/heroku-deploy@v3.12.12
@@ -18,14 +31,3 @@ jobs:
           usedocker: true
           docker_heroku_process_type: web
           branch: main
-
-  run_eslint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: install dependencies
-        run: |
-          npm install --save-dev
-      - name: run linter
-        run: |
-          npx eslint src/** test/**  
