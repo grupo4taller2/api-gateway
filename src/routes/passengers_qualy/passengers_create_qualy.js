@@ -3,7 +3,6 @@ const settings = require('../../conf/config');
 
 async function passengersQualyPOST(req, reply) {
   let passengerQualyCreationResponse;
-  console.log(req.body);
   try {
     passengerQualyCreationResponse = await axios.post(`${settings.serviceUsersURL()}/qualy/passengers/create`, req.body);
   } catch (error) {

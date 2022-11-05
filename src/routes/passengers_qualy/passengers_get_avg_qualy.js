@@ -3,7 +3,6 @@ const settings = require('../../conf/config');
 
 async function passengersQualyAvgGET(req, reply) {
   let passengerQualyAvgGetRresponse;
-  console.log(req.params);
   try {
     passengerQualyAvgGetRresponse = await axios.get(`${settings.serviceUsersURL()}/qualy/passengers/average/${req.params.username}`);
   } catch (error) {
@@ -16,7 +15,6 @@ async function passengersQualyAvgGET(req, reply) {
       );
     }
   }
-  console.log(passengerQualyAvgGetRresponse.data);
   return reply.status(201).send(passengerQualyAvgGetRresponse.data);
 }
 

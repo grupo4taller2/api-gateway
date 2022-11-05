@@ -3,7 +3,6 @@ const settings = require('../../conf/config');
 
 async function passengersQualyGET(req, reply) {
   let passengerQualyGetResponse;
-  console.log(req.params);
   try {
     passengerQualyGetResponse = await axios.get(`${settings.serviceUsersURL()}/qualy/passengers/${req.params.username}`);
   } catch (error) {
@@ -16,7 +15,6 @@ async function passengersQualyGET(req, reply) {
       );
     }
   }
-  console.log(passengerQualyGetResponse.data);
   return reply.status(201).send(passengerQualyGetResponse.data);
 }
 
