@@ -5,7 +5,7 @@ const fastify = require('fastify');
 
 // Plugins
 const swagger = require('./plugins/swagger');
-const auth = require('./auth/firebase_auth');
+const auth = require('./auth/firebase_auth_test');
 const testAuth = require('./auth/firebase_auth_test');
 
 // Routes
@@ -26,7 +26,7 @@ function buildServer() {
   });
 
   app.register(swagger);
-  app.register(testAuth);
+  app.register(auth);
   app.register(usersRoute, { prefix: API_PREFIX });
   app.register(adminsRoute, { prefix: API_PREFIX });
   app.register(ridersRoute, { prefix: API_PREFIX });
