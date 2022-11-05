@@ -4,7 +4,6 @@ const fastifyPlugin = require('fastify-plugin');
 async function verify(fastify, options) {
   // eslint-disable-next-line no-unused-vars
   fastify.decorate('verify', async (request, reply) => {
-
   });
 }
 
