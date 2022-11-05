@@ -52,6 +52,7 @@ Given('como usuario {string} solicito iniciar un viaje normal hacia {string}', a
     payload: body,
   });
   assert.equal(this.tripResponse.statusCode, 201);
+  this.requested_trips[username] = this.tripResponse.json();
 });
 
 When('como usuario {string} solicito los viajes disponibles con offset {int} limit {int}', async function (username, offset, limit) {
@@ -94,4 +95,50 @@ Then('el tipo de viaje es {string}', function (type) {
 Then('el usuario que solicito el viaje es {string}', function (username) {
   const obtainedRiderUsername = this.allAvailableTrips[0].rider_username;
   assert.equal(obtainedRiderUsername, username);
+});
+
+Then('obtengo un monto a cobrar', function () {
+  const obtainedTripPrice = this.allAvailableTrips[0].estimated_price;
+  assert(typeof obtainedTripPrice === 'string', `${obtainedTripPrice}`);
+});
+
+Then('obtengo el tiempo estimado', function () {
+  const time = this.allAvailableTrips[0].estimated_time;
+  assert(time.includes('hr') || time.includes('mins'));
+});
+
+When('como usuario {string} acepto tomar el viaje del usuario {string}', async function (driver, rider) {
+  const tripID = this.requested_trips[rider].trip_id;
+  const payload = {
+    trip_state: 'accepted_by_driver',
+    driver_username: driver,
+    driver_current_latitude: -34.6037345,
+    driver_current_longitude: -58.3837591,
+  };
+  const response = await app.inject({
+    method: 'PATCH',
+    url: `/api/v1/trips/${tripID}`,
+    payload,
+  });
+  assert.equal(response.statusCode, 202);
+});
+
+Then('el estado del viaje del usuario {string} es {string}', async function (riderUsername, state) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedState = tripResponse.json().trip_state;
+  assert.equal(receivedState, state);
+});
+
+Then('el chofer asignado en el viaje del usuario {string} es {string}', async function (riderUsername, driverUsername) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedDriverUsername = tripResponse.json().driver_username;
+  assert.equal(receivedDriverUsername, driverUsername);
 });
