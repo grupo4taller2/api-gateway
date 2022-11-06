@@ -13,6 +13,7 @@ async function driversQualyRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/drivers/qualy/:username',
     {
+      onRequest: [fastify.verify],
       schema: driverQualyGETSchema,
       handler: driverGetHandler,
     },
@@ -20,6 +21,7 @@ async function driversQualyRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/drivers/qualy/average/:username',
     {
+      onRequest: [fastify.verify],
       schema: driverQualyAvgGETSchema,
       handler: driverGetAvgHandler,
     },
