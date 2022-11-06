@@ -1,5 +1,6 @@
+/* eslint-disable */
 const fastifyPlugin = require('fastify-plugin');
-require('./firebase_app');
+const firebaseApp = require('./firebase_app');
 const { getAuth } = require('firebase-admin/auth');
 
 async function verify(fastify) {
@@ -27,7 +28,6 @@ async function verify(fastify) {
       });
       return reply;
     }
-    return reply;
   });
 }
 
