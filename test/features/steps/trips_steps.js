@@ -139,6 +139,66 @@ Then('el chofer asignado en el viaje del usuario {string} es {string}', async fu
     method: 'GET',
     url: `/api/v1/trips/${tripID}`,
   });
-  const receivedDriverUsername = tripResponse.json().driver_username;
+  const receivedDriverUsername = tripResponse.json().driver.username;
   assert.equal(receivedDriverUsername, driverUsername);
+});
+
+Then('el nombre del chofer asignado en el viaje del usuario {string} es {string}', async function (riderUsername, driverName) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedDriverName = tripResponse.json().driver.first_name;
+  assert.equal(receivedDriverName, driverName);
+});
+
+Then('el apellido del chofer asignado en el viaje del usuario {string} es {string}', async function (riderUsername, driverLastName) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedDriverLastName = tripResponse.json().driver.last_name;
+  assert.equal(receivedDriverLastName, driverLastName);
+});
+
+Then('la patente del chofer asignado en el viaje del usuario {string} es {string}', async function (riderUsername, plate) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedPlate = tripResponse.json().driver.car.plate;
+  assert.equal(receivedPlate, plate);
+});
+
+Then('el fabricande del auto del chofer asignado en el viaje del usuario {string} es {string}', async function (riderUsername, manufacturer) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedManufacturer = tripResponse.json().driver.car.manufacturer;
+  assert.equal(receivedManufacturer, manufacturer);
+});
+
+Then('el modelo del auto del chofer asignado en el viaje del usuario {string} es {string}', async function (riderUsername, model) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedModel = tripResponse.json().driver.car.model;
+  assert.equal(receivedModel, model);
+});
+
+Then('el color del auto del chofer asignado en el viaje del usuario {string} es {string}', async function (riderUsername, color) {
+  const tripID = this.requested_trips[riderUsername].trip_id;
+  const tripResponse = await app.inject({
+    method: 'GET',
+    url: `/api/v1/trips/${tripID}`,
+  });
+  const receivedColor = tripResponse.json().driver.car.color;
+  assert.equal(receivedColor, color);
 });

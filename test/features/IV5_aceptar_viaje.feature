@@ -34,3 +34,9 @@ Feature: IV5 Aceptar o rechazar viajes
 
     Then el estado del viaje del usuario 'lazaro' es 'accepted_by_driver'
       And el chofer asignado en el viaje del usuario 'lazaro' es 'mateo'
+      And el nombre del chofer asignado en el viaje del usuario 'lazaro' es 'Mateo'
+      And el apellido del chofer asignado en el viaje del usuario 'lazaro' es 'Calvo'
+      And la patente del chofer asignado en el viaje del usuario 'lazaro' es 'AAA 123'
+      And el fabricande del auto del chofer asignado en el viaje del usuario 'lazaro' es 'Audi'
+      And el modelo del auto del chofer asignado en el viaje del usuario 'lazaro' es 'TT'
+      And el color del auto del chofer asignado en el viaje del usuario 'lazaro' es 'Negro'
