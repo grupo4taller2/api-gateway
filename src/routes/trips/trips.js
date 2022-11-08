@@ -62,7 +62,7 @@ const tripPatchSchema = {
     },
   },
   params: {
-    trip_id: { type: 'string' },
+    id: { type: 'string' },
   },
   response: {
     202: {
