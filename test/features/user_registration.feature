@@ -2,8 +2,8 @@ Feature: U1 Registro de usuarios
 
   Scenario: U1.1 Registro exitoso como conductor
     Given No hay usuarios registrados
-    When Me registro como pasajero con email "mateo@mateo.com" y wallet "wallethg0122jk32ew4ho123"
-    Then Un pasajero con email "mateo@mateo.com" y wallet "wallethg0122jk32ew4ho123" es creado
+    When Me registro como pasajero con email "mateo@mateo.com"
+    Then Un pasajero con email "mateo@mateo.com" es creado
 
   Scenario: U1.2 Obtención de ubicación
     Given No hay usuarios registrados
