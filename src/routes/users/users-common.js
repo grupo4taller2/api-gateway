@@ -10,7 +10,6 @@ async function fetchRiderData(email) {
   if (riderResponse.status === 200) {
     result = {
       phone_number: riderResponse.data.phone_number,
-      wallet: riderResponse.data.wallet,
       preferred_location_name: riderResponse.data.preferred_location_name,
     };
   }
@@ -28,7 +27,6 @@ async function fetchDriverData(email) {
   }
   return {
     phone_number: result.phone_number,
-    wallet: result.wallet,
     preferred_location_name: result.preferred_location_name,
     car: {
       plate: result.car_plate,
