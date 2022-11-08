@@ -32,7 +32,6 @@ When('quiero registrarme como pasajero con telefono {string}', function (phoneNu
   this.rider_data.phone_number = phoneNumber;
 });
 
-
 When('quiero registrarme como pasajero con ubicacion preferida {string}', function (locationName) {
   this.rider_data.preferred_location_name = locationName;
 });
@@ -105,7 +104,6 @@ Then('El telefono del pasajero con email {string} cambio a {string}', function (
   assert.equal(this.rider_response.email, email);
 });
 
-
 When('como pasajero con email {string} cambio mi ubicacion preferida a {string}', async function (email, newLocationName) {
   const payload = {
     preferred_location_name: newLocationName,
@@ -145,7 +143,6 @@ When('quiero registrarme como chofer con apellido {string}', function (lName) {
 When('quiero registrarme como chofer con telefono {string}', function (phoneNumber) {
   this.driver_data.phone_number = phoneNumber;
 });
-
 
 When('quiero registrarme como chofer con ubicacion preferida {string}', function (locationName) {
   this.driver_data.preferred_location_name = locationName;
@@ -207,7 +204,6 @@ Then('El telefono del chofer con email {string} cambio a {string}', function (em
   assert.equal(this.driver_response.phone_number, phone);
   assert.equal(this.driver_response.email, email);
 });
-
 
 When('como chofer con email {string} cambio mi ubicacion preferida a {string}', async function (email, newLocationName) {
   const payload = {
