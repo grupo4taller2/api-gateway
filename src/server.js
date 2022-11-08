@@ -18,7 +18,7 @@ const tripsRoute = require('./routes/trips/trips');
 const healthcheckRoute = require('./routes/healthcheck');
 const resetRoute = require('./routes/reset');
 const driverQualy = require('./routes/drivers_qualy/drivers_qualy');
-const passengerQualy = require('./routes/passengers_qualy/passengers_qualy');
+const riderQualy = require('./routes/riders_qualy/riders_qualy');
 
 function buildServer() {
   const app = fastify({
@@ -35,7 +35,7 @@ function buildServer() {
   app.register(tripsRoute, { prefix: API_PREFIX });
   app.register(healthcheckRoute, { prefix: API_PREFIX });
   app.register(driverQualy, { prefix: API_PREFIX });
-  app.register(passengerQualy, { prefix: API_PREFIX });
+  app.register(riderQualy, { prefix: API_PREFIX });
 
   // eslint-disable-next-line consistent-return
   app.addHook('preHandler', (req, res, done) => {
@@ -67,7 +67,7 @@ function buildTestServer() {
   app.register(tripsRoute, { prefix: API_PREFIX });
   app.register(healthcheckRoute, { prefix: API_PREFIX });
   app.register(driverQualy, { prefix: API_PREFIX });
-  app.register(passengerQualy, { prefix: API_PREFIX });
+  app.register(riderQualy, { prefix: API_PREFIX });
 
   return app;
 }

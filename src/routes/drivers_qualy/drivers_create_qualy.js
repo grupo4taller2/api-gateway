@@ -4,7 +4,7 @@ const settings = require('../../conf/config');
 async function driversQualyPOST(req, reply) {
   let driverQualyCreationResponse;
   try {
-    driverQualyCreationResponse = await axios.post(`${settings.serviceUsersURL()}/qualy/drivers/create`, req.body);
+    driverQualyCreationResponse = await axios.post(`${settings.serviceUsersURL()}/drivers/qualy/create`, req.body);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(

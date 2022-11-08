@@ -4,7 +4,7 @@ const settings = require('../../conf/config');
 async function driversQualyAvgGET(req, reply) {
   let driverQualyAvgGetResponse;
   try {
-    driverQualyAvgGetResponse = await axios.get(`${settings.serviceUsersURL()}/qualy/drivers/average/${req.params.username}`);
+    driverQualyAvgGetResponse = await axios.get(`${settings.serviceUsersURL()}/drivers/${req.params.username}/qualy/average`);
   } catch (error) {
     if (error.response && error.response.status === 404) {
       return reply.status(404).send(
