@@ -9,7 +9,6 @@ Feature: P1 Edicion de perfil
       And quiero registrarme como pasajero con nombre 'mATEO'
       And quiero registrarme como pasajero con apellido 'Calvo'
       And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Av. Paseo Colón 850'
       And me registro como pasajero
       And como pasajero con email 'mateo@mateo.com' cambio mi nombre a 'Mateo'
@@ -22,7 +21,6 @@ Feature: P1 Edicion de perfil
       And quiero registrarme como pasajero con nombre 'Mateo'
       And quiero registrarme como pasajero con apellido 'cALVO'
       And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Av. Paseo Colón 850'
       And me registro como pasajero
       And como pasajero con email 'mateo@mateo.com' cambio mi apellido a 'Calvo'
@@ -35,24 +33,10 @@ Feature: P1 Edicion de perfil
       And quiero registrarme como pasajero con nombre 'Mateo'
       And quiero registrarme como pasajero con apellido 'Calvo'
       And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Av. Paseo Colón 850'
       And me registro como pasajero
       And como pasajero con email 'mateo@mateo.com' cambio mi telefono a '+54111522222222'
     Then El telefono del pasajero con email 'mateo@mateo.com' cambio a '+54111522222222'
-
-  Scenario: P1.4 Edición de wallet exitosa para pasajero
-    Given No hay usuarios registrados
-    When Quiero registrarme como pasajero con usuario 'mateo'
-      And quiero registrarme como pasajero con email 'mateo@mateo.com'
-      And quiero registrarme como pasajero con nombre 'Mateo'
-      And quiero registrarme como pasajero con apellido 'Calvo'
-      And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
-      And quiero registrarme como pasajero con ubicacion preferida 'Av. Paseo Colón 850'
-      And me registro como pasajero
-      And como pasajero con email 'mateo@mateo.com' cambio mi wallet a 'a8o7sdfyb879as6fb78as'
-    Then La wallet del pasajero con email 'mateo@mateo.com' cambio a 'a8o7sdfyb879as6fb78as'
 
   Scenario: P1.5 Edición de ubicacion preferida exitosa para pasajero
     Given No hay usuarios registrados
@@ -61,7 +45,6 @@ Feature: P1 Edicion de perfil
       And quiero registrarme como pasajero con nombre 'Mateo'
       And quiero registrarme como pasajero con apellido 'Calvo'
       And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Av. Paseo Colón 850'
       And me registro como pasajero
       And como pasajero con email 'mateo@mateo.com' cambio mi ubicacion preferida a 'Av. Las Heras 2214'
@@ -74,7 +57,6 @@ Feature: P1 Edicion de perfil
       And quiero registrarme como chofer con nombre 'mATEO'
       And quiero registrarme como chofer con apellido 'Calvo'
       And quiero registrarme como chofer con telefono '+54111555555555'
-      And quiero registrarme como chofer con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como chofer con ubicacion preferida 'Av. Paseo Colón 850'
       And quiero registrar patente del auto "AAA 123"
       And quiero registrar fabricante del auto "Audi"
@@ -92,7 +74,6 @@ Feature: P1 Edicion de perfil
       And quiero registrarme como chofer con nombre 'Mateo'
       And quiero registrarme como chofer con apellido 'cALVO'
       And quiero registrarme como chofer con telefono '+54111555555555'
-      And quiero registrarme como chofer con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como chofer con ubicacion preferida 'Av. Paseo Colón 850'
       And quiero registrar patente del auto "AAA 123"
       And quiero registrar fabricante del auto "Audi"
@@ -110,7 +91,6 @@ Feature: P1 Edicion de perfil
       And quiero registrarme como chofer con nombre 'Mateo'
       And quiero registrarme como chofer con apellido 'Calvo'
       And quiero registrarme como chofer con telefono '+54111555555555'
-      And quiero registrarme como chofer con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como chofer con ubicacion preferida 'Av. Paseo Colón 850'
       And quiero registrar patente del auto "AAA 123"
       And quiero registrar fabricante del auto "Audi"
@@ -121,24 +101,6 @@ Feature: P1 Edicion de perfil
       And como chofer con email 'mateo@mateo.com' cambio mi telefono a '+54111522222222'
     Then El telefono del chofer con email 'mateo@mateo.com' cambio a '+54111522222222'
 
-  Scenario: P1.9 Edición de wallet exitosa para chofer
-    Given No hay usuarios registrados
-    When Quiero registrarme como chofer con usuario 'mateo'
-      And quiero registrarme como chofer con email 'mateo@mateo.com'
-      And quiero registrarme como chofer con nombre 'Mateo'
-      And quiero registrarme como chofer con apellido 'Calvo'
-      And quiero registrarme como chofer con telefono '+54111555555555'
-      And quiero registrarme como chofer con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
-      And quiero registrarme como chofer con ubicacion preferida 'Av. Paseo Colón 850'
-      And quiero registrar patente del auto "AAA 123"
-      And quiero registrar fabricante del auto "Audi"
-      And quiero registrar modelo del auto "TT"
-      And quiero registrar año de fabricación del auto 2022
-      And quiero registrar color del auto "Negro"
-      And me registro como chofer
-      And como chofer con email 'mateo@mateo.com' cambio mi wallet a 'a8o7sdfyb879as6fb78as'
-    Then La wallet del chofer con email 'mateo@mateo.com' cambio a 'a8o7sdfyb879as6fb78as'
-
   Scenario: P1.10 Edición de ubicacion preferida exitosa para chofer
     Given No hay usuarios registrados
     When Quiero registrarme como chofer con usuario 'mateo'
@@ -146,7 +108,6 @@ Feature: P1 Edicion de perfil
       And quiero registrarme como chofer con nombre 'Mateo'
       And quiero registrarme como chofer con apellido 'Calvo'
       And quiero registrarme como chofer con telefono '+54111555555555'
-      And quiero registrarme como chofer con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como chofer con ubicacion preferida 'Av. Paseo Colón 850'
       And quiero registrar patente del auto "AAA 123"
       And quiero registrar fabricante del auto "Audi"

@@ -2,7 +2,7 @@ Feature: Busqueda de usuarios
 
   Scenario: Busqueda por email
     Given No hay usuarios registrados
-      And Me registro como pasajero con email "mateoicalvo@mateo.com" y wallet "wallethg0122jk32ew4ho123"
+      And Me registro como pasajero con email "mateoicalvo@mateo.com"
     When Realizo una busqueda por email con "mateoicalvo@mateo.com"
     Then Obtengo un pasajero con email "mateoicalvo@mateo.com"
 

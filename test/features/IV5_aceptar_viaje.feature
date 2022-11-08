@@ -10,7 +10,6 @@ Feature: IV5 Aceptar o rechazar viajes
       And quiero registrarme como chofer con nombre 'Mateo'
       And quiero registrarme como chofer con apellido 'Calvo'
       And quiero registrarme como chofer con telefono '+54111555555555'
-      And quiero registrarme como chofer con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como chofer con ubicacion preferida 'Av. Paseo Colón 850, Buenos Aires'
       And quiero registrar patente del auto "AAA 123"
       And quiero registrar fabricante del auto "Audi"
@@ -24,7 +23,6 @@ Feature: IV5 Aceptar o rechazar viajes
       And quiero registrarme como pasajero con nombre 'Lazaro'
       And quiero registrarme como pasajero con apellido 'Calvo'
       And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Gral. Las Heras 2214, Buenos Aires'
       And me registro como pasajero 'lazaro'
       And como usuario 'lazaro' solicito iniciar un viaje normal hacia 'Av. Paseo Colón 850, Buenos Aires'
