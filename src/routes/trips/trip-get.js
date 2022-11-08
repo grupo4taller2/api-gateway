@@ -52,6 +52,8 @@ async function tripGet(req, reply) {
 
   const responseBody = {};
   responseBody.trip_id = tripResponse.data.id;
+  responseBody.rider_username = tripResponse.data.rider_username;
+  console.log(tripResponse.data.rider_username);
   responseBody.origin = origin;
   responseBody.destination = destination;
   responseBody.trip_type = tripResponse.data.type;
