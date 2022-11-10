@@ -13,12 +13,24 @@ Feature: AS1 Modificación de reglas de cotización
       And el coeficiente 'modificador rating' llamado 'c_rating' es '3.45'
       And el coeficiente 'precio minimo' llamado 'c_min_price' es '4.56'
 
-  Scenario: AS1.2 Probar reglas de cotización
+  Scenario: AS1.2 Crear regla de cotización
     Given No hay usuarios registrados
       And Me registro como pasajero con nombre de usuario 'mateo'
       And El administrador por defecto registra al usuario con nombre de usuario 'mateo' como administrador
-    When como usuario 'mateo' obtengo los coeficientes de cotizacion
-    Then el coeficiente 'costo por kilometro' llamado 'c_km' es '1.23'
-      And el coeficiente 'modificador viajes en los ultimos 30 minutos' llamado 'c_trips_last_30m' es '2.34'
-      And el coeficiente 'modificador rating' llamado 'c_rating' es '3.45'
-      And el coeficiente 'precio minimo' llamado 'c_min_price' es '4.56'
+
+    When quiero utilizar valor '1.11' para el coeficiente 'c_km'
+      And quiero utilizar valor '2.22' para el coeficiente 'c_trips_last_30m'
+      And quiero utilizar valor '3.33' para el coeficiente 'c_ratings'
+      And quiero utilizar valor '4.44' para el coeficiente 'c_min_price'
+      And creo una regla de cotizacion
+
+    Then el coeficiente 'costo por kilometro' llamado 'c_km' es '1.11'
+      And el coeficiente 'modificador viajes en los ultimos 30 minutos' llamado 'c_trips_last_30m' es '2.22'
+      And el coeficiente 'modificador rating' llamado 'c_rating' es '3.33'
+      And el coeficiente 'precio minimo' llamado 'c_min_price' es '4.44'
+
+  Scenario: AS1.3 Actualizar regla de cotización
+
+  Scenario: AS1.4 Evaluar regla de cotización
+
+    
