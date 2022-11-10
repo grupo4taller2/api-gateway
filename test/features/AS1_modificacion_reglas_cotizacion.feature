@@ -2,7 +2,7 @@
 Feature: AS1 Modificación de reglas de cotización
       Como administrador del sistema quiero poder tener flexibilidad a la hora de establecer los precios.
       Para esto se exige que el cálculo del precio sea realizado utilizando un sistema de reglas.
-  @wip
+  
   Scenario: AS1.1 Obtener coeficientes de reglas
     Given No hay usuarios registrados
       And Me registro como pasajero con nombre de usuario 'mateo'
