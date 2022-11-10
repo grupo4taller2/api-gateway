@@ -22,6 +22,6 @@ When('como usuario {string} obtengo los coeficientes de cotizacion', async funct
   [this.default_rule] = this.found_rules;
 });
 
-Then('el coeficiente {string} llamado {string} es {string}', function (string, string2, string3) {
-  return 'pending';
+Then('el coeficiente {string} llamado {string} es {string}', function (name, repr, value) {
+  assert.equal(this.default_rule[repr], value);
 });

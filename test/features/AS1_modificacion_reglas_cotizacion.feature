@@ -10,10 +10,9 @@ Feature: AS1 Modificación de reglas de cotización
     When como usuario 'mateo' obtengo los coeficientes de cotizacion
     Then el coeficiente 'costo por kilometro' llamado 'c_km' es '1.23'
       And el coeficiente 'modificador viajes en los ultimos 30 minutos' llamado 'c_trips_last_30m' es '2.34'
-      And el coeficiente 'modificador rating' llamado 'c_km' es '3.45'
-      And el coeficiente 'costo_minimo' llamado 'c_min' es '4.56'
+      And el coeficiente 'modificador rating' llamado 'c_rating' es '3.45'
+      And el coeficiente 'precio minimo' llamado 'c_min_price' es '4.56'
 
-  @wip
   Scenario: AS1.2 Probar reglas de cotización
     Given No hay usuarios registrados
       And Me registro como pasajero con nombre de usuario 'mateo'
