@@ -4,6 +4,7 @@ const pricingRuleSchema = {
   c_km: { type: 'string', example: '1.23' },
   c_rating: { type: 'string', example: '1.23' },
   c_min_price: { type: 'string', example: '1.23' },
+  active: { type: 'boolean', example: false },
 };
 
 const pricingRulePOSTSchema = {
@@ -11,6 +12,14 @@ const pricingRulePOSTSchema = {
   c_km: { type: 'string' },
   c_rating: { type: 'string' },
   c_min_price: { type: 'string' },
+};
+
+const pricingRulePATCHSchema = {
+  c_trips_last_30m: { type: 'string' },
+  c_km: { type: 'string' },
+  c_rating: { type: 'string' },
+  c_min_price: { type: 'string' },
+  active: { type: 'boolean' },
 };
 
 const pricingRuleEvaluateSchema = {
@@ -31,3 +40,4 @@ exports.pricingRuleSchema = pricingRuleSchema;
 exports.pricingRulePOSTSchema = pricingRulePOSTSchema;
 exports.pricingRuleEvaluateSchema = pricingRuleEvaluateSchema;
 exports.pricingRuleEvaluatedSchema = pricingRuleEvaluatedSchema;
+exports.pricingRulePATCHSchema = pricingRulePATCHSchema;
