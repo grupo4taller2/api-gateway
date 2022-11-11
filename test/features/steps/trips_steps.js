@@ -202,3 +202,7 @@ Then('el color del auto del chofer asignado en el viaje del usuario {string} es 
   const receivedColor = tripResponse.json().driver.car.color;
   assert.equal(receivedColor, color);
 });
+
+When('como usuario {string} actualizo mi ubicacion a {string}', async function (string, string2) {
+
+});
