@@ -20,7 +20,7 @@ Feature: AS1 Modificación de reglas de cotización
 
     When quiero utilizar valor '1.11' para el coeficiente 'c_km'
       And quiero utilizar valor '2.22' para el coeficiente 'c_trips_last_30m'
-      And quiero utilizar valor '3.33' para el coeficiente 'c_ratings'
+      And quiero utilizar valor '3.33' para el coeficiente 'c_rating'
       And quiero utilizar valor '4.44' para el coeficiente 'c_min_price'
       And creo una regla de cotizacion
 
