@@ -30,6 +30,7 @@ BeforeAll(async function () {
   this.drivers = {};
   this.requested_trips = {};
   this.pricing_rules_coefficients = {};
+  this.pricing_rules_arguments = {};
 });
 
 Before(async function () {
@@ -37,6 +38,7 @@ Before(async function () {
   this.drivers = {};
   this.requested_trips = {};
   this.pricing_rules_coefficients = {};
+  this.pricing_rules_arguments = {};
 });
 
 After(async function () {
@@ -46,6 +48,7 @@ After(async function () {
   this.drivers = {};
   this.requested_trips = {};
   this.pricing_rules_coefficients = {};
+  this.pricing_rules_arguments = {};
 });
 
 AfterAll(async function () {

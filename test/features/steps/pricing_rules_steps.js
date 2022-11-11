@@ -56,3 +56,22 @@ When('modifico la regla de cotizacion', async function () {
   this.current_rule = response.json();
   assert.equal(response.statusCode, 202);
 });
+
+When('quiero utilizar valor {string} para el parametro {string}', function (value, repr) {
+  this.pricing_rules_arguments[`n_${repr.slice(2)}`] = value;
+});
+
+When('evaluo la regla de cotizacion', async function () {
+  const body = { ...this.pricing_rules_coefficients, ...this.pricing_rules_arguments };
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v1/pricing/rules/trial',
+    body,
+  });
+  assert.equal(response.statusCode, 201);
+  this.priceResponse = response.json();
+});
+
+Then('el precio calculado para la regla de cotizacion es {string}', function (value) {
+  assert.equal(this.priceResponse.price, value);
+});

@@ -1,10 +1,17 @@
-const { pricingRuleSchema, pricingRulePOSTSchema } = require('../../schemas/pricing-rules-schemas');
+const {
+  pricingRuleSchema,
+  pricingRulePOSTSchema,
+  pricingRuleEvaluateSchema,
+  pricingRuleEvaluatedSchema,
+} = require('../../schemas/pricing-rules-schemas');
 
 const pricingRulesGetAll = require('./pricing-rules-get-all');
 
 const pricingRulesCreate = require('./pricing-rule-create');
 
 const pricingRuleUpdate = require('./pricing-rule-update');
+
+const pricingRuleEvaluate = require('./pricing-rule-evaluate');
 
 const pricingRulesGetAllSchema = {
   description: 'Get current pricing rules',
@@ -31,6 +38,23 @@ const pricingRulesPostSchema = {
       description: 'Successful Response',
       type: 'object',
       properties: pricingRuleSchema,
+    },
+  },
+};
+
+const pricingRulesEvaluateSchema = {
+  description: 'Evaluate a pricing rule',
+  tags: ['pricing'],
+  body: {
+    description: 'Payload for evaluating new rule',
+    type: 'object',
+    properties: pricingRuleEvaluateSchema,
+  },
+  response: {
+    201: {
+      description: 'Successful Response',
+      type: 'object',
+      properties: pricingRuleEvaluatedSchema,
     },
   },
 };
@@ -78,6 +102,14 @@ async function pricingRulesRoutes(fastify, getUserOpts, done) {
       onRequest: [fastify.verify],
       schema: pricingRulePatchSchema,
       handler: pricingRuleUpdate,
+    },
+  );
+  fastify.post(
+    '/pricing/rules/trial',
+    {
+      onRequest: [fastify.verify],
+      schema: pricingRulesEvaluateSchema,
+      handler: pricingRuleEvaluate,
     },
   );
   done();

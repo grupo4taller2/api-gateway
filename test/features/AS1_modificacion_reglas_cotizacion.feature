@@ -30,13 +30,13 @@ Feature: AS1 Modificación de reglas de cotización
   
   Scenario: AS1.3 Actualizar regla de cotización
     Given No hay usuarios registrados
-        And Me registro como pasajero con nombre de usuario 'mateo'
-        And El administrador por defecto registra al usuario con nombre de usuario 'mateo' como administrador
-        And quiero utilizar valor '99.11' para el coeficiente 'c_km'
-        And quiero utilizar valor '99.22' para el coeficiente 'c_trips_last_30m'
-        And quiero utilizar valor '99.33' para el coeficiente 'c_rating'
-        And quiero utilizar valor '99.44' para el coeficiente 'c_min_price'
-        And creo una regla de cotizacion
+      And Me registro como pasajero con nombre de usuario 'mateo'
+      And El administrador por defecto registra al usuario con nombre de usuario 'mateo' como administrador
+      And quiero utilizar valor '99.11' para el coeficiente 'c_km'
+      And quiero utilizar valor '99.22' para el coeficiente 'c_trips_last_30m'
+      And quiero utilizar valor '99.33' para el coeficiente 'c_rating'
+      And quiero utilizar valor '99.44' para el coeficiente 'c_min_price'
+      And creo una regla de cotizacion
 
     When quiero utilizar valor '1.11' para el coeficiente 'c_km'
       And quiero utilizar valor '2.22' para el coeficiente 'c_trips_last_30m'
@@ -51,5 +51,18 @@ Feature: AS1 Modificación de reglas de cotización
 
   @now
   Scenario: AS1.4 Evaluar regla de cotización
+    Given No hay usuarios registrados
+      And Me registro como pasajero con nombre de usuario 'mateo'
+      And El administrador por defecto registra al usuario con nombre de usuario 'mateo' como administrador
 
+    When quiero utilizar valor '0.1' para el coeficiente 'c_km'
+      And quiero utilizar valor '0.1' para el coeficiente 'c_trips_last_30m'
+      And quiero utilizar valor '0.1' para el coeficiente 'c_rating'
+      And quiero utilizar valor '0.5' para el coeficiente 'c_min_price'
+      And creo una regla de cotizacion
+      And quiero utilizar valor '2.7' para el parametro 'c_km'
+      And quiero utilizar valor '2' para el parametro 'c_trips_last_30m'
+      And quiero utilizar valor '3.45' para el parametro 'c_rating'
+      And evaluo la regla de cotizacion
     
+    Then el precio calculado para la regla de cotizacion es '0.815'

@@ -13,5 +13,21 @@ const pricingRulePOSTSchema = {
   c_min_price: { type: 'string' },
 };
 
+const pricingRuleEvaluateSchema = {
+  c_trips_last_30m: { type: 'string' },
+  c_km: { type: 'string' },
+  c_rating: { type: 'string' },
+  c_min_price: { type: 'string' },
+  n_trips_last_30m: { type: 'string' },
+  n_km: { type: 'string' },
+  n_rating: { type: 'string' },
+};
+
+const pricingRuleEvaluatedSchema = {
+  price: { type: 'string' },
+};
+
 exports.pricingRuleSchema = pricingRuleSchema;
 exports.pricingRulePOSTSchema = pricingRulePOSTSchema;
+exports.pricingRuleEvaluateSchema = pricingRuleEvaluateSchema;
+exports.pricingRuleEvaluatedSchema = pricingRuleEvaluatedSchema;
