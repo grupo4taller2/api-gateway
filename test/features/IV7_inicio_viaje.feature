@@ -1,7 +1,7 @@
 Feature: IV7 Inicio del viaje
   Como usuario quiero iniciar un viaje
   tanto sea en condición de pasajero como de chofer
-  @now
+
   Scenario: IV7.1 Chofer en destino
     Given No hay usuarios registrados
       And Quiero registrarme como chofer con usuario 'mateo'
@@ -30,8 +30,9 @@ Feature: IV7 Inicio del viaje
       And como usuario 'mateo' acepto tomar el viaje del usuario 'lazaro'
 
     When como usuario 'mateo' actualizo mi ubicacion a 'Av. Paseo Colón 850, Buenos Aires'
+      And como usuario 'mateo' indico que estoy en espera para el viaje del usuario 'lazaro'
 
-    Then el estado del viaje del usuario 'lazaro' es 'driver_waiting'
+    Then el estado del viaje del usuario 'lazaro' es 'driver_arrived'
   @wip
   Scenario: IV7.2 Viaje iniciado
     Given No hay usuarios registrados

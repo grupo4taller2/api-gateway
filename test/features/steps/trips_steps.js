@@ -70,6 +70,7 @@ When('como usuario {string} solicito los viajes disponibles con offset {int} lim
   });
   this.drivers[username].available_trips = response.json();
   this.allAvailableTrips = response.json();
+  [this.firstAvailableTrip] = this.allAvailableTrips;
   assert.equal(response.statusCode, 200);
 });
 
@@ -203,6 +204,24 @@ Then('el color del auto del chofer asignado en el viaje del usuario {string} es 
   assert.equal(receivedColor, color);
 });
 
-When('como usuario {string} actualizo mi ubicacion a {string}', async function (string, string2) {
+When('como usuario {string} actualizo mi ubicacion a {string}', async function (driver, string2) {
+  // FIXME: Debería ser un step separado cuando luego se use el endpoint de locations
+});
 
+When('como usuario {string} indico que estoy en espera para el viaje del usuario {string}', async function (driver, rider) {
+  const tripID = this.requested_trips[rider].trip_id;
+  const destinationLatitude = this.requested_trips[rider].destination.latitude;
+  const destinationLongitude = this.requested_trips[rider].destination.longitude;
+  const payload = {
+    trip_state: 'driver_arrived',
+    driver_username: driver,
+    driver_current_latitude: destinationLatitude,
+    driver_current_longitude: destinationLongitude,
+  };
+  const response = await app.inject({
+    method: 'PATCH',
+    url: `/api/v1/trips/${tripID}`,
+    payload,
+  });
+  assert.equal(response.statusCode, 202);
 });

@@ -1,7 +1,8 @@
 Feature: IV5 Aceptar o rechazar viajes
   Como chofer quiero poder aceptar o rechazar
   la realización de un viaje
-
+    
+  @now
   Scenario: IV5.1 Aceptar un viaje
     Given No hay usuarios registrados
       And Quiero registrarme como chofer con usuario 'mateo'
