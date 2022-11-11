@@ -35,7 +35,7 @@ const requestedByRiderTripSchema = {
   estimated_price: { type: 'string', example: '0.35' },
   distance: { type: 'string', example: '6.3 km' },
   timestamp: { type: 'string', format: 'date-time' },
-  trip_state: { type: 'string', example: 'driver_waiting' },
+  trip_state: { type: 'string', example: 'driver_arrived' },
 };
 
 const estimatedTripSchema = {
@@ -92,7 +92,7 @@ const acceptedByDriverTripSchema = {
   estimated_price: { type: 'string', example: '0.35' },
   distance: { type: 'string', example: '6.3 km' },
   timestamp: { type: 'string', format: 'date-time' },
-  trip_state: { type: 'string', example: 'driver_waiting' },
+  trip_state: { type: 'string', example: 'driver_arrived' },
   driver: {
     type: 'object',
     properties: {
