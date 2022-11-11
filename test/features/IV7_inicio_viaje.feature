@@ -100,4 +100,4 @@ Feature: IV7 Inicio del viaje
     
     When como usuario 'mateo' inicio el viaje del usuario 'lazaro'
 
-    Then el estado del viaje del usuario 'lazaro' es 'start_confirmed_by_driver'
+    Then el estado del viaje del usuario 'lazaro' es 'finished_confirmed_by_driver'
