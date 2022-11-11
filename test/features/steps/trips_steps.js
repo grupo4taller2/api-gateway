@@ -262,4 +262,3 @@ Given('como usuario {string} indico que he finalizado el viaje del usuario {stri
   });
   assert.equal(response.statusCode, 202);
 });
-
