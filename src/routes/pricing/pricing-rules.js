@@ -3,9 +3,12 @@ const {
   pricingRulePOSTSchema,
   pricingRuleEvaluateSchema,
   pricingRuleEvaluatedSchema,
+  pricingRulePATCHSchema,
 } = require('../../schemas/pricing-rules-schemas');
 
 const pricingRulesGetAll = require('./pricing-rules-get-all');
+
+const pricingRulesGet = require('./pricing-rule-get');
 
 const pricingRulesCreate = require('./pricing-rule-create');
 
@@ -21,6 +24,18 @@ const pricingRulesGetAllSchema = {
       description: 'Successful Response',
       type: 'array',
       items: { type: 'object', properties: pricingRuleSchema },
+    },
+  },
+};
+
+const pricingRulesGetSchema = {
+  description: 'Get pricing rule by id',
+  tags: ['pricing'],
+  response: {
+    200: {
+      description: 'Successful Response',
+      type: 'object',
+      properties: pricingRuleSchema,
     },
   },
 };
@@ -65,7 +80,7 @@ const pricingRulePatchSchema = {
   body: {
     description: 'Payload for updating existing rule',
     type: 'object',
-    properties: pricingRulePOSTSchema,
+    properties: pricingRulePATCHSchema,
   },
   params: {
     id: { type: 'string' },
@@ -86,6 +101,14 @@ async function pricingRulesRoutes(fastify, getUserOpts, done) {
       onRequest: [fastify.verify],
       schema: pricingRulesGetAllSchema,
       handler: pricingRulesGetAll,
+    },
+  );
+  fastify.get(
+    '/pricing/rules/:id',
+    {
+      onRequest: [fastify.verify],
+      schema: pricingRulesGetSchema,
+      handler: pricingRulesGet,
     },
   );
   fastify.post(

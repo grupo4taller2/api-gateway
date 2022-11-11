@@ -90,3 +90,7 @@ Then('se devuelve una distancia', function () {
   }
   assert(regex.test(value), `was: ${value}`);
 });
+
+Then('el precio calculado para el viaje es {string}', function (value) {
+  assert.equal(this.pricedTrip.estimated_price, value);
+});

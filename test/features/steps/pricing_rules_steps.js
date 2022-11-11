@@ -5,7 +5,7 @@
 const assert = require('assert');
 
 const {
-  When, Then,
+  Given, When, Then,
 } = require('@cucumber/cucumber');
 
 const builder = require('../../../src/server');
@@ -74,4 +74,44 @@ When('evaluo la regla de cotizacion', async function () {
 
 Then('el precio calculado para la regla de cotizacion es {string}', function (value) {
   assert.equal(this.priceResponse.price, value);
+});
+
+When('activo la regla de cotizacion', async function () {
+  const ruleID = this.current_rule.id;
+  const payload = {
+    active: true,
+  };
+  const response = await app.inject({
+    method: 'PATCH',
+    url: `/api/v1/pricing/rules/${ruleID}`,
+    payload,
+  });
+  this.current_rule = response.json();
+  assert.equal(response.statusCode, 202);
+  assert.equal(response.json().active, true);
+});
+
+When('obtengo la regla de cotizacion', async function () {
+  const ruleID = this.current_rule.id;
+  const response = await app.inject({
+    method: 'GET',
+    url: `/api/v1/pricing/rules/${ruleID}`,
+  });
+  assert.equal(response.statusCode, 200);
+  this.current_rule = response.json();
+});
+
+Given('desactivo la regla de cotizacion por defecto', async function () {
+  const ruleID = 'DEFAULT_RULE';
+  const payload = {
+    active: false,
+  };
+  const response = await app.inject({
+    method: 'PATCH',
+    url: `/api/v1/pricing/rules/${ruleID}`,
+    payload,
+  });
+  this.current_rule = response.json();
+  assert.equal(response.statusCode, 202);
+  assert.equal(response.json().active, false);
 });
