@@ -39,3 +39,20 @@ When('creo una regla de cotizacion', async function () {
   assert.equal(response.statusCode, 201);
   this.current_rule = response.json();
 });
+
+When('modifico la regla de cotizacion', async function () {
+  const ruleID = this.current_rule.id;
+  const payload = {
+    c_km: this.pricing_rules_coefficients.c_km,
+    c_trips_last_30m: this.pricing_rules_coefficients.c_trips_last_30m,
+    c_rating: this.pricing_rules_coefficients.c_rating,
+    c_min_price: this.pricing_rules_coefficients.c_min_price,
+  };
+  const response = await app.inject({
+    method: 'PATCH',
+    url: `/api/v1/pricing/rules/${ruleID}`,
+    payload,
+  });
+  this.current_rule = response.json();
+  assert.equal(response.statusCode, 202);
+});

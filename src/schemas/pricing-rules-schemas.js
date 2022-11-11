@@ -7,10 +7,10 @@ const pricingRuleSchema = {
 };
 
 const pricingRulePOSTSchema = {
-  c_trips_last_30m: { type: 'string', default: '1.23' },
-  c_km: { type: 'string', default: '1.23' },
-  c_rating: { type: 'string', default: '1.23' },
-  c_min_price: { type: 'string', default: '1.23' },
+  c_trips_last_30m: { type: 'string' },
+  c_km: { type: 'string' },
+  c_rating: { type: 'string' },
+  c_min_price: { type: 'string' },
 };
 
 exports.pricingRuleSchema = pricingRuleSchema;

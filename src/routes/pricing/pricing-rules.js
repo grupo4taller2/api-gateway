@@ -4,6 +4,8 @@ const pricingRulesGetAll = require('./pricing-rules-get-all');
 
 const pricingRulesCreate = require('./pricing-rule-create');
 
+const pricingRuleUpdate = require('./pricing-rule-update');
+
 const pricingRulesGetAllSchema = {
   description: 'Get current pricing rules',
   tags: ['pricing'],
@@ -33,6 +35,26 @@ const pricingRulesPostSchema = {
   },
 };
 
+const pricingRulePatchSchema = {
+  description: 'Update rule coefficients',
+  tags: ['pricing'],
+  body: {
+    description: 'Payload for updating existing rule',
+    type: 'object',
+    properties: pricingRulePOSTSchema,
+  },
+  params: {
+    id: { type: 'string' },
+  },
+  response: {
+    202: {
+      description: 'Successful Response',
+      type: 'object',
+      properties: pricingRuleSchema,
+    },
+  },
+};
+
 async function pricingRulesRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/pricing/rules',
@@ -48,6 +70,14 @@ async function pricingRulesRoutes(fastify, getUserOpts, done) {
       onRequest: [fastify.verify],
       schema: pricingRulesPostSchema,
       handler: pricingRulesCreate,
+    },
+  );
+  fastify.patch(
+    '/pricing/rules/:id',
+    {
+      onRequest: [fastify.verify],
+      schema: pricingRulePatchSchema,
+      handler: pricingRuleUpdate,
     },
   );
   done();
