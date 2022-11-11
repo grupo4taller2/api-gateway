@@ -244,3 +244,22 @@ When('como usuario {string} inicio el viaje del usuario {string}', async functio
   });
   assert.equal(response.statusCode, 202);
 });
+
+Given('como usuario {string} indico que he finalizado el viaje del usuario {string}', async function (driver, rider) {
+  const tripID = this.requested_trips[rider].trip_id;
+  const destinationLatitude = this.requested_trips[rider].destination.latitude;
+  const destinationLongitude = this.requested_trips[rider].destination.longitude;
+  const payload = {
+    trip_state: 'finished_confirmed_by_driver',
+    driver_username: driver,
+    driver_current_latitude: destinationLatitude,
+    driver_current_longitude: destinationLongitude,
+  };
+  const response = await app.inject({
+    method: 'PATCH',
+    url: `/api/v1/trips/${tripID}`,
+    payload,
+  });
+  assert.equal(response.statusCode, 202);
+});
+
