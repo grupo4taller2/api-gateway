@@ -33,7 +33,8 @@ Feature: IV7 Inicio del viaje
       And como usuario 'mateo' indico que estoy en espera para el viaje del usuario 'lazaro'
 
     Then el estado del viaje del usuario 'lazaro' es 'driver_arrived'
-  @wip
+  
+  @now
   Scenario: IV7.2 Viaje iniciado
     Given No hay usuarios registrados
       And Quiero registrarme como chofer con usuario 'mateo'
@@ -61,7 +62,8 @@ Feature: IV7 Inicio del viaje
       And como usuario 'mateo' solicito los viajes disponibles con offset 0 limit 5 
       And como usuario 'mateo' acepto tomar el viaje del usuario 'lazaro'
       And como usuario 'mateo' actualizo mi ubicacion a 'Av. Paseo Colón 850, Buenos Aires'
+      And como usuario 'mateo' indico que estoy en espera para el viaje del usuario 'lazaro'
     
-    When como usuario 'mateo' inicio el viaje
+    When como usuario 'mateo' inicio el viaje del usuario 'lazaro'
 
     Then el estado del viaje del usuario 'lazaro' es 'start_confirmed_by_driver'
