@@ -204,6 +204,7 @@ Then('el color del auto del chofer asignado en el viaje del usuario {string} es 
   assert.equal(receivedColor, color);
 });
 
+// eslint-disable-next-line no-unused-vars
 When('como usuario {string} actualizo mi ubicacion a {string}', async function (driver, string2) {
   // FIXME: Debería ser un step separado cuando luego se use el endpoint de locations
 });
