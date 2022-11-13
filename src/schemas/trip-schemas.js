@@ -5,7 +5,6 @@ const riderRequestTripSchema = {
   trip_type: { type: 'string' },
 };
 
-// FIXME: ADD STATE OR CHANGE NAME
 const requestedByRiderTripSchema = {
   trip_id: {
     type: 'string',
@@ -36,7 +35,7 @@ const requestedByRiderTripSchema = {
   estimated_price: { type: 'string', example: '0.35' },
   distance: { type: 'string', example: '6.3 km' },
   timestamp: { type: 'string', format: 'date-time' },
-  trip_state: { type: 'string', example: 'driver_waiting' },
+  trip_state: { type: 'string', example: 'driver_arrived' },
 };
 
 const estimatedTripSchema = {
@@ -93,10 +92,26 @@ const acceptedByDriverTripSchema = {
   estimated_price: { type: 'string', example: '0.35' },
   distance: { type: 'string', example: '6.3 km' },
   timestamp: { type: 'string', format: 'date-time' },
-  trip_state: { type: 'string', example: 'driver_waiting' },
-  driver_username: { type: 'string', example: 'mateo37' },
-  driver_latitude: { type: 'number', example: -34.5885454 },
-  driver_longitude: { type: 'number', example: -58.3984251 },
+  trip_state: { type: 'string', example: 'driver_arrived' },
+  driver: {
+    type: 'object',
+    properties: {
+      username: { type: 'string', example: 'driver_username' },
+      first_name: { type: 'string', example: 'Mateo' },
+      last_name: { type: 'string', example: 'Calvo' },
+      latitude: { type: 'number', example: -34.5885454 },
+      longitude: { type: 'number', example: -58.3984251 },
+      car: {
+        type: 'object',
+        properties: {
+          plate: { type: 'string', example: 'AAA 123' },
+          manufacturer: { type: 'string', example: 'Ford' },
+          model: { type: 'string', example: 'Sierra' },
+          color: { type: 'string', example: 'Bourdeau' },
+        },
+      },
+    },
+  },
 };
 
 exports.riderRequestTripSchema = riderRequestTripSchema;

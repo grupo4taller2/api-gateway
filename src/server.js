@@ -19,6 +19,8 @@ const healthcheckRoute = require('./routes/healthcheck');
 const resetRoute = require('./routes/reset');
 const driverQualy = require('./routes/drivers_qualy/drivers_qualy');
 const riderQualy = require('./routes/riders_qualy/riders_qualy');
+const pricingRoute = require('./routes/pricing/pricing-rules');
+
 
 function buildServer() {
   const app = fastify({
@@ -33,6 +35,7 @@ function buildServer() {
   app.register(driversRoute, { prefix: API_PREFIX });
   app.register(locationsRoute, { prefix: API_PREFIX });
   app.register(tripsRoute, { prefix: API_PREFIX });
+  app.register(pricingRoute, { prefix: API_PREFIX });
   app.register(healthcheckRoute, { prefix: API_PREFIX });
   app.register(driverQualy, { prefix: API_PREFIX });
   app.register(riderQualy, { prefix: API_PREFIX });
@@ -65,6 +68,7 @@ function buildTestServer() {
   app.register(driversRoute, { prefix: API_PREFIX });
   app.register(locationsRoute, { prefix: API_PREFIX });
   app.register(tripsRoute, { prefix: API_PREFIX });
+  app.register(pricingRoute, { prefix: API_PREFIX });
   app.register(healthcheckRoute, { prefix: API_PREFIX });
   app.register(driverQualy, { prefix: API_PREFIX });
   app.register(riderQualy, { prefix: API_PREFIX });

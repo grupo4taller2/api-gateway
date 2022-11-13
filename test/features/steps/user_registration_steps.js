@@ -20,7 +20,7 @@ Given('No hay usuarios registrados', async function () {
   });
 });
 
-When('Me registro como pasajero con email {string} y wallet {string}', async function (email, wallet) {
+When('Me registro como pasajero con email {string}', async function (email) {
   const username = email.split('@')[0];
   this.registered_username = username;
   const body = {
@@ -29,7 +29,6 @@ When('Me registro como pasajero con email {string} y wallet {string}', async fun
     last_name: 'lname',
     email,
     password: 'secret',
-    wallet,
     phone_number: '1234567788',
     preferred_location_name: 'El Monumental',
   };
@@ -49,7 +48,6 @@ Given('Me registro como pasajero con email {string} y usuario {string}', async f
     last_name: 'lname',
     email,
     password: 'secret',
-    wallet: 'wallet',
     phone_number: '1234567788',
     preferred_location_name: 'El Monumental',
   };
@@ -60,7 +58,7 @@ Given('Me registro como pasajero con email {string} y usuario {string}', async f
   });
 });
 
-Then('Un pasajero con email {string} y wallet {string} es creado', async function (userEmail, riderWallet) {
+Then('Un pasajero con email {string} es creado', async function (userEmail) {
   const response = await app.inject({
     method: 'GET',
     url: `api/v1/users/${this.registered_username}`,
@@ -68,7 +66,6 @@ Then('Un pasajero con email {string} y wallet {string} es creado', async functio
 
   assert.equal(response.statusCode, 200);
   assert.equal(response.json().email, userEmail);
-  assert.equal(response.json().rider_information.wallet, riderWallet);
 });
 
 When('Me registro como pasajero con email {string} y ubicación preferida {string}', async function (email, preferredLocation) {
@@ -79,7 +76,6 @@ When('Me registro como pasajero con email {string} y ubicación preferida {strin
     last_name: 'lname',
     email,
     password: 'secret',
-    wallet: 'wallet123',
     phone_number: '1234567788',
     preferred_location_name: preferredLocation,
   };
@@ -108,7 +104,6 @@ When('Quiero registrarme como chofer con email {string}', function (email) {
   this.driver_data.first_name = 'fname';
   this.driver_data.last_name = 'lname';
   this.driver_data.phone_number = '+54123';
-  this.driver_data.wallet = 'wallet123';
   this.driver_data.preferred_location_name = 'Av Paseo Colón 850';
 });
 
@@ -200,7 +195,6 @@ Given('Me registro como pasajero con nombre de usuario {string}', async function
     last_name: 'lname',
     email,
     password: 'secret',
-    wallet: 'wallet',
     phone_number: '1234567788',
     preferred_location_name: 'El Monumental',
   };

@@ -32,10 +32,6 @@ When('quiero registrarme como pasajero con telefono {string}', function (phoneNu
   this.rider_data.phone_number = phoneNumber;
 });
 
-When('quiero registrarme como pasajero con wallet {string}', function (wallet) {
-  this.rider_data.wallet = wallet;
-});
-
 When('quiero registrarme como pasajero con ubicacion preferida {string}', function (locationName) {
   this.rider_data.preferred_location_name = locationName;
 });
@@ -108,25 +104,6 @@ Then('El telefono del pasajero con email {string} cambio a {string}', function (
   assert.equal(this.rider_response.email, email);
 });
 
-When('como pasajero con email {string} cambio mi wallet a {string}', async function (email, newWallet) {
-  const payload = {
-    wallet: newWallet,
-  };
-  const response = await app.inject({
-    method: 'PATCH',
-    url: `/api/v1/riders/${email}/status`,
-    payload,
-  });
-  this.full_rider_response = response;
-  this.rider_response = response.json();
-});
-
-Then('La wallet del pasajero con email {string} cambio a {string}', function (email, wallet) {
-  assert.equal(this.full_rider_response.statusCode, 202);
-  assert.equal(this.rider_response.wallet, wallet);
-  assert.equal(this.rider_response.email, email);
-});
-
 When('como pasajero con email {string} cambio mi ubicacion preferida a {string}', async function (email, newLocationName) {
   const payload = {
     preferred_location_name: newLocationName,
@@ -165,10 +142,6 @@ When('quiero registrarme como chofer con apellido {string}', function (lName) {
 
 When('quiero registrarme como chofer con telefono {string}', function (phoneNumber) {
   this.driver_data.phone_number = phoneNumber;
-});
-
-When('quiero registrarme como chofer con wallet {string}', function (wallet) {
-  this.driver_data.wallet = wallet;
 });
 
 When('quiero registrarme como chofer con ubicacion preferida {string}', function (locationName) {
@@ -229,25 +202,6 @@ When('como chofer con email {string} cambio mi telefono a {string}', async funct
 Then('El telefono del chofer con email {string} cambio a {string}', function (email, phone) {
   assert.equal(this.full_driver_response.statusCode, 202);
   assert.equal(this.driver_response.phone_number, phone);
-  assert.equal(this.driver_response.email, email);
-});
-
-When('como chofer con email {string} cambio mi wallet a {string}', async function (email, newWallet) {
-  const payload = {
-    wallet: newWallet,
-  };
-  const response = await app.inject({
-    method: 'PATCH',
-    url: `/api/v1/drivers/${email}/status`,
-    payload,
-  });
-  this.full_driver_response = response;
-  this.driver_response = response.json();
-});
-
-Then('La wallet del chofer con email {string} cambio a {string}', function (email, wallet) {
-  assert.equal(this.full_driver_response.statusCode, 202);
-  assert.equal(this.driver_response.wallet, wallet);
   assert.equal(this.driver_response.email, email);
 });
 

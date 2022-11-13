@@ -7,7 +7,6 @@ Feature: Pagination for users endpoint
       And quiero registrarme como pasajero con nombre 'Mateo'
       And quiero registrarme como pasajero con apellido 'Calvo'
       And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Av. Paseo Colón 850'
       And me registro como pasajero
 
@@ -16,7 +15,6 @@ Feature: Pagination for users endpoint
       And quiero registrarme como pasajero con nombre 'Mateo'
       And quiero registrarme como pasajero con apellido 'Calvo'
       And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Av. Paseo Colón 850'
       And me registro como pasajero
 
@@ -25,7 +23,6 @@ Feature: Pagination for users endpoint
       And quiero registrarme como pasajero con nombre 'Mateo'
       And quiero registrarme como pasajero con apellido 'Calvo'
       And quiero registrarme como pasajero con telefono '+54111555555555'
-      And quiero registrarme como pasajero con wallet '8s7hmbw83m4tv8wughcm0s8ercmg'
       And quiero registrarme como pasajero con ubicacion preferida 'Av. Paseo Colón 850'
       And me registro como pasajero
 

@@ -1,6 +1,39 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
 
+function locationFromResponse(response) {
+  return {
+    address: response.address,
+    latitude: response.latitude,
+    longitude: response.longitude,
+  };
+}
+
+async function getDriverData(driverUsername) {
+  const route = `${settings.serviceUsersURL()}/users/${driverUsername}`;
+  const userResponse = await axios.get(route);
+  const response = {};
+  const { username } = userResponse.data;
+  response.username = username;
+  response.first_name = userResponse.data.first_name;
+  response.last_name = userResponse.data.last_name;
+
+  const driverResponse = await axios.get(
+    `${settings.serviceUsersURL()}/drivers/${userResponse.data.email}`,
+    { validateStatus: false },
+  );
+
+  if (driverResponse.status === 200) {
+    response.car = {
+      plate: driverResponse.data.car_plate,
+      manufacturer: driverResponse.data.car_manufacturer,
+      model: driverResponse.data.car_model,
+      color: driverResponse.data.car_color,
+    };
+  }
+  return response;
+}
+
 async function tripGet(req, reply) {
   const tripsURI = `${settings.serviceTripsURL()}/trips/${req.params.id}`;
   let tripResponse;
@@ -14,17 +47,12 @@ async function tripGet(req, reply) {
     }
   }
 
-  const origin = {};
-  origin.address = tripResponse.data.origin.address;
-  origin.latitude = tripResponse.data.origin.latitude;
-  origin.longitude = tripResponse.data.origin.longitude;
-  const destination = {};
-  destination.address = tripResponse.data.destination.address;
-  destination.latitude = tripResponse.data.destination.latitude;
-  destination.longitude = tripResponse.data.destination.longitude;
+  const origin = locationFromResponse(tripResponse.data.origin);
+  const destination = locationFromResponse(tripResponse.data.destination);
 
   const responseBody = {};
   responseBody.trip_id = tripResponse.data.id;
+  responseBody.rider_username = tripResponse.data.rider_username;
   responseBody.origin = origin;
   responseBody.destination = destination;
   responseBody.trip_type = tripResponse.data.type;
@@ -34,9 +62,9 @@ async function tripGet(req, reply) {
   responseBody.trip_state = tripResponse.data.state;
 
   if (responseBody.trip_state === 'accepted_by_driver') {
-    responseBody.driver_username = tripResponse.data.driver_username;
-    responseBody.driver_latitude = tripResponse.data.driver_latitude;
-    responseBody.driver_longitude = tripResponse.data.driver_longitude;
+    responseBody.driver = await getDriverData(tripResponse.data.driver_username);
+    responseBody.driver.latitude = tripResponse.data.driver_latitude;
+    responseBody.driver.longitude = tripResponse.data.driver_longitude;
   }
 
   return reply.status(200).send(responseBody);

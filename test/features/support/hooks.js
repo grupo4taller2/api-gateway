@@ -29,12 +29,16 @@ BeforeAll(async function () {
   this.riders = {};
   this.drivers = {};
   this.requested_trips = {};
+  this.pricing_rules_coefficients = {};
+  this.pricing_rules_arguments = {};
 });
 
 Before(async function () {
   this.riders = {};
   this.drivers = {};
   this.requested_trips = {};
+  this.pricing_rules_coefficients = {};
+  this.pricing_rules_arguments = {};
 });
 
 After(async function () {
@@ -43,6 +47,8 @@ After(async function () {
   this.riders = {};
   this.drivers = {};
   this.requested_trips = {};
+  this.pricing_rules_coefficients = {};
+  this.pricing_rules_arguments = {};
 });
 
 AfterAll(async function () {

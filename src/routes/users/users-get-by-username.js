@@ -32,7 +32,6 @@ async function usersGetByUsername(req, reply) {
     responseData.rider_information = {};
     const riderInformation = responseData.rider_information;
     riderInformation.phone_number = riderResponse.data.phone_number;
-    riderInformation.wallet = riderResponse.data.wallet;
     riderInformation.preferred_location_name = riderResponse.data.preferred_location_name;
   }
 
@@ -44,7 +43,6 @@ async function usersGetByUsername(req, reply) {
   if (driverResponse.status === 200) {
     responseData.driver_information = {
       phone_number: driverResponse.data.phone_number,
-      wallet: driverResponse.data.wallet,
       preferred_location_name: driverResponse.data.preferred_location_name,
     };
     responseData.driver_information.car = {
