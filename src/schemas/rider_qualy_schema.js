@@ -1,8 +1,8 @@
-const driverQualyPostSchema = {
-  description: 'Endpoint for creating drivers qualifications',
-  tags: ['drivers qualy'],
+const RiderQualyPostSchema = {
+  description: 'Endpoint for creating riders qualifications',
+  tags: ['riders qualy'],
   body: {
-    description: 'Payload for creating a new driver qualy',
+    description: 'Payload for creating a new rider qualy',
     type: 'object',
     properties: {
       rider_username: { type: 'string' },
@@ -25,9 +25,9 @@ const driverQualyPostSchema = {
   },
 };
 
-const driverQualyAvgGETSchema = {
-  description: 'Get the average qualification of a driver',
-  tags: ['drivers qualy'],
+const RiderQualyAvgGETSchema = {
+  description: 'Get the average qualification of a rider',
+  tags: ['riders qualy'],
   params: {
     username: {
       type: 'string',
@@ -39,20 +39,20 @@ const driverQualyAvgGETSchema = {
       description: 'Success Response',
       type: 'integer',
     },
-    404: {
-      description: 'User not found',
-      type: 'object',
-      properties: {
-        message: { type: 'string', default: 'Error. User not found.' },
-        username: { type: 'string' },
-      },
+  },
+  404: {
+    description: 'Rider not found',
+    type: 'object',
+    properties: {
+      message: { type: 'string', default: 'Error. Rider not found.' },
+      username: { type: 'string' },
     },
   },
 };
 
-const driverQualyGETSchema = {
-  description: 'Get the qualification of a driver',
-  tags: ['drivers qualy'],
+const RiderQualyGETSchema = {
+  description: 'Get the qualification of a rider',
+  tags: ['riders qualy'],
   params: {
     username: {
       type: 'string',
@@ -71,16 +71,16 @@ const driverQualyGETSchema = {
       },
     },
     404: {
-      description: 'User not found',
+      description: 'Rider not found',
       type: 'object',
       properties: {
-        message: { type: 'string', default: 'Error. User not found.' },
+        message: { type: 'string', default: 'Error. Rider not found.' },
         username: { type: 'string' },
       },
     },
   },
 };
 
-exports.driverQualyPostSchema = driverQualyPostSchema;
-exports.driverQualyGETSchema = driverQualyGETSchema;
-exports.driverQualyAvgGETSchema = driverQualyAvgGETSchema;
+exports.RiderQualyPostSchema = RiderQualyPostSchema;
+exports.RiderQualyGETSchema = RiderQualyGETSchema;
+exports.RiderQualyAvgGETSchema = RiderQualyAvgGETSchema;

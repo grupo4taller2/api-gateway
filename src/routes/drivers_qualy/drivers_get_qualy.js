@@ -4,7 +4,7 @@ const settings = require('../../conf/config');
 async function driversQualyGET(req, reply) {
   let driverQualyGetResponse;
   try {
-    driverQualyGetResponse = await axios.get(`${settings.serviceUsersURL()}/qualy/drivers/${req.params.username}`);
+    driverQualyGetResponse = await axios.get(`${settings.serviceUsersURL()}/drivers/${req.params.username}/qualy`);
   } catch (error) {
     if (error.response && error.response.status === 404) {
       return reply.status(404).send(
