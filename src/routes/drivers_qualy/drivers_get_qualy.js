@@ -15,7 +15,7 @@ async function driversQualyGET(req, reply) {
       );
     }
   }
-  return reply.status(201).send(driverQualyGetResponse.data);
+  return reply.status(200).send(driverQualyGetResponse.data);
 }
 
 module.exports = driversQualyGET;

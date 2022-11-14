@@ -15,7 +15,7 @@ async function ridersQualyGET(req, reply) {
       );
     }
   }
-  return reply.status(201).send(riderQualyGetResponse.data);
+  return reply.status(200).send(riderQualyGetResponse.data);
 }
 
 module.exports = ridersQualyGET;
