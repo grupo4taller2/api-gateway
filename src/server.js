@@ -21,7 +21,6 @@ const driverQualy = require('./routes/drivers_qualy/drivers_qualy');
 const riderQualy = require('./routes/riders_qualy/riders_qualy');
 const pricingRoute = require('./routes/pricing/pricing-rules');
 
-
 function buildServer() {
   const app = fastify({
     logger: true,
