@@ -2,7 +2,7 @@ const axios = require('axios');
 const settings = require('../conf/config');
 
 const driverSchema = {
-  description: 'Endpoint for creating drivers',
+      description: 'Endpoint for creating drivers',
   tags: ['drivers'],
   body: {
     description: 'Payload for creating a new driver',
