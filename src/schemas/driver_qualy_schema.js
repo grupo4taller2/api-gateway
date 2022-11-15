@@ -37,7 +37,7 @@ const driverQualyAvgGETSchema = {
   response: {
     200: {
       description: 'Success Response',
-      type: 'integer',
+      type: 'number',
     },
     404: {
       description: 'User not found',
