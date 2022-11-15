@@ -37,7 +37,7 @@ const RiderQualyAvgGETSchema = {
   response: {
     200: {
       description: 'Success Response',
-      type: 'integer',
+      type: 'number',
     },
   },
   404: {
@@ -62,12 +62,15 @@ const RiderQualyGETSchema = {
   response: {
     200: {
       description: 'Success Response',
-      type: 'object',
-      properties: {
-        rider_username: { type: 'string' },
-        qualy: { type: 'number' },
-        opinion: { type: 'string' },
-        driver_username: { type: 'string' },
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          rider_username: { type: 'string' },
+          qualy: { type: 'number' },
+          opinion: { type: 'string' },
+          driver_username: { type: 'string' },
+        },
       },
     },
     404: {

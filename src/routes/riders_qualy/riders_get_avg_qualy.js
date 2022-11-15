@@ -15,6 +15,7 @@ async function ridersQualyAvgGET(req, reply) {
       );
     }
   }
+  console.log(riderQualyAvgGetRresponse);
   return reply.status(200).send(riderQualyAvgGetRresponse.data);
 }
 
