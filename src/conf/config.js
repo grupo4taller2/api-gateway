@@ -3,6 +3,7 @@ class Settings {
     this.SERVICE_USERS_URL = process.env.SERVICE_USERS_URL;
     this.SERVICE_TRIPS_URL = process.env.SERVICE_TRIPS_URL;
     this.SERVICE_PRICING_URL = process.env.SERVICE_PRICING_URL;
+    this.SERVICE_PAYMENTS_URL = process.env.SERVICE_PAYMENTS_URL;
     this.version = 'v1';
   }
 
@@ -16,6 +17,10 @@ class Settings {
 
   servicePricingURL() {
     return this.SERVICE_PRICING_URL;
+  }
+
+  servicePaymentsURL() {
+    return this.SERVICE_PAYMENTS_URL;
   }
 
   // FIXME: move to env var
