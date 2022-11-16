@@ -29,10 +29,20 @@ async function usersGetByUsername(req, reply) {
   );
 
   if (riderResponse.status === 200) {
+    let riderAvgRating;
+    let riderQualyAvgGetRresponse;
+    try {
+      riderQualyAvgGetRresponse = await axios.get(`${settings.serviceUsersURL()}/riders/${req.params.username}/qualy/average`);
+      riderAvgRating = riderQualyAvgGetRresponse.data;
+    } catch (error) {
+      riderAvgRating = 0;
+    }
+
     responseData.rider_information = {};
     const riderInformation = responseData.rider_information;
     riderInformation.phone_number = riderResponse.data.phone_number;
     riderInformation.preferred_location_name = riderResponse.data.preferred_location_name;
+    riderInformation.avg_rating = riderAvgRating;
   }
 
   const driverResponse = await axios.get(
@@ -41,9 +51,19 @@ async function usersGetByUsername(req, reply) {
   );
 
   if (driverResponse.status === 200) {
+    let driverAvgRating;
+    let driverQualyAvgGetRresponse;
+    try {
+      driverQualyAvgGetRresponse = await axios.get(`${settings.serviceUsersURL()}/drivers/${req.params.username}/qualy/average`);
+      driverAvgRating = driverQualyAvgGetRresponse.data;
+    } catch (error) {
+      driverAvgRating = 0;
+    }
+
     responseData.driver_information = {
       phone_number: driverResponse.data.phone_number,
       preferred_location_name: driverResponse.data.preferred_location_name,
+      avg_rating: driverAvgRating,
     };
     responseData.driver_information.car = {
       plate: driverResponse.data.car_plate,

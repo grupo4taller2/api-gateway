@@ -13,7 +13,7 @@ async function userWalletGET(req, reply) {
         },
       );
     }
-    if (error.response && error.response.status === 404) {
+    if (error.response && error.response.status >= 400) {
       return reply.status(error.response.status).send(
         {
           message: error.response.message,

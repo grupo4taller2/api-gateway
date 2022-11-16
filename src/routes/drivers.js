@@ -123,6 +123,7 @@ async function driversPOST(req, reply) {
     }
   }
   console.log(driverWalletCreationResponse.data);
+  console.log(driverRegistrationResponse);
   return reply.status(201).send(driverRegistrationResponse.data);
 }
 
