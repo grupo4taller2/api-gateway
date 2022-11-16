@@ -35,7 +35,7 @@ async function usersGetByUsername(req, reply) {
       riderQualyAvgGetRresponse = await axios.get(`${settings.serviceUsersURL()}/riders/${req.params.username}/qualy/average`);
       riderAvgRating = riderQualyAvgGetRresponse.data;
     } catch (error) {
-      riderAvgRating = 0;
+      riderAvgRating = -1;
     }
 
     responseData.rider_information = {};
@@ -57,7 +57,7 @@ async function usersGetByUsername(req, reply) {
       driverQualyAvgGetRresponse = await axios.get(`${settings.serviceUsersURL()}/drivers/${req.params.username}/qualy/average`);
       driverAvgRating = driverQualyAvgGetRresponse.data;
     } catch (error) {
-      driverAvgRating = 0;
+      driverAvgRating = -1;
     }
 
     responseData.driver_information = {
