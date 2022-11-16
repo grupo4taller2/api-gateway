@@ -89,7 +89,7 @@ async function ridersPOST(req, reply) {
     }
   }
   try {
-    riderWalletCreationResponse = await axios.post(`${settings.servicePaymentsURL()}/riders/${req.body.username}/wallet/create`);
+    riderWalletCreationResponse = await axios.post(`${settings.servicePaymentsURL()}/payments/${req.body.username}/wallet/create`);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(

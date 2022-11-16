@@ -104,7 +104,7 @@ async function driversPOST(req, reply) {
     }
   }
   try {
-    driverWalletCreationResponse = await axios.post(`${settings.servicePaymentsURL()}/drivers/${req.body.username}/wallet/create`);
+    driverWalletCreationResponse = await axios.post(`${settings.servicePaymentsURL()}/payments/${req.body.username}/wallet/create`);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(
