@@ -159,7 +159,7 @@ const getUserWalletSchema = {
       description: 'Bad Request. Insufficient Funds',
       type: 'object',
       properties: {
-        message: { type: 'string', default: 'Error. Insufficient Funds' },
+        message: { type: 'string', default: 'Error.User Not Found' },
         username: { type: 'string' },
       },
     },

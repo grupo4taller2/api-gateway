@@ -13,6 +13,10 @@ const riderInformationSchema = {
       type: 'string',
       example: 'Av. Paseo Colón 850',
     },
+    avg_rating: {
+      type: 'number',
+      example: 3.8,
+    },
   },
 };
 
@@ -56,6 +60,10 @@ const driverInformationSchema = {
     preferred_location_name: {
       type: 'string',
       example: 'Av. Paseo Colón 850',
+    },
+    avg_rating: {
+      type: 'number',
+      example: 4.3,
     },
     car: carInformationSchema,
   },
