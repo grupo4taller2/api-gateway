@@ -94,8 +94,9 @@ const WithdrawPostSchema = {
     description: 'Payload for creating a new withdraw',
     type: 'object',
     properties: {
-      driver_username: { type: 'string' },
+      username: { type: 'string' },
       amount: { type: 'number' },
+      walletAddress: { type: 'string' },
     },
   },
 };
@@ -122,6 +123,49 @@ const getDriverEarnedMoneySchema = {
   },
 };
 
+const getUserUnclaimedMoneySchema = {
+  description: 'Get user unclaimed money',
+  tags: ['Payments'],
+  params: {
+    username: {
+      type: 'string',
+      default: 'username',
+    },
+  },
+};
+
+const createWalletSchema = {
+  description: 'Create a wallet for a user',
+  tags: ['Payments'],
+  params: {
+    username: {
+      type: 'string',
+      default: 'username',
+    },
+  },
+};
+
+const getUserWalletSchema = {
+  description: 'Get a wallet for a user',
+  tags: ['Payments'],
+  params: {
+    username: {
+      type: 'string',
+      default: 'username',
+    },
+  },
+  response: {
+    404: {
+      description: 'Bad Request. Insufficient Funds',
+      type: 'object',
+      properties: {
+        message: { type: 'string', default: 'Error. Insufficient Funds' },
+        username: { type: 'string' },
+      },
+    },
+  },
+};
+
 exports.createRiderWalletSchema = createRiderWalletSchema;
 exports.createDriverWalletSchema = createDriverWalletSchema;
 exports.getRiderWalletSchema = getRiderWalletSchema;
@@ -130,3 +174,6 @@ exports.WithdrawPostSchema = WithdrawPostSchema;
 exports.getRiderBalanceSchema = getRiderBalanceSchema;
 exports.getDriverDataWalletSchema = getDriverDataWalletSchema;
 exports.getDriverEarnedMoneySchema = getDriverEarnedMoneySchema;
+exports.getUserUnclaimedMoneySchema = getUserUnclaimedMoneySchema;
+exports.createWalletSchema = createWalletSchema;
+exports.getUserWalletSchema = getUserWalletSchema;

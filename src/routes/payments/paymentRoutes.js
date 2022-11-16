@@ -1,54 +1,44 @@
 const {
-  getRiderWalletSchema,
   PaymentPostSchema,
   WithdrawPostSchema,
-  getDriverDataWalletSchema,
-  getDriverEarnedMoneySchema,
+  getUserWalletSchema,
+  getUserUnclaimedMoneySchema,
 } = require('../../schemas/payments_schema');
 
-const getRiderWalletHandler = require('./getRIderWallet');
 const createPaymentHandeler = require('./createPayment');
 const withdrawHandler = require('./createWithdraw');
-const getDriverEarnedMoney = require('./getDriverEarnedMoney');
-const getDriverWalletData = require('./getDriverWallet');
+const getUserWallet = require('./getWallet');
+const getUserUnclaimedMoney = require('./getUnclaimedMoney');
 
 async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
-    '/riders/:username/wallet',
+    '/payments/:username/wallet',
     {
-      schema: getRiderWalletSchema,
-      handler: getRiderWalletHandler,
+      schema: getUserWalletSchema,
+      handler: getUserWallet,
     },
   );
   fastify.get(
-    '/drivers/:username/wallet',
+    '/payments/:username/unclaimed/money',
     {
-      schema: getDriverDataWalletSchema,
-      handler: getDriverWalletData,
+      schema: getUserUnclaimedMoneySchema,
+      handler: getUserUnclaimedMoney,
     },
   );
   fastify.post(
-    '/create/payment',
+    '/payments/create/payment',
     {
       schema: PaymentPostSchema,
       handler: createPaymentHandeler,
     },
   );
   fastify.post(
-    '/create/withdraw',
+    '/payments/create/withdraw',
     {
       schema: WithdrawPostSchema,
       handler: withdrawHandler,
     },
   );
-  fastify.get(
-    '/drivers/:username/earned/money',
-    {
-      schema: getDriverEarnedMoneySchema,
-      handler: getDriverEarnedMoney,
-    },
-  );
-
   done();
 }
 

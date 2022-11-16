@@ -4,12 +4,13 @@ const settings = require('../../conf/config');
 async function createPaymentPOST(req, reply) {
   let createPaymentResponse;
   try {
-    createPaymentResponse = await axios.post(`${settings.servicePaymentsURL()}/create/payment`, req.body);
+    createPaymentResponse = await axios.post(`${settings.servicePaymentsURL()}/payments/create/payment`, req.body);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
-      return reply.status(503).send(
+      return reply.status(error.response.status).send(
         {
-          message: 'Servicio no disponible',
+          code: error.response.data.code,
+          message: error.response.data.message,
         },
       );
     }
