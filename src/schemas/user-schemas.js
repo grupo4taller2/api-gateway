@@ -15,7 +15,7 @@ const riderInformationSchema = {
     },
     avg_rating: {
       type: 'number',
-      example: 4.3,
+      example: 3.8,
     },
   },
 };
