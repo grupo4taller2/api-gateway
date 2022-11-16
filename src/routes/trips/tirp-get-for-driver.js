@@ -1,3 +1,4 @@
+/* eslint-disable */
 const axios = require('axios');
 const settings = require('../../conf/config');
 
@@ -56,7 +57,7 @@ async function tripGetForDriver(req, reply) {
     }
   }
   const foundTrips = [];
-  for (let trip of tripResponse.data){
+  for (const trip of tripResponse.data) {
     const formatTrip = await responseToTrip(trip);
     foundTrips.push(formatTrip);
   }
