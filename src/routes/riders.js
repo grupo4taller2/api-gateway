@@ -107,6 +107,7 @@ async function ridersPOST(req, reply) {
       );
     }
   }
+  console.log(riderWalletCreationResponse.data);
   return reply.status(201).send(riderRegistrationResponse.data);
 }
 
