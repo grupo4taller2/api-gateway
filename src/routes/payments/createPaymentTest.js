@@ -2,25 +2,9 @@ const axios = require('axios');
 const settings = require('../../conf/config');
 
 async function createPaymentPOST(req, reply) {
-  const tripsURI = `${settings.serviceTripsURL()}/trips/${req.body.tripID}`;
-  let tripResponse;
-  try {
-    tripResponse = await axios.get(tripsURI);
-  } catch (error) {
-    if (!error.response || error.response.status >= 500) {
-      return reply.status(503).send(
-        { message: 'Service unavailable' },
-      );
-    }
-  }
-  const paymentBody = {};
-  paymentBody.tripID = tripResponse.data.id;
-  paymentBody.rider_username = tripResponse.data.rider_username;
-  paymentBody.driver_username = tripResponse.data.driver_username;
-  paymentBody.amount = req.body.amount;
   let createPaymentResponse;
   try {
-    createPaymentResponse = await axios.post(`${settings.servicePaymentsURL()}/payments/create/payment`, paymentBody);
+    createPaymentResponse = await axios.post(`${settings.servicePaymentsURL()}/payments/create/payment`, req.body);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(error.response.status).send(
