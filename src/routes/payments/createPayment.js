@@ -13,7 +13,7 @@ async function createPaymentPOST(req, reply) {
       );
     }
   }
-  paymentBody = {};
+  const paymentBody = {};
   paymentBody.tripID = tripResponse.data.id;
   paymentBody.rider_username = tripResponse.data.rider_username;
   paymentBody.driver_username = tripResponse.data.driver_username;
