@@ -3,12 +3,14 @@ const {
   WithdrawPostSchema,
   getUserWalletSchema,
   getUserUnclaimedMoneySchema,
+  PaymentTestPostSchema,
 } = require('../../schemas/payments_schema');
 
 const createPaymentHandeler = require('./createPayment');
 const withdrawHandler = require('./createWithdraw');
 const getUserWallet = require('./getWallet');
 const getUserUnclaimedMoney = require('./getUnclaimedMoney');
+const createPaymentTest = require('./createPaymentTest');
 
 async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
@@ -26,7 +28,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
     },
   );
   fastify.post(
-    '/payments/create/payment',
+    '/payments/create/payment/new',
     {
       schema: PaymentPostSchema,
       handler: createPaymentHandeler,
@@ -37,6 +39,13 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
     {
       schema: WithdrawPostSchema,
       handler: withdrawHandler,
+    },
+  );
+  fastify.post(
+    '/payments/create/payment',
+    {
+      schema: PaymentTestPostSchema,
+      handler: createPaymentTest,
     },
   );
   done();

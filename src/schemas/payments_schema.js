@@ -69,6 +69,29 @@ const PaymentPostSchema = {
     description: 'Payload for creating a new deposit',
     type: 'object',
     properties: {
+      tripID: { type: 'string' },
+      amount: { type: 'number' },
+    },
+  },
+  response: {
+    400: {
+      description: 'Bad Request. Insufficient Funds',
+      type: 'object',
+      properties: {
+        message: { type: 'string', default: 'Error. Insufficient Funds' },
+        username: { type: 'string' },
+      },
+    },
+  },
+};
+
+const PaymentTestPostSchema = {
+  description: 'Endpoint for testing a deposit',
+  tags: ['Payments Test'],
+  body: {
+    description: 'Payload for creating a new deposit',
+    type: 'object',
+    properties: {
       rider_username: { type: 'string' },
       amount: { type: 'number' },
       driver_username: { type: 'string' },
@@ -177,3 +200,4 @@ exports.getDriverEarnedMoneySchema = getDriverEarnedMoneySchema;
 exports.getUserUnclaimedMoneySchema = getUserUnclaimedMoneySchema;
 exports.createWalletSchema = createWalletSchema;
 exports.getUserWalletSchema = getUserWalletSchema;
+exports.PaymentTestPostSchema = PaymentTestPostSchema;
