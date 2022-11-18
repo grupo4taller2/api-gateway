@@ -23,6 +23,13 @@ const driverQualyPostSchema = {
       },
     },
   },
+  400: {
+    description: 'Failed Response',
+    type: 'object',
+    properties: {
+      message: { type: 'string', example: 'Qualy puntuation is over 5' },
+    },
+  },
 };
 
 const driverQualyAvgGETSchema = {
