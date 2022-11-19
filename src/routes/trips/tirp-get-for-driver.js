@@ -2,7 +2,7 @@ const axios = require('axios');
 const settings = require('../../conf/config');
 
 // FIXME: reuse
-function responseToTrip(tripResponse) {
+function responseToTrip(tripResponse, priority) {
   const origin = {};
   origin.address = tripResponse.origin.address;
   origin.latitude = tripResponse.origin.latitude;
@@ -23,6 +23,8 @@ function responseToTrip(tripResponse) {
   responseBody.estimated_price = tripResponse.estimated_price;
   responseBody.trip_state = tripResponse.state;
   responseBody.rider_username = tripResponse.rider_username;
+
+  responseBody.priority = priority;
 
   return responseBody;
 }
@@ -47,8 +49,10 @@ async function tripGetForDriver(req, reply) {
   }
 
   const foundTrips = [];
+  let priority = 1;
   tripResponse.data.forEach((trip) => {
-    foundTrips.push(responseToTrip(trip));
+    foundTrips.push(responseToTrip(trip, priority));
+    priority += 1;
   });
 
   return reply.status(200).send(foundTrips);
