@@ -220,3 +220,12 @@ Then('obtengo un chofer con fabricante del auto {string}', function (manufacture
 Then('obtengo un chofer con color de auto {string}', function (color) {
   assert.equal(this.searched_user.driver_information.car.color, color);
 });
+
+Then('el usuario {string} tiene tanto datos de chofer como de pasajero', async function (username) {
+  const response = await app.inject({
+    method: 'GET',
+    url: `api/v1/users/${username}`,
+  });
+  assert.equal(response.statusCode, 200);
+  assert.notEqual(response.json().rider_information.phone_number, undefined);
+});

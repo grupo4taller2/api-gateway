@@ -76,6 +76,7 @@ async function ridersPOST(req, reply) {
   req.body.preferred_location_latitude = -32.4;
   req.body.preferred_location_longitude = -33.4;
   let riderRegistrationResponse;
+  let riderWalletCreationResponse;
   try {
     riderRegistrationResponse = await axios.post(`${settings.serviceUsersURL()}/riders`, req.body);
   } catch (error) {
@@ -87,6 +88,26 @@ async function ridersPOST(req, reply) {
       );
     }
   }
+  try {
+    riderWalletCreationResponse = await axios.post(`${settings.servicePaymentsURL()}/payments/${req.body.username}/wallet/create`);
+  } catch (error) {
+    if (!error.response || error.response.status >= 500) {
+      return reply.status(503).send(
+        {
+          message: 'Servicio no disponible',
+        },
+      );
+    }
+    if (error.response && error.response.status === 400) {
+      return reply.status(400).send(
+        {
+          message: 'Error. Driver Username already in use',
+          username: req.params.username,
+        },
+      );
+    }
+  }
+  console.log(riderWalletCreationResponse.data);
   return reply.status(201).send(riderRegistrationResponse.data);
 }
 

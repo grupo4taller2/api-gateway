@@ -14,6 +14,10 @@ const requestedByRiderTripSchema = {
     type: 'string',
     example: 'mateo95',
   },
+  rider_rating: {
+    type: 'number',
+    example: 3.8,
+  },
   origin: {
     type: 'object',
     properties: {

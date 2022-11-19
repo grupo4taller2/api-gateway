@@ -6,6 +6,13 @@ async function ridersQualyPOST(req, reply) {
   try {
     riderQualyCreationResponse = await axios.post(`${settings.serviceUsersURL()}/riders/qualy/create`, req.body);
   } catch (error) {
+    if (error.response && error.response.status >= 400) {
+      return reply.status(error.response.status).send(
+        {
+          message: error.response.data,
+        },
+      );
+    }
     if (!error.lintresponse || error.response.status >= 500) {
       return reply.status(503).send(
         {
