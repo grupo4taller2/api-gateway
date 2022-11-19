@@ -3,7 +3,8 @@ const axios = require('axios');
 const settings = require('../../conf/config');
 
 // FIXME: reuse
-async function responseToTrip(tripResponse) {
+
+async function responseToTrip(tripResponse, priority) {
   let riderAvgRating;
   let riderQualyAvgGetRresponse;
   try {
@@ -12,7 +13,7 @@ async function responseToTrip(tripResponse) {
   } catch (error) {
     riderAvgRating = -1;
   }
-
+  
   const origin = {};
   origin.address = tripResponse.origin.address;
   origin.latitude = tripResponse.origin.latitude;
@@ -34,6 +35,8 @@ async function responseToTrip(tripResponse) {
   responseBody.trip_state = tripResponse.state;
   responseBody.rider_username = tripResponse.rider_username;
   responseBody.rider_rating = riderAvgRating;
+
+  responseBody.priority = priority;
 
   return responseBody;
 }
@@ -57,8 +60,11 @@ async function tripGetForDriver(req, reply) {
     }
   }
   const foundTrips = [];
+
+  let priority = 1;
   for (const trip of tripResponse.data) {
-    const formatTrip = await responseToTrip(trip);
+    const formatTrip = await responseToTrip(trip, priority);
+    priority += 1;
     foundTrips.push(formatTrip);
   }
   /*
