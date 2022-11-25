@@ -4,7 +4,7 @@ const settings = require('../../conf/config');
 async function pushTokenPOST(req, reply) {
   let postTokenResponse;
   try {
-    postTokenResponse = await axios.post(`${settings.serviceUsersURL()}/users/push/token`,req.body);
+    postTokenResponse = await axios.post(`${settings.serviceUsersURL()}/users/push/token`, req.body);
   } catch (error) {
     if (!error.response || error.response.status >= 500) {
       return reply.status(503).send(

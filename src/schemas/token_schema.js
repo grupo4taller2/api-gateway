@@ -8,7 +8,7 @@ const PushTokenPostSchema = {
       username: { type: 'string' },
       token: { type: 'string', default: 'No comments' },
     },
-  }
+  },
 };
 
-exports.PushTokenPostSchema = PushTokenPostSchema
+exports.PushTokenPostSchema = PushTokenPostSchema;

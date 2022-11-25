@@ -1,5 +1,5 @@
 const {
-  PushTokenPostSchema
+  PushTokenPostSchema,
 } = require('../../schemas/token_schema');
 
 const createTokenHandler = require('./createToken');
