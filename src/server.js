@@ -21,6 +21,7 @@ const driverQualy = require('./routes/drivers_qualy/drivers_qualy');
 const riderQualy = require('./routes/riders_qualy/riders_qualy');
 const pricingRoute = require('./routes/pricing/pricing-rules');
 const paymentRoute = require('./routes/payments/paymentRoutes');
+const tokenRoute = require('./routes/tokens/tokenRoutes');
 
 function buildServer() {
   const app = fastify({
@@ -40,6 +41,7 @@ function buildServer() {
   app.register(driverQualy, { prefix: API_PREFIX });
   app.register(riderQualy, { prefix: API_PREFIX });
   app.register(paymentRoute, { prefix: API_PREFIX });
+  app.register(tokenRoute, { prefix: API_PREFIX });
 
   // eslint-disable-next-line consistent-return
   app.addHook('preHandler', (req, res, done) => {
