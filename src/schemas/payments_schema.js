@@ -189,6 +189,35 @@ const getUserWalletSchema = {
   },
 };
 
+const getContractBalanceSchema = {
+  description: 'Get a contract balance for admin',
+  tags: ['Payments'],
+  response: {
+    404: {
+      description: 'Bad Request. Insufficient Funds',
+      type: 'object',
+      properties: {
+        message: { type: 'string', default: 'Error. Insufficient Funds' },
+        username: { type: 'string' },
+      },
+    },
+  },
+};
+
+const depositPostSchema = {
+  description: 'Endpoint for creating a deposit',
+  tags: ['Payments'],
+  body: {
+    description: 'Payload for creating a new deposit',
+    type: 'object',
+    properties: {
+      admin_username: { type: 'string' },
+      amount: { type: 'number' },
+      walletAddress: { type: 'string' },
+    },
+  },
+};
+
 exports.createRiderWalletSchema = createRiderWalletSchema;
 exports.createDriverWalletSchema = createDriverWalletSchema;
 exports.getRiderWalletSchema = getRiderWalletSchema;
@@ -201,3 +230,5 @@ exports.getUserUnclaimedMoneySchema = getUserUnclaimedMoneySchema;
 exports.createWalletSchema = createWalletSchema;
 exports.getUserWalletSchema = getUserWalletSchema;
 exports.PaymentTestPostSchema = PaymentTestPostSchema;
+exports.getContractBalanceSchema = getContractBalanceSchema;
+exports.depositPostSchema = depositPostSchema;
