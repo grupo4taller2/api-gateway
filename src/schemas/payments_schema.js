@@ -237,6 +237,21 @@ const getTransactionsSchema = {
   },
 };
 
+const getTransactions24Schema = {
+  description: 'Get transactions in last 24 hours',
+  tags: ['Payments'],
+  response: {
+    404: {
+      description: 'Bad Request. Insufficient Funds',
+      type: 'object',
+      properties: {
+        message: { type: 'string', default: 'Error. Insufficient Funds' },
+        username: { type: 'string' },
+      },
+    },
+  },
+};
+
 exports.createRiderWalletSchema = createRiderWalletSchema;
 exports.createDriverWalletSchema = createDriverWalletSchema;
 exports.getRiderWalletSchema = getRiderWalletSchema;
@@ -252,3 +267,4 @@ exports.PaymentTestPostSchema = PaymentTestPostSchema;
 exports.getContractBalanceSchema = getContractBalanceSchema;
 exports.depositPostSchema = depositPostSchema;
 exports.getTransactionsSchema = getTransactionsSchema;
+exports.getTransactions24Schema = getTransactions24Schema;
