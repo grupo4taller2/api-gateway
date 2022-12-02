@@ -66,7 +66,7 @@ async function tripGet(req, reply) {
     'start_confirmed_by_driver',
     'finished_confirmed_by_driver',
   ];
-  if (responseBody.trip_state in ongoingStates) {
+  if (ongoingStates.includes(responseBody.trip_state)) {
     responseBody.driver = await getDriverData(tripResponse.data.driver_username);
     responseBody.driver.latitude = tripResponse.data.driver_latitude;
     responseBody.driver.longitude = tripResponse.data.driver_longitude;
