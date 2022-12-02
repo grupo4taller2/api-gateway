@@ -49,7 +49,6 @@ async function tripGet(req, reply) {
 
   const origin = locationFromResponse(tripResponse.data.origin);
   const destination = locationFromResponse(tripResponse.data.destination);
-  console.log(tripResponse)
 
   const responseBody = {};
   responseBody.trip_id = tripResponse.data.id;
