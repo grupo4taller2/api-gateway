@@ -48,7 +48,7 @@ function buildServer() {
   // eslint-disable-next-line consistent-return
   app.addHook('preHandler', (req, res, done) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'POST');
+    res.header('Access-Control-Allow-Methods', ['POST', 'PATCH']);
     res.header('Access-Control-Allow-Headers', '*');
 
     const isPreflight = /options/i.test(req.method);
