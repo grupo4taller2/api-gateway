@@ -7,11 +7,16 @@ async function getLikeOffsetLimit(req, reply) {
   const uri = `${settings.serviceUsersURL()}/users/`;
   const foundUsersResponse = await axios.get(uri, { params: req.query });
   const foundUsers = [];
-  foundUsersResponse.data.forEach((element) => {
+  foundUsersResponse.data.users.forEach((element) => {
     foundUsers.push(fetchUserData(element));
   });
   const resolvedFoundUsers = await Promise.all(foundUsers);
-  return reply.status(200).send(resolvedFoundUsers);
+  const response = {
+    actual_page: foundUsersResponse.data.actual_page,
+    total_pages: foundUsersResponse.data.total_pages,
+    users: resolvedFoundUsers,
+  };
+  return reply.status(200).send(response);
 }
 
 module.exports = getLikeOffsetLimit;
