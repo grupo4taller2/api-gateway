@@ -29,6 +29,7 @@ async function driversQualyRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/drivers/qualy/create',
     {
+      onRequest: [fastify.verify],
       schema: driverQualyPostSchema,
       handler: driverPostHandler,
     },

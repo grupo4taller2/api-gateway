@@ -24,6 +24,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/:username/wallet',
     {
+      onRequest: [fastify.verify],
       schema: getUserWalletSchema,
       handler: getUserWallet,
     },
@@ -31,6 +32,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/:username/unclaimed/money',
     {
+      onRequest: [fastify.verify],
       schema: getUserUnclaimedMoneySchema,
       handler: getUserUnclaimedMoney,
     },
@@ -38,6 +40,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/payments/create/payment/new',
     {
+      onRequest: [fastify.verify],
       schema: PaymentPostSchema,
       handler: createPaymentHandeler,
     },
@@ -45,6 +48,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/payments/create/withdraw',
     {
+      onRequest: [fastify.verify],
       schema: WithdrawPostSchema,
       handler: withdrawHandler,
     },
@@ -52,6 +56,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/payments/create/payment',
     {
+      onRequest: [fastify.verify],
       schema: PaymentTestPostSchema,
       handler: createPaymentTest,
     },
@@ -59,6 +64,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/payments/create/deposit',
     {
+      onRequest: [fastify.verify],
       schema: depositPostSchema,
       handler: createDeposit,
     },
@@ -66,6 +72,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/contract/balance',
     {
+      onRequest: [fastify.verify],
       schema: getContractBalanceSchema,
       handler: getContractBalance,
     },
@@ -73,6 +80,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/transactions',
     {
+      onRequest: [fastify.verify],
       schema: getTransactionsSchema,
       handler: getTransactions,
     },
@@ -80,6 +88,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/transactions/24',
     {
+      onRequest: [fastify.verify],
       schema: getTransactions24Schema,
       handler: getTransactions24,
     },

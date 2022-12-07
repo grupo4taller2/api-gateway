@@ -29,6 +29,7 @@ async function ridersQualyRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/riders/qualy/create',
     {
+      onRequest: [fastify.verify],
       schema: RiderQualyPostSchema,
       handler: riderPostHandler,
     },
