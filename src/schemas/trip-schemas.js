@@ -40,6 +40,7 @@ const requestedByRiderTripSchema = {
   distance: { type: 'string', example: '6.3 km' },
   timestamp: { type: 'string', format: 'date-time' },
   trip_state: { type: 'string', example: 'driver_arrived' },
+  priority: { type: 'integer', example: 3 },
 };
 
 const estimatedTripSchema = {

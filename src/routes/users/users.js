@@ -53,6 +53,20 @@ const userGetLikeOffsetLimit = {
     offset: { type: 'integer', description: 'pagination offset' },
     limit: { type: 'integer', description: 'pagination limit, get up to {limit} users' },
   },
+  response: {
+    200: {
+      description: 'Successful Response',
+      type: 'object',
+      properties: {
+        actual_page: { type: 'integer', description: 'The current page', example: 1 },
+        total_pages: { type: 'integer', description: 'Total number of pages for given offset', example: 4 },
+        users: {
+          type: 'array',
+          items: { type: 'object', properties: userInformationSchema },
+        },
+      },
+    },
+  },
 };
 
 async function usersRoutes(fastify, getUserOpts, done) {
