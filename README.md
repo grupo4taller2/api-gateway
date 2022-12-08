@@ -6,7 +6,9 @@ Read the [documentation](https://fiuber-docs.readthedocs.io/en/latest/) for inst
 
 ## Pipeline Status
 
-[![Lint and Deploy](https://github.com/grupo4taller2/api-gateway/actions/workflows/lint-deploy.yml/badge.svg?branch=main)](https://github.com/grupo4taller2/api-gateway/actions/workflows/lint-deploy.yml)
+[![Lint](https://github.com/grupo4taller2/api-gateway/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/grupo4taller2/api-gateway/actions/workflows/lint.yml)
+
+[![Deploy](https://github.com/grupo4taller2/api-gateway/actions/workflows/lint-deploy.yml/badge.svg?branch=main)](https://github.com/grupo4taller2/api-gateway/actions/workflows/lint-deploy.yml)
 
 ## OpenAPI documentation
 
