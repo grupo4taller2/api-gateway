@@ -1,9 +1,17 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
+const verifyRider = require('../../auth/verify_username');
 
 async function tripRequest(req, reply) {
   const uri = `${settings.serviceTripsURL()}/trips`;
   let tripResponse;
+  console.log('VERIFICO RIDER');
+  const passVerification = await verifyRider(req.headers.authorization.split(' ')[1], req.body.rider_username);
+  if (passVerification === false) {
+    return reply.status(400).send(
+      { message: 'User is not the same as the token holder' },
+    );
+  }
   try {
     tripResponse = await axios.post(uri, req.body);
   } catch (error) {

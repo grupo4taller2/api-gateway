@@ -46,7 +46,7 @@ async function adminRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/admins',
     {
-      onRequest: [fastify.verify],
+      onRequest: [fastify.verifyAdmin],
       schema: adminPOSTSchema,
       handler: adminCreate,
     },
@@ -54,7 +54,7 @@ async function adminRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/admins/:username',
     {
-      onRequest: [fastify.verify],
+      onRequest: [fastify.verifyAdmin],
       schema: adminGETSchema,
       handler: adminGet,
     },

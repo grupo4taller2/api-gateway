@@ -24,7 +24,7 @@ async function metricsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/metrics/trips/:last_n_minutes',
     {
-      onRequest: [fastify.verify],
+      onRequest: [fastify.verifyAdmin],
       schema: tripMetricsGetSchema,
       handler: tripMetricsGet,
     },
