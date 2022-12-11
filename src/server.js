@@ -30,7 +30,6 @@ function buildServer() {
     logger: true,
   });
 
-  
   app.register(swagger);
   app.register(auth);
   app.register(authAdmin);
