@@ -24,7 +24,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/:username/wallet',
     {
-      onRequest: [fastify.verify],
+      onRequest: [fastify.verify, fastify.verifyAdmin],
       schema: getUserWalletSchema,
       handler: getUserWallet,
     },
@@ -72,7 +72,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/contract/balance',
     {
-      onRequest: [fastify.verify],
+      onRequest: [fastify.verifyAdmin],
       schema: getContractBalanceSchema,
       handler: getContractBalance,
     },
@@ -80,7 +80,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/transactions',
     {
-      onRequest: [fastify.verify],
+      onRequest: [fastify.verifyAdmin],
       schema: getTransactionsSchema,
       handler: getTransactions,
     },
@@ -88,7 +88,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/transactions/24',
     {
-      onRequest: [fastify.verify],
+      onRequest: [fastify.verifyAdmin],
       schema: getTransactions24Schema,
       handler: getTransactions24,
     },

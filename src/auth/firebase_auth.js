@@ -11,6 +11,8 @@ async function verify(fastify) {
         .then((decodedToken) => {
           console.log('EL TOKEN ES CORRECTO');
           const { uid } = decodedToken;
+          const { email } = decodedToken;
+          console.log(email);
           console.log(uid);
         })
         .catch((error) => {
