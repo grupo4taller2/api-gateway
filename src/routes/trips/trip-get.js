@@ -60,8 +60,13 @@ async function tripGet(req, reply) {
   responseBody.distance = tripResponse.data.distance;
   responseBody.estimated_price = tripResponse.data.estimated_price;
   responseBody.trip_state = tripResponse.data.state;
-
-  if (responseBody.trip_state === 'accepted_by_driver') {
+  const ongoingStates = [
+    'accepted_by_driver',
+    'driver_arrived',
+    'start_confirmed_by_driver',
+    'finished_confirmed_by_driver',
+  ];
+  if (ongoingStates.includes(responseBody.trip_state)) {
     responseBody.driver = await getDriverData(tripResponse.data.driver_username);
     responseBody.driver.latitude = tripResponse.data.driver_latitude;
     responseBody.driver.longitude = tripResponse.data.driver_longitude;

@@ -23,6 +23,7 @@ const riderQualy = require('./routes/riders_qualy/riders_qualy');
 const pricingRoute = require('./routes/pricing/pricing-rules');
 const paymentRoute = require('./routes/payments/paymentRoutes');
 const tokenRoute = require('./routes/tokens/tokenRoutes');
+const metricsRoute = require('./routes/metrics/metrics');
 
 function buildServer() {
   const app = fastify({
@@ -46,11 +47,12 @@ function buildServer() {
   app.register(riderQualy, { prefix: API_PREFIX });
   app.register(paymentRoute, { prefix: API_PREFIX });
   app.register(tokenRoute, { prefix: API_PREFIX });
+  app.register(metricsRoute, { prefix: API_PREFIX });
 
   // eslint-disable-next-line consistent-return
   app.addHook('preHandler', (req, res, done) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'POST');
+    res.header('Access-Control-Allow-Methods', ['POST', 'PATCH']);
     res.header('Access-Control-Allow-Headers', '*');
 
     const isPreflight = /options/i.test(req.method);
@@ -79,6 +81,7 @@ function buildTestServer() {
   app.register(healthcheckRoute, { prefix: API_PREFIX });
   app.register(driverQualy, { prefix: API_PREFIX });
   app.register(riderQualy, { prefix: API_PREFIX });
+  app.register(metricsRoute, { prefix: API_PREFIX });
 
   return app;
 }

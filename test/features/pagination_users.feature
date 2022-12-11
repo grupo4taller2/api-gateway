@@ -1,4 +1,4 @@
-@now
+
 Feature: Pagination for users endpoint
 
   Scenario: Pagination with offset 1 limit 3
