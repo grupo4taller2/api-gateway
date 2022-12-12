@@ -1,5 +1,6 @@
 const axios = require('axios');
 const settings = require('../conf/config');
+const verifyRiders = require('../auth/verify_rider');
 
 const riderPOSTSchema = {
   description: 'Endpoint for creating rider',
@@ -114,6 +115,12 @@ async function ridersPOST(req, reply) {
 async function ridersPATCH(req, reply) {
   req.body.preferred_location_latitude = -32.4;
   req.body.preferred_location_longitude = -33.4;
+  const passVerification = await verifyRiders.verifyRiderEmail(req.headers.authorization.split(' ')[1], req.params.email);
+  if (passVerification === false) {
+    return reply.status(400).send(
+      { message: 'User is not the same as the token holder' },
+    );
+  }
   const riderUpdate = await axios.patch(`${settings.serviceUsersURL()}/riders/${req.params.email}/status`, req.body);
   return reply.status(202).send(riderUpdate.data);
 }
@@ -122,7 +129,6 @@ async function ridersRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/riders',
     {
-      onRequest: [fastify.verify],
       schema: riderPOSTSchema,
       handler: ridersPOST,
     },

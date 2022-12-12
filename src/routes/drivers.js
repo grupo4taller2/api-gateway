@@ -1,5 +1,6 @@
 const axios = require('axios');
 const settings = require('../conf/config');
+const verifyDrivers = require('../auth/verify_driver');
 
 const driverSchema = {
   description: 'Endpoint for creating drivers',
@@ -135,6 +136,12 @@ async function driversPOST(req, reply) {
 async function driversPATCH(req, reply) {
   req.body.preferred_location_latitude = -32.4;
   req.body.preferred_location_longitude = -33.4;
+  const passVerification = await verifyDrivers.verifyDriverEmail(req.headers.authorization.split(' ')[1], req.params.email);
+  if (passVerification === false) {
+    return reply.status(400).send(
+      { message: 'User is not the same as the token holder' },
+    );
+  }
   const driverUpdate = await axios.patch(`${settings.serviceUsersURL()}/drivers/${req.params.email}/status`, req.body);
   return reply.status(202).send(driverUpdate.data);
 }
@@ -143,7 +150,6 @@ async function driversRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/drivers',
     {
-      onRequest: [fastify.verify],
       schema: driverSchema,
       handler: driversPOST,
     },
