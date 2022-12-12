@@ -1,9 +1,9 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
-const verifyDrivers = require('../../auth/verify_driver');
+const verifyRiders = require('../../auth/verify_rider');
 
 async function driversQualyAvgGET(req, reply) {
-  const passVerification = await verifyDrivers.verifyDriver(req.headers.authorization.split(' ')[1], req.params.username);
+  const passVerification = await verifyRiders.verifyRider(req.headers.authorization.split(' ')[1], req.body.rider_username);
   if (passVerification === false) {
     return reply.status(400).send(
       { message: 'User is not the same as the token holder' },
