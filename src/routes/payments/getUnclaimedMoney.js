@@ -1,7 +1,14 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
+const verifyUser = require('../../auth/verify_username');
 
 async function driverEarnedMoneyGET(req, reply) {
+  const passVerification = await verifyUser(req.headers.authorization.split(' ')[1], req.params.username);
+  if (passVerification === false) {
+    return reply.status(400).send(
+      { message: 'User is not the same as the token holder' },
+    );
+  }
   let getUnclaimedMoneyResponse;
   try {
     getUnclaimedMoneyResponse = await axios.get(`${settings.servicePaymentsURL()}/payments/${req.params.username}/unclaimed/money`);

@@ -1,7 +1,14 @@
 const axios = require('axios');
 const settings = require('../../conf/config');
+const verifyRiders = require('../../auth/verify_rider');
 
 async function ridersQualyPOST(req, reply) {
+  const passVerification = await verifyRiders.verifyRider(req.headers.authorization.split(' ')[1], req.body.rider_username);
+  if (passVerification === false) {
+    return reply.status(400).send(
+      { message: 'User is not the same as the token holder' },
+    );
+  }
   let riderQualyCreationResponse;
   try {
     riderQualyCreationResponse = await axios.post(`${settings.serviceUsersURL()}/riders/qualy/create`, req.body);

@@ -5,9 +5,8 @@ const { getAuth } = require('firebase-admin/auth');
 const axios = require('axios');
 const settings = require('../conf/config');
 
-async function verifyUser(token, username){
+async function verifyDriver(token, username){
     let emailUser;
-    let goodRider = true;
     let goodDriver = true;
     try {
       await getAuth()
@@ -28,31 +27,6 @@ async function verifyUser(token, username){
           reply.status(401).send(error);
           return reply;
         });
-        let riderResponse;
-        console.log("CHEQUEO RIDER");
-        try {
-            console.log(emailUser);
-            riderResponse = await axios.get(
-                `${settings.serviceUsersURL()}/riders/${emailUser}`
-              );
-            console.log("RIDER RESPONSE ES:");
-            console.log(riderResponse.data.username);
-            console.log("RIDER USERNAME ES:");
-            console.log(username);
-            if(riderResponse.status === 200 && riderResponse.data.username  != username){
-              console.log("SOY FALSO")
-              goodRider = false;
-            }
-        } catch (error) {
-            console.log("RIDER NOT FOUND")
-            if (!error.response || error.response.status >= 500) {
-              goodRider = false;
-            }
-            if (error.response && error.response.status === 404) {
-              goodRider = false;
-          }
-      }
-
       let driverResponse;
       console.log("CHEQUEO DRIVER");
         try {
@@ -81,8 +55,36 @@ async function verifyUser(token, username){
     } catch (error) {
       return false
     }
-    return goodDriver || goodRider;
+    return goodDriver;
   };
 
+async function verifyDriverEmail(token, driver_email){
+    let emailToken;
+    try {
+      await getAuth()
+        .verifyIdToken(token)
+        .then((decodedToken) => {
+          console.log('EL TOKEN ES CORRECTO');
+          console.log('SOY RIDER');
+          const { uid } = decodedToken;
+          const { email } = decodedToken;
+          emailToken = email;
+          console.log(emailToken);
+          console.log(uid);
 
-module.exports = verifyUser;
+        })
+        .catch((error) => {
+          console.log('ERROR EN EL TOKEN');
+          console.log(error);
+          reply.status(401).send(error);
+          return reply;
+        });
+      
+    } catch (error) {
+      return false
+    }
+    return emailToken === driver_email;
+};
+
+exports.verifyDriver = verifyDriver;
+exports.verifyDriverEmail = verifyDriverEmail;

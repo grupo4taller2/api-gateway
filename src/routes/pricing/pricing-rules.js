@@ -98,7 +98,7 @@ async function pricingRulesRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/pricing/rules',
     {
-      onRequest: [fastify.verifyAdmin],
+      onRequest: [fastify.verify],
       schema: pricingRulesGetAllSchema,
       handler: pricingRulesGetAll,
     },
@@ -106,7 +106,7 @@ async function pricingRulesRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/pricing/rules/:id',
     {
-      onRequest: [fastify.verifyAdmin],
+      onRequest: [fastify.verify],
       schema: pricingRulesGetSchema,
       handler: pricingRulesGet,
     },
@@ -114,7 +114,7 @@ async function pricingRulesRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/pricing/rules',
     {
-      onRequest: [fastify.verifyAdmin],
+      onRequest: [fastify.verify],
       schema: pricingRulesPostSchema,
       handler: pricingRulesCreate,
     },
@@ -122,7 +122,7 @@ async function pricingRulesRoutes(fastify, getUserOpts, done) {
   fastify.patch(
     '/pricing/rules/:id',
     {
-      onRequest: [fastify.verifyAdmin],
+      onRequest: [fastify.verify],
       schema: pricingRulePatchSchema,
       handler: pricingRuleUpdate,
     },
@@ -130,7 +130,7 @@ async function pricingRulesRoutes(fastify, getUserOpts, done) {
   fastify.post(
     '/pricing/rules/trial',
     {
-      onRequest: [fastify.verifyAdmin],
+      onRequest: [fastify.verify],
       schema: pricingRulesEvaluateSchema,
       handler: pricingRuleEvaluate,
     },
