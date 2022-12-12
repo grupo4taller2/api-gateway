@@ -4,6 +4,7 @@ const firebaseApp = require('./firebase_app');
 const { getAuth } = require('firebase-admin/auth');
 const axios = require('axios');
 const settings = require('../conf/config');
+const verifyAdminEmail = require('./verify_admin');
 
 async function verifyRider(token, rider_username){
     let emailRider;
@@ -26,9 +27,12 @@ async function verifyRider(token, rider_username){
           reply.status(401).send(error);
           return reply;
         });
+        const verifyAdmin = await verifyAdminEmail(emailRider);
+        if (verifyAdmin === true){
+          return true;
+        }
         let riderResponse;
         console.log("CHEQUEO RIDER");
-        
         try {
             console.log(emailRider);
             riderResponse = await axios.get(
