@@ -24,7 +24,7 @@ async function paymentsRoutes(fastify, getUserOpts, done) {
   fastify.get(
     '/payments/:username/wallet',
     {
-      onRequest: [fastify.verify, fastify.verifyAdmin],
+      onRequest: [fastify.verify],
       schema: getUserWalletSchema,
       handler: getUserWallet,
     },
