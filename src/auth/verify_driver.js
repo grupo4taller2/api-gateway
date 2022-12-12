@@ -4,6 +4,7 @@ const firebaseApp = require('./firebase_app');
 const { getAuth } = require('firebase-admin/auth');
 const axios = require('axios');
 const settings = require('../conf/config');
+const verifyAdminEmail = require('./verify_admin');
 
 async function verifyDriver(token, username){
     let emailUser;
@@ -27,6 +28,10 @@ async function verifyDriver(token, username){
           reply.status(401).send(error);
           return reply;
         });
+      const verifyAdmin = await verifyAdminEmail(emailUser);
+      if (verifyAdmin === true){
+        return true;
+      }
       let driverResponse;
       console.log("CHEQUEO DRIVER");
         try {
